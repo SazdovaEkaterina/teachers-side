@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+*/.idea
+src/backend/TeachersSideAPI/.idea/
+src/backend/TeachersSideAPI/bin/
+src/backend/TeachersSideAPI/obj/
