@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TeachersSideAPI.Persistence;
+using TeachersSideAPI.Persistence.Repositories;
+using TeachersSideAPI.Persistence.Repositories.Implementation;
 using TeachersSideAPI.Service;
 using TeachersSideAPI.Service.Implementation;
 
@@ -25,13 +27,20 @@ builder.Services.AddDbContext<TeachersSideContext>(
     )
 );
 
-builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<IEventService, EventService>();
-builder.Services.AddScoped<IForumService, ForumService>();
-builder.Services.AddScoped<IMaterialService, MaterialService>();
-builder.Services.AddScoped<IPostService, PostService>();
-builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IForumRepository, ForumRepository>();
+builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped(typeof(UserManager<>));
+
+builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<IEventService, EventService>();
+builder.Services.AddTransient<IForumService, ForumService>();
+builder.Services.AddTransient<IMaterialService, MaterialService>();
+builder.Services.AddTransient<IPostService, PostService>();
+builder.Services.AddTransient<ISubjectService, SubjectService>();
 
 var app = builder.Build();
 
