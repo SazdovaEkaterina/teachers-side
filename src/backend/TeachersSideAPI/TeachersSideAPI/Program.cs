@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TeachersSideAPI.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,18 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<TeachersSideContext>(
+    optionsBuilder => optionsBuilder.UseNpgsql(
+        @"User ID = postgres;
+        Password=my_password;
+        Server=localhost;
+        Port=54322;
+        Database=TeachersSideDB;
+        Integrated Security=true;
+        Pooling=true"
+    )
+);
 
 var app = builder.Build();
 
