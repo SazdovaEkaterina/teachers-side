@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TeachersSideAPI.Domain.Models;
 using TeachersSideAPI.Service;
 
 namespace TeachersSideAPI.Web.Controllers;
 
 [ApiController]
+[Authorize(AuthenticationSchemes = "Bearer")]
 [Route("api/subjects")]
 public class SubjectsController : ControllerBase
 {
@@ -12,5 +15,12 @@ public class SubjectsController : ControllerBase
     public SubjectsController(ISubjectService subjectService)
     {
         _subjectService = subjectService ?? throw new ArgumentNullException(nameof(subjectService));
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Subject>>> GetAll()
+    {
+        var subjects = await _subjectService.GetSubjectsAsync();
+        return Ok(subjects);
     }
 }

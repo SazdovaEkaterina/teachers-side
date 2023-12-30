@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeachersSideAPI.Service;
 
 namespace TeachersSideAPI.Web.Controllers;
 
 [ApiController]
+[Authorize(AuthenticationSchemes = "Bearer")]
 [Route("api/posts")]
 public class PostsController : ControllerBase
 {
