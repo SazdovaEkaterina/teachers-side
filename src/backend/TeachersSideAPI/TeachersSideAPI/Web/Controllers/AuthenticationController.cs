@@ -73,12 +73,12 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterModel model)
+    public async Task<ActionResult<bool>> Register([FromBody] RegisterModel model)
     {
         var userExists = await _userManager.FindByEmailAsync(model.Email);
         if (userExists != null)
         {
-            return Conflict();
+            return Conflict(false);
         }
 
         var user = new Teacher()
@@ -92,9 +92,9 @@ public class AuthenticationController : ControllerBase
         var createdUser = await _userManager.CreateAsync(user, model.Password);
         if (!createdUser.Succeeded)
         {
-            return BadRequest();
+            return BadRequest(false);
         }
         
-        return Ok();
+        return Ok(true);
     }
 }

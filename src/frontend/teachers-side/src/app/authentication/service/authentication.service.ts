@@ -17,7 +17,7 @@ export class AuthenticationService {
     return this.httpClient.post<(any)>('https://localhost:7067/api/authentication/login', loginModel);
   }
 
-  public register(registerModel: RegisterModel){
-    this.httpClient.post<void>('https://localhost:7067/api/authentication/register', registerModel);
+  public register(registerModel: RegisterModel): Observable<boolean> {
+    return this.httpClient.post<boolean>('https://localhost:7067/api/authentication/register', registerModel);
   }
 }
