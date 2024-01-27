@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using TeachersSideAPI.Domain.Models;
@@ -27,27 +26,27 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> Login([FromBody] LoginModel model)
+    public async Task<ActionResult<(bool, object?)>> Login([FromBody] LoginModel model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
 
         if (user == null)
         {
-            return NotFound();
+            return NotFound(false);
         }
 
         if (!await _userManager.CheckPasswordAsync(user, model.Password))
         {
-            return Unauthorized();
+            return Unauthorized(false);
         }
         
         var jwtSecurityToken = CreateJwtSecurityToken(user);
 
-        return Ok(new
+        return Ok((true, new
         {
             token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
             expiration = jwtSecurityToken.ValidTo
-        });
+        }));
 
     }
 
