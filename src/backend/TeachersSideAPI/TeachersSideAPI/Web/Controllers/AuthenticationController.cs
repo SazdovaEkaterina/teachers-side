@@ -26,27 +26,27 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<(bool, object?)>> Login([FromBody] LoginModel model)
+    public async Task<ActionResult<object?>> Login([FromBody] LoginModel model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
 
         if (user == null)
         {
-            return NotFound(false);
+            return NotFound();
         }
 
         if (!await _userManager.CheckPasswordAsync(user, model.Password))
         {
-            return Unauthorized(false);
+            return Unauthorized();
         }
         
         var jwtSecurityToken = CreateJwtSecurityToken(user);
 
-        return Ok((true, new
+        return Ok(new
         {
             token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
             expiration = jwtSecurityToken.ValidTo
-        }));
+        });
 
     }
 
