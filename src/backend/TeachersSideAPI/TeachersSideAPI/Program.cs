@@ -1,5 +1,9 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using TeachersSideAPI.Domain.Models;
 using TeachersSideAPI.Persistence;
 using TeachersSideAPI.Persistence.Repositories;
 using TeachersSideAPI.Persistence.Repositories.Implementation;
@@ -27,6 +31,31 @@ builder.Services.AddDbContext<TeachersSideContext>(
     )
 );
 
+builder.Services.AddDefaultIdentity<Teacher>(
+        options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<TeachersSideContext>();
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Authentication:Issuer"],
+                ValidAudience = builder.Configuration["Authentication:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey
+                (
+                    Encoding.ASCII.GetBytes
+                    (
+                        builder.Configuration["Authentication:SecretForKey"]
+                    )
+                )
+            };
+        }
+    );
+
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IForumRepository, ForumRepository>();
@@ -42,6 +71,8 @@ builder.Services.AddTransient<IMaterialService, MaterialService>();
 builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<ISubjectService, SubjectService>();
 
+builder.Services.AddScoped(typeof(UserManager<>));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -52,6 +83,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .WithOrigins("http://localhost:4200"));
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
