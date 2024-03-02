@@ -1,10 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TeachersSideAPI.Domain.Enums;
 
 namespace TeachersSideAPI.Domain.Models;
 
 public class Material
 {
-    public Guid Id { get; set; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
     public Subject Subject { get; set; }
     public Teacher Creator { get; set; }
     public DateTime DateCreated { get; set; }
