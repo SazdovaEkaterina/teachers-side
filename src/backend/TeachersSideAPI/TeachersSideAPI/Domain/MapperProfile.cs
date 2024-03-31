@@ -10,5 +10,7 @@ public class MapperProfile : Profile
     {
         CreateMap<EventDto, Event>();
         CreateMap<Event, EventDto>();
+        CreateMap<Teacher, TeacherDto>();
+        CreateMap<TeacherDto, Teacher>();
     }
 }

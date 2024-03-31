@@ -14,12 +14,16 @@ public class EventRepository : IEventRepository
 
     public async Task<IEnumerable<Event>> GetAll()
     {
-        return await _context.Events.ToListAsync();
+        return await _context.Events
+            .Include(x => x.Creator)
+            .ToListAsync();
     }
 
-    public async Task<Event?> Get(Guid id)
+    public async Task<Event?> Get(int id)
     {
-        return await _context.Events.FindAsync(id);
+        return await _context.Events
+            .Include(x => x.Creator)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<bool> Save(Event evt)

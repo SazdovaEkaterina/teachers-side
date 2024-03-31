@@ -5,8 +5,8 @@ namespace TeachersSideAPI.Service;
 
 public interface IEventService
 {
-    Task<IEnumerable<Event>> GetAll();
-    Task<Event?> Get(Guid id);
+    Task<IEnumerable<EventDto>> GetAll();
+    Task<EventDto?> Get(int id);
     Task<bool> Save(EventDto eventDto);
-    Task<bool> Delete(Event evt);
+    Task<bool> Delete(int id);
 }

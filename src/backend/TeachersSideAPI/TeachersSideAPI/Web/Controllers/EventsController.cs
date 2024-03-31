@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TeachersSideAPI.Domain.DTO;
 using TeachersSideAPI.Domain.Models;
 using TeachersSideAPI.Service;
+using TeachersSideAPI.Service.Exceptions;
 
 namespace TeachersSideAPI.Web.Controllers;
 
@@ -28,10 +29,17 @@ public class EventsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Event>> Get([FromRoute]Guid id)
+    public async Task<ActionResult<Event>> Get([FromRoute]int id)
     {
-        var evt = await _eventService.Get(id);
-        return evt != null ? Ok(evt) : NotFound();
+        try
+        {
+            var evt = await _eventService.Get(id);
+            return Ok(evt);
+        }
+        catch (EventNotFoundException exception)
+        {
+            return NotFound(exception.Message);
+        }
     }
 
     [HttpPost("add")]
@@ -39,5 +47,19 @@ public class EventsController : ControllerBase
     {
         var result = await _eventService.Save(eventDto);
         return Ok(result);
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<bool>> Delete([FromRoute] int id)
+    {
+        try
+        {
+            var result = await _eventService.Delete(id);
+            return Ok(result);
+        }
+        catch (EventNotFoundException exception)
+        {
+            return NotFound(exception.Message);
+        }
     }
 }

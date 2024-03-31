@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using TeachersSideAPI.Domain;
 using TeachersSideAPI.Domain.Models;
 using TeachersSideAPI.Persistence;
 using TeachersSideAPI.Persistence.Repositories;
@@ -70,6 +71,8 @@ builder.Services.AddTransient<IForumService, ForumService>();
 builder.Services.AddTransient<IMaterialService, MaterialService>();
 builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<ISubjectService, SubjectService>();
+
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.AddScoped(typeof(UserManager<>));
 
