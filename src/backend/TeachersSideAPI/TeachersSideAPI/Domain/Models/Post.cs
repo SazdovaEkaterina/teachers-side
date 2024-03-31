@@ -7,7 +7,7 @@ public class Post
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public Forum Forum { get; set; }
     public Teacher Creator { get; set; }
     public string Title { get; set; }

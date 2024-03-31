@@ -8,7 +8,7 @@ public class Subject
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
     public Category Category { get; set; }
     public List<Teacher> Teachers { get; set; }

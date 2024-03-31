@@ -55,7 +55,8 @@ namespace TeachersSideAPI.Migrations
                 name: "Subjects",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Category = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -174,7 +175,8 @@ namespace TeachersSideAPI.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
@@ -197,8 +199,9 @@ namespace TeachersSideAPI.Migrations
                 name: "Forums",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    SubjectId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SubjectId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,8 +217,9 @@ namespace TeachersSideAPI.Migrations
                 name: "Materials",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    SubjectId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SubjectId = table.Column<int>(type: "integer", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     FileTitle = table.Column<string>(type: "text", nullable: false),
@@ -242,7 +246,7 @@ namespace TeachersSideAPI.Migrations
                 name: "SubjectTeacher",
                 columns: table => new
                 {
-                    SubjectsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SubjectsId = table.Column<int>(type: "integer", nullable: false),
                     TeachersId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -266,8 +270,9 @@ namespace TeachersSideAPI.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ForumId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ForumId = table.Column<int>(type: "integer", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
@@ -294,8 +299,9 @@ namespace TeachersSideAPI.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PostId = table.Column<int>(type: "integer", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
@@ -322,8 +328,8 @@ namespace TeachersSideAPI.Migrations
                 name: "MaterialPost",
                 columns: table => new
                 {
-                    RelatedMaterialsId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RelatedPostsId = table.Column<Guid>(type: "uuid", nullable: false)
+                    RelatedMaterialsId = table.Column<int>(type: "integer", nullable: false),
+                    RelatedPostsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

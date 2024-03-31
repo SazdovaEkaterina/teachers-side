@@ -24,11 +24,11 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("MaterialPost", b =>
                 {
-                    b.Property<Guid>("RelatedMaterialsId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("RelatedMaterialsId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("RelatedPostsId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("RelatedPostsId")
+                        .HasColumnType("integer");
 
                     b.HasKey("RelatedMaterialsId", "RelatedPostsId");
 
@@ -175,8 +175,8 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("SubjectTeacher", b =>
                 {
-                    b.Property<Guid>("SubjectsId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("TeachersId")
                         .HasColumnType("text");
@@ -190,9 +190,11 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("TeachersSideAPI.Domain.Models.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -207,8 +209,8 @@ namespace TeachersSideAPI.Migrations
                     b.Property<DateTime>("LastEdited")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("PostId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -225,9 +227,11 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("TeachersSideAPI.Domain.Models.Event", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatorId")
                         .HasColumnType("text");
@@ -261,12 +265,14 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("TeachersSideAPI.Domain.Models.Forum", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("SubjectId")
-                        .HasColumnType("uuid");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -277,9 +283,11 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("TeachersSideAPI.Domain.Models.Material", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatorId")
                         .HasColumnType("text");
@@ -298,8 +306,8 @@ namespace TeachersSideAPI.Migrations
                     b.Property<int>("FileType")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -312,9 +320,11 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("TeachersSideAPI.Domain.Models.Post", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -326,8 +336,8 @@ namespace TeachersSideAPI.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ForumId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ForumId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("LastEdited")
                         .HasColumnType("timestamp with time zone");
@@ -347,9 +357,11 @@ namespace TeachersSideAPI.Migrations
 
             modelBuilder.Entity("TeachersSideAPI.Domain.Models.Subject", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Category")
                         .HasColumnType("integer");

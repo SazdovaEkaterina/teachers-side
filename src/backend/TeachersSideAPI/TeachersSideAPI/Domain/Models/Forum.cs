@@ -7,7 +7,7 @@ public class Forum
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public Subject? Subject { get; set; }
     public List<Post> Posts { get; set; } = new List<Post>();
 }
