@@ -30,7 +30,11 @@ builder.Services.AddDbContext<TeachersSideContext>(
 );
 
 builder.Services.AddDefaultIdentity<Teacher>(
-        options => options.SignIn.RequireConfirmedAccount = true)
+        options =>
+        {
+             options.SignIn.RequireConfirmedAccount = true;
+             options.User.RequireUniqueEmail = true;
+        })
     .AddEntityFrameworkStores<TeachersSideContext>();
 
 builder.Services.AddAuthentication("Bearer")
