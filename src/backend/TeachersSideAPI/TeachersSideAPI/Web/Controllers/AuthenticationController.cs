@@ -1,10 +1,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using TeachersSideAPI.Domain.Models;
+using TeachersSideAPI.Service;
 using LoginModel = TeachersSideAPI.Domain.Models.LoginModel;
 using RegisterModel = TeachersSideAPI.Domain.Models.RegisterModel;
 
@@ -15,16 +17,16 @@ namespace TeachersSideAPI.Web.Controllers;
 public class AuthenticationController : ControllerBase
 {
     private readonly UserManager<Teacher> _userManager;
-    private readonly IConfiguration _configuration;
+    private readonly IJwtSecurityTokenGenerator _jwtSecurityTokenGenerator;
 
-    public AuthenticationController(UserManager<Teacher> userManager, 
-        IConfiguration configuration)
+    public AuthenticationController(UserManager<Teacher> userManager, IJwtSecurityTokenGenerator jwtSecurityTokenGenerator)
     {
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _jwtSecurityTokenGenerator = jwtSecurityTokenGenerator;
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [Route("login")]
     public async Task<ActionResult<object?>> Login([FromBody] LoginModel model)
     {
@@ -40,7 +42,7 @@ public class AuthenticationController : ControllerBase
             return Unauthorized();
         }
         
-        var jwtSecurityToken = CreateJwtSecurityToken(user);
+        var jwtSecurityToken = _jwtSecurityTokenGenerator.CreateJwtSecurityToken(user);
 
         return Ok(new
         {
@@ -50,28 +52,8 @@ public class AuthenticationController : ControllerBase
 
     }
 
-    private JwtSecurityToken CreateJwtSecurityToken(Teacher user)
-    {
-        var securityKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration["Authentication:SecretForKey"]));
-        var signingCredentials = new SigningCredentials(
-            securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claimsForToken = new List<Claim>();
-        claimsForToken.Add(new Claim("first_name", user.FirstName));
-        claimsForToken.Add(new Claim("last_name", user.LastName));
-
-        var jwtSecurityToken = new JwtSecurityToken(
-            _configuration["Authentication:Issuer"],
-            _configuration["Authentication:Audience"],
-            claimsForToken,
-            DateTime.UtcNow,
-            DateTime.UtcNow.AddHours(1),
-            signingCredentials);
-        return jwtSecurityToken;
-    }
-
     [HttpPost]
+    [AllowAnonymous]
     [Route("register")]
     public async Task<ActionResult<bool>> Register([FromBody] RegisterModel model)
     {
