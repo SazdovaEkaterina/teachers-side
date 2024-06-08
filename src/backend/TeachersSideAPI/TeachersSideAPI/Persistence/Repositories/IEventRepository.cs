@@ -4,8 +4,9 @@ namespace TeachersSideAPI.Persistence.Repositories;
 
 public interface IEventRepository
 {
-    Task<IEnumerable<Event>> GetAll();
-    Task<Event?> Get(int id);
-    Task<bool> Save(Event evt);
-    Task<bool> Delete(Event evt);
+    Task<IEnumerable<Event>> GetAllAsync();
+    Task<Event?> GetAsync(int id);
+    Task<bool> SaveAsync(Event evt);
+    Task<bool> DeleteAsync(Event evt);
+    Task<bool> SaveChangesAsync();
 }

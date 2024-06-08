@@ -12,29 +12,34 @@ public class EventRepository : IEventRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<IEnumerable<Event>> GetAll()
+    public async Task<IEnumerable<Event>> GetAllAsync()
     {
         return await _context.Events
             .Include(x => x.Creator)
             .ToListAsync();
     }
 
-    public async Task<Event?> Get(int id)
+    public async Task<Event?> GetAsync(int id)
     {
         return await _context.Events
             .Include(x => x.Creator)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<bool> Save(Event evt)
+    public async Task<bool> SaveAsync(Event evt)
     {
         await _context.Events.AddAsync(evt);
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task<bool> Delete(Event evt)
+    public async Task<bool> DeleteAsync(Event evt)
     {
         _context.Events.Remove(evt);
+        return await _context.SaveChangesAsync() > 0;
+    }
+    
+    public async Task<bool> SaveChangesAsync()
+    {
         return await _context.SaveChangesAsync() > 0;
     }
 }

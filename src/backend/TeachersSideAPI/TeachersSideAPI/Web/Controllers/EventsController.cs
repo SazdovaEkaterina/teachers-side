@@ -23,43 +23,36 @@ public class EventsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Event>>> GetAll()
+    public async Task<ActionResult<IEnumerable<Event>>> GetAllAsync()
     {
-        return Ok(await _eventService.GetAll());
+        return Ok(await _eventService.GetAllAsync());
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Event>> Get([FromRoute]int id)
     {
-        try
-        {
-            var evt = await _eventService.Get(id);
-            return Ok(evt);
-        }
-        catch (EventNotFoundException exception)
-        {
-            return NotFound(exception.Message);
-        }
+            var evt = await _eventService.GetAsync(id);
+            return evt != null ? Ok(evt) : NotFound();
     }
 
     [HttpPost("add")]
-    public async Task<ActionResult<bool>> Add([FromBody] EventDto eventDto)
+    public async Task<ActionResult<bool>> AddAsync([FromBody] EventDto eventDto)
     {
-        var result = await _eventService.Save(eventDto);
+        var result = await _eventService.SaveAsync(eventDto);
         return Ok(result);
     }
     
     [HttpDelete("{id}")]
-    public async Task<ActionResult<bool>> Delete([FromRoute] int id)
+    public async Task<ActionResult<bool>> DeleteAsync([FromRoute] int id)
     {
-        try
-        {
-            var result = await _eventService.Delete(id);
-            return Ok(result);
-        }
-        catch (EventNotFoundException exception)
-        {
-            return NotFound(exception.Message);
-        }
+            var result = await _eventService.DeleteAsync(id);
+            return result ? Ok(result) : NotFound();
+    }
+    
+    [HttpPost("{id}/edit")]
+    public async Task<ActionResult<Event>> EditAsync([FromRoute]int id, [FromBody] EventDto eventDto)
+    {
+            var result = await _eventService.EditAsync(id, eventDto);
+            return result  ? Ok(result) : NotFound();
     }
 }
