@@ -4,6 +4,7 @@ import { RegisterModel } from '../../models/register-model';
 import { AuthenticationService } from '../../service/authentication.service';
 import { Router } from '@angular/router';
 import { tap, catchError, EMPTY, takeUntil, Subject } from 'rxjs';
+import { IValidatorRule } from '../../models/validator-rule';
 
 @Component({
   selector: 'app-register',
@@ -15,9 +16,37 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public formGroup: FormGroup = this.formBuilder.group({});
   public errorMessage: string = "";
 
+  public passwordValidatorRules: IValidatorRule[] = [
+    {
+      id: 0,
+      text: 'Password must be between 8 and 20 characters long.',
+      pattern: new RegExp('^[a-zA-Z0-9.*\\W.*]{8,20}$')
+    },
+    {
+      id: 1,
+      text: 'Password must contain a lowercase letter.',
+      pattern: new RegExp('.*[a-z]')
+    },
+    {
+      id: 2,
+      text: 'Password must contain an uppercase letter.',
+      pattern: new RegExp('.*[A-Z]')
+    },
+    {
+      id: 3,
+      text: 'Password must contain a number.',
+      pattern: new RegExp('.*\\d')
+    },
+    {
+      id: 4,
+      text: 'Password must contain a special character.',
+      pattern: new RegExp('.*\\W.*')
+    },
+  ]
+
   private userNameRegex: string = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
   private emailRegex: string = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-  private passwordRegex: string = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$";
+  private passwordRegex: string = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,20}$";
 
   private ngUnsubscribe = new Subject<void>();
 

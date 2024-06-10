@@ -1,0 +1,6 @@
+<div>
+    <div *ngFor="let rule of validationRules" style="padding: 3px">
+        <span>{{isFulfilled(rule.id) ? '✅︎' : '❌'}}</span>
+        {{rule.text}}
+    </div>
+</div>
