@@ -1,10 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using TeachersSideAPI.Domain.Models;
+using TeachersSideAPI.Service;
 using LoginModel = TeachersSideAPI.Domain.Models.LoginModel;
 using RegisterModel = TeachersSideAPI.Domain.Models.RegisterModel;
 
@@ -15,86 +14,57 @@ namespace TeachersSideAPI.Web.Controllers;
 public class AuthenticationController : ControllerBase
 {
     private readonly UserManager<Teacher> _userManager;
-    private readonly IConfiguration _configuration;
+    private readonly IJwtSecurityTokenGenerator _jwtSecurityTokenGenerator;
 
-    public AuthenticationController(UserManager<Teacher> userManager, 
-        IConfiguration configuration)
+    public AuthenticationController(UserManager<Teacher> userManager,
+        IJwtSecurityTokenGenerator jwtSecurityTokenGenerator)
     {
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _jwtSecurityTokenGenerator = jwtSecurityTokenGenerator;
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [Route("login")]
-    public async Task<ActionResult<object?>> Login([FromBody] LoginModel model)
+    public async Task<ActionResult> Login([FromBody] LoginModel model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user == null) return NotFound();
 
-        if (user == null)
-        {
-            return NotFound();
-        }
+        var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, model.Password);
+        if (!isPasswordCorrect) return Unauthorized();
 
-        if (!await _userManager.CheckPasswordAsync(user, model.Password))
-        {
-            return Unauthorized();
-        }
-        
-        var jwtSecurityToken = CreateJwtSecurityToken(user);
+        var jwtSecurityToken = _jwtSecurityTokenGenerator.CreateJwtSecurityToken(user);
 
         return Ok(new
         {
             token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
             expiration = jwtSecurityToken.ValidTo
         });
-
-    }
-
-    private JwtSecurityToken CreateJwtSecurityToken(Teacher user)
-    {
-        var securityKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration["Authentication:SecretForKey"]));
-        var signingCredentials = new SigningCredentials(
-            securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claimsForToken = new List<Claim>();
-        claimsForToken.Add(new Claim("first_name", user.FirstName));
-        claimsForToken.Add(new Claim("last_name", user.LastName));
-
-        var jwtSecurityToken = new JwtSecurityToken(
-            _configuration["Authentication:Issuer"],
-            _configuration["Authentication:Audience"],
-            claimsForToken,
-            DateTime.UtcNow,
-            DateTime.UtcNow.AddHours(1),
-            signingCredentials);
-        return jwtSecurityToken;
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [Route("register")]
-    public async Task<ActionResult<bool>> Register([FromBody] RegisterModel model)
+    public async Task<ActionResult> Register([FromBody] RegisterModel model)
     {
-        var userExists = await _userManager.FindByEmailAsync(model.Email);
-        if (userExists != null)
-        {
-            return Conflict(false);
-        }
+        var existingUser = await _userManager.FindByEmailAsync(model.Email);
+        if (existingUser != null) return Conflict("Email already in use.");
+        
+        existingUser = await _userManager.FindByNameAsync(model.UserName);
+        if (existingUser != null) return Conflict("Username already in use.");
 
         var user = new Teacher()
         {
             FirstName = model.FirstName,
             LastName = model.LastName,
             UserName = model.UserName,
-            Email = model.Email,
+            Email = model.Email
         };
-        
+
         var createdUser = await _userManager.CreateAsync(user, model.Password);
-        if (!createdUser.Succeeded)
-        {
-            return BadRequest(false);
-        }
-        
-        return Ok(true);
+        if (!createdUser.Succeeded) return BadRequest(createdUser.Errors);
+
+        return Ok();
     }
 }

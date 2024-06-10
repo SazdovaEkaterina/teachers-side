@@ -9,7 +9,6 @@ using TeachersSideAPI.Service.Exceptions;
 namespace TeachersSideAPI.Web.Controllers;
 
 [ApiController]
-[Authorize(AuthenticationSchemes = "Bearer")]
 [Route("api/events")]
 public class EventsController : ControllerBase
 {
