@@ -1,5 +1,6 @@
 using System.Diagnostics.Eventing.Reader;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using TeachersSideAPI.Domain;
 using TeachersSideAPI.Domain.DTO;
 using TeachersSideAPI.Domain.Models;
@@ -12,11 +13,13 @@ public class EventService : IEventService
 {
     private readonly IEventRepository _eventRepository;
     private readonly IMapper _mapper;
+    private readonly UserManager<Teacher> _userManager;
 
-    public EventService(IEventRepository eventRepository, IMapper mapper)
+    public EventService(IEventRepository eventRepository, IMapper mapper, UserManager<Teacher> userManager)
     {
         _eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
         _mapper = mapper;
+        _userManager = userManager;
     }
 
     public async Task<IEnumerable<EventDto>> GetAllAsync()
@@ -35,6 +38,8 @@ public class EventService : IEventService
     public async Task<bool> SaveAsync(EventDto eventDto)
     {
         var evt = _mapper.Map<Event>(eventDto);
+        evt.Creator = await _userManager.FindByEmailAsync(evt.Creator.Email)
+                        ?? throw new Exception($"User with email {evt.Creator.Email} not found");
         evt.DateCreated = DateTime.UtcNow;
         evt.LastEdited = DateTime.UtcNow;
         return await _eventRepository.SaveAsync(evt);
@@ -59,7 +64,8 @@ public class EventService : IEventService
         
         evt.Title = eventDto.Title;
         evt.Description = eventDto.Description;
-        evt.Creator = evt.Creator;
+        evt.Creator = await _userManager.FindByEmailAsync(eventDto.Creator.Email)
+                        ?? throw new Exception($"User with email {evt.Creator.Email} not found");
         evt.LastEdited = DateTime.UtcNow;
         evt.StartDate = eventDto.StartDate;
         evt.EndDate = eventDto.EndDate;

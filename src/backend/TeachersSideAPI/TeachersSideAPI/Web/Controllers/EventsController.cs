@@ -29,7 +29,7 @@ public class EventsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Event>> Get([FromRoute]int id)
+    public async Task<ActionResult<EventDto>> Get([FromRoute]int id)
     {
             var evt = await _eventService.GetAsync(id);
             return evt != null ? Ok(evt) : NotFound();
@@ -38,8 +38,15 @@ public class EventsController : ControllerBase
     [HttpPost("add")]
     public async Task<ActionResult<bool>> AddAsync([FromBody] EventDto eventDto)
     {
-        var result = await _eventService.SaveAsync(eventDto);
-        return Ok(result);
+        try
+        {
+            var result = await _eventService.SaveAsync(eventDto);
+            return Ok(result);
+        }
+        catch (UserNotFoundException exception)
+        {
+            return Conflict();
+        }
     }
     
     [HttpDelete("{id}")]
@@ -51,8 +58,8 @@ public class EventsController : ControllerBase
     
     [HttpPost("{id}/edit")]
     public async Task<ActionResult<Event>> EditAsync([FromRoute]int id, [FromBody] EventDto eventDto)
-    {
-            var result = await _eventService.EditAsync(id, eventDto);
-            return result  ? Ok(result) : NotFound();
+    { 
+        var result = await _eventService.EditAsync(id, eventDto);
+        return result ? Ok(result) : NotFound();
     }
 }
