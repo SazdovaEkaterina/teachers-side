@@ -432,3 +432,5 @@ Thumbs.db
 
 src/frontend/teachers-side/.vscode/
 src/frontend/teachers-side/.angular
+
+src/frontend/teachers-side/dist/
