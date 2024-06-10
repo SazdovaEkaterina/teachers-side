@@ -1,5 +1,4 @@
 using System.Text;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,10 +11,9 @@ using TeachersSideAPI.Service.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -32,7 +30,11 @@ builder.Services.AddDbContext<TeachersSideContext>(
 );
 
 builder.Services.AddDefaultIdentity<Teacher>(
-        options => options.SignIn.RequireConfirmedAccount = true)
+        options =>
+        {
+             options.SignIn.RequireConfirmedAccount = true;
+             options.User.RequireUniqueEmail = true;
+        })
     .AddEntityFrameworkStores<TeachersSideContext>();
 
 builder.Services.AddAuthentication("Bearer")
@@ -62,7 +64,6 @@ builder.Services.AddScoped<IForumRepository, ForumRepository>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
-builder.Services.AddScoped(typeof(UserManager<>));
 
 builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddTransient<IEventService, EventService>();
@@ -71,11 +72,11 @@ builder.Services.AddTransient<IMaterialService, MaterialService>();
 builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<ISubjectService, SubjectService>();
 
+builder.Services.AddTransient<IJwtSecurityTokenGenerator, JwtSecurityTokenGenerator>();
 builder.Services.AddScoped(typeof(UserManager<>));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -93,6 +94,6 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 
 app.Run();

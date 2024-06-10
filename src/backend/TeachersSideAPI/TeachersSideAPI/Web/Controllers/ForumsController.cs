@@ -5,7 +5,6 @@ using TeachersSideAPI.Service;
 namespace TeachersSideAPI.Web.Controllers;
 
 [ApiController]
-[Authorize(AuthenticationSchemes = "Bearer")]
 [Route("api/forums")]
 public class ForumsController : ControllerBase
 {
