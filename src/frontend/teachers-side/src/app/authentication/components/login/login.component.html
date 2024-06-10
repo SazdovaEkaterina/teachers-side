@@ -7,5 +7,7 @@
     <input type="password" placeholder="Enter Password" name="password" required formControlName="password">
 
     <button type="submit" [disabled]="formGroup.invalid">Login</button>
+
+    <div style="color: red;">{{errorMessage}}</div>
     </div>
 </form>
