@@ -4,10 +4,12 @@ import { LoginComponent } from './authentication/components/login/login.componen
 import { RegisterComponent } from './authentication/components/register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './platform/components/home/home.component';
+import { AuthGuard } from './authentication/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [AuthGuard], 
     component: HomeComponent
   },
   {
@@ -26,6 +28,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forRoot(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard],
 })
 export class AppRoutingModule { }
