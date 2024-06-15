@@ -1,1 +1,8 @@
-<p>events-tab works!</p>
+<button (click)="openAddEventDialog()">Add</button>
+<div *ngFor="let event of events">
+    {{ event.title }}
+    {{ event.location }}
+    Start: {{ event.startDate }}
+    End: {{ event.endDate }}
+    <button (click)="goToEventDetails()">See more</button>
+</div>
