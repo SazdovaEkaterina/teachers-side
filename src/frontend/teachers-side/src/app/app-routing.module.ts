@@ -3,8 +3,13 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './authentication/components/login/login.component';
 import { RegisterComponent } from './authentication/components/register/register.component';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './platform/components/home/home.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'login',
     component: LoginComponent
