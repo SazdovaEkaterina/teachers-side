@@ -7,13 +7,19 @@ import { HomeComponent } from './components/home/home.component';
 import { EventsTabComponent } from './components/events-tab/events-tab.component';
 import { MaterialsTabComponent } from './components/materials-tab/materials-tab.component';
 import { ForumsTabComponent } from './components/forums-tab/forums-tab.component';
+import { EventCardComponent } from './components/event-card/event-card.component';
+import { EventAddDialogComponent } from './components/event-add-dialog/event-add-dialog.component';
+import { EventDetailsDialogComponent } from './components/event-details-dialog/event-details-dialog.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     EventsTabComponent,
     MaterialsTabComponent,
-    ForumsTabComponent
+    ForumsTabComponent,
+    EventCardComponent,
+    EventAddDialogComponent,
+    EventDetailsDialogComponent
   ],
   imports: [
     CommonModule,

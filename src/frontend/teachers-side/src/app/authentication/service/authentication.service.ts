@@ -20,10 +20,4 @@ export class AuthenticationService {
   public register(registerModel: RegisterModel): Observable<(any)> {
     return this.httpClient.post<any>('https://localhost:7067/api/authentication/register', registerModel);
   }
-
-  public isLoggedIn(): boolean {
-    return !!localStorage.getItem('expiration')
-      && new Date(localStorage.getItem('expiration') ?? '') > new Date()
-      && !!localStorage.getItem('token');
-  }
 }

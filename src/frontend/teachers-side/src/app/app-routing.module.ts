@@ -4,7 +4,7 @@ import { LoginComponent } from './authentication/components/login/login.componen
 import { RegisterComponent } from './authentication/components/register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './platform/components/home/home.component';
-import { AuthGuard } from './authentication/auth.guard';
+import { AuthGuard } from './authentication/guards/auth.guard';
 
 const routes: Routes = [
   {
