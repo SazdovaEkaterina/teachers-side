@@ -8,11 +8,12 @@
             <label for="password"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="password" required formControlName="password">
         </div>
-        <div style="padding: 5px">
-            <label for="password">Password</label><br/>
-            <input type="password" placeholder="Enter Password" name="password" required formControlName="password">
-        </div>
-        <button type="submit" [disabled]="formGroup.invalid">Login</button>
         <div style="color: red;">{{errorMessage}}</div>
+        <div style="padding: 5px">
+            <button type="submit" [disabled]="formGroup.invalid">Login</button>
+        </div>
+        <div style="padding: 5px">
+            <button (click)="navigateToRegister()">I don't have an account</button>
+        </div>
     </div>
 </form>

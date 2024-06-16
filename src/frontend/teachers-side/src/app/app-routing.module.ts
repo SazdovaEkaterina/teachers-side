@@ -3,8 +3,15 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './authentication/components/login/login.component';
 import { RegisterComponent } from './authentication/components/register/register.component';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './platform/components/home/home.component';
+import { AuthGuard } from './authentication/guards/auth.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    canActivate: [AuthGuard], 
+    component: HomeComponent
+  },
   {
     path: 'login',
     component: LoginComponent
@@ -21,6 +28,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forRoot(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard],
 })
 export class AppRoutingModule { }

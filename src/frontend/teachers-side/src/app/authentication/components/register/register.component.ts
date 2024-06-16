@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.authenticationService.register(payload)
       .pipe(
         tap(() => {
-          this.router.navigate(['/login']);
+          this.navigateToLogin();
         }),
         catchError((error) => {
           if(error.status === 409){
@@ -82,6 +82,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }),
         takeUntil(this.ngUnsubscribe)
       ).subscribe();
+  }
+
+  public navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 
   public ngOnDestroy() {
