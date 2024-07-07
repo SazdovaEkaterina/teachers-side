@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TeachersSideAPI.Domain.DTO;
 using TeachersSideAPI.Service;
+using TeachersSideAPI.Service.Exceptions;
 
 namespace TeachersSideAPI.Web.Controllers;
 
@@ -13,5 +15,52 @@ public class MaterialsController : ControllerBase
     public MaterialsController(IMaterialService materialService)
     {
         _materialService = materialService ?? throw new ArgumentNullException(nameof(materialService));
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<MaterialDto>>> GetAllAsync()
+    {
+        return Ok(await _materialService.GetAllAsync());
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<MaterialDto>> Get([FromRoute]int id)
+    {
+        var evt = await _materialService.GetAsync(id);
+        return evt != null ? Ok(evt) : NotFound();
+    }
+
+    [HttpPost("add")]
+    public async Task<ActionResult<bool>> AddAsync([FromBody] MaterialDto eventDto)
+    {
+        try
+        {
+            var result = await _materialService.SaveAsync(eventDto);
+            return Ok(result);
+        }
+        catch (UserNotFoundException exception)
+        {
+            return Conflict();
+        }
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<bool>> DeleteAsync([FromRoute] int id)
+    {
+        var result = await _materialService.DeleteAsync(id);
+        return result ? Ok(result) : NotFound();
+    }
+    
+    [HttpPost("{id}/edit")]
+    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromBody] MaterialDto materialDto)
+    { 
+        var result = await _materialService.EditAsync(id, materialDto);
+        return result ? Ok(result) : NotFound();
+    }
+    
+    [HttpGet("{category}/{subjectName}")]
+    public async Task<ActionResult<IEnumerable<MaterialDto>>> GetAllBySubjectAsync([FromRoute] string category, [FromRoute] string subjectName)
+    {
+        return Ok(await _materialService.GetAllBySubjectAndCategoryAsync(subjectName, category));
     }
 }
