@@ -43,6 +43,8 @@ public class MaterialRepository : IMaterialRepository
     public async Task<IEnumerable<Material>> GetAllBySubjectNameAndCategoryAsync(string subjectName, Category category)
     {
         return await _context.Materials
+            .Include(x => x.Subject)
+            .Include(x => x.Creator)
             .Where(x => x.Subject.Name.Equals(subjectName) && x.Subject.Category == category)
             .ToListAsync();
     }

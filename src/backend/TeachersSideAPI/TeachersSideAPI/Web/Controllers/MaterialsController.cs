@@ -58,8 +58,7 @@ public class MaterialsController : ControllerBase
         return result ? Ok(result) : NotFound();
     }
     
-        
-    [HttpGet("/{category}/{subjectName}")]
+    [HttpGet("{category}/{subjectName}")]
     public async Task<ActionResult<IEnumerable<MaterialDto>>> GetAllBySubjectAsync([FromRoute] string category, [FromRoute] string subjectName)
     {
         return Ok(await _materialService.GetAllBySubjectAndCategoryAsync(subjectName, category));

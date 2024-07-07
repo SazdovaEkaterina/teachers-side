@@ -80,7 +80,7 @@ public class MaterialService : IMaterialService
 
     public async Task<IEnumerable<MaterialDto>> GetAllBySubjectAndCategoryAsync(string subjectName, string category)
     {
-        IEnumerable<Material> events = await _materialRepository.GetAllBySubjectNameAndCategoryAsync(subjectName, Enum.Parse<Category>(category));
-        return _mapper.Map<IEnumerable<MaterialDto>>(events);
+        IEnumerable<Material> materials = await _materialRepository.GetAllBySubjectNameAndCategoryAsync(subjectName, Enum.Parse<Category>(category));
+        return _mapper.Map<IEnumerable<MaterialDto>>(materials);
     }
 }
