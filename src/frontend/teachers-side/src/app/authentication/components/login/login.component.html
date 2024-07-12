@@ -1,17 +1,25 @@
+<div class="slikaLogIn">
+    <img alt="loading..." src="p3.png" >   
+</div>
+
 <form [formGroup]="formGroup" (ngSubmit)="submit()">
+    <div class="logo">
+        <img alt="loading.." src="logo.png" width="300px" >
+        <h2> Welcome back </h2>
+        <h6>Enter your Credentials to access your account </h6>
+    </div>
     <div class="container">
         <div style="padding: 5px">
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter email" name="email" required formControlName="email">
+            <label for="email"><b>Email</b></label><br>
+            <input id="email" type="text" placeholder="Enter email" name="email" required formControlName="email">
         </div>
         <div style="padding: 5px">
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required formControlName="password">
+            <label for="password"> Password
+            </label>
+            <br>
+            <input id="password" type="password" placeholder="Enter Password" name="password" required formControlName="password">
         </div>
-        <div style="padding: 5px">
-            <label for="password">Password</label><br/>
-            <input type="password" placeholder="Enter Password" name="password" required formControlName="password">
-        </div>
+
         <button type="submit" [disabled]="formGroup.invalid">Login</button>
         <div style="color: red;">{{errorMessage}}</div>
     </div>
