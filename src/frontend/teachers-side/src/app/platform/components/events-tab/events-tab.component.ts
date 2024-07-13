@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { IEvent } from '../../models/event';
 import { EventsService } from '../../service/events.service';
 
@@ -7,18 +7,33 @@ import { EventsService } from '../../service/events.service';
   templateUrl: './events-tab.component.html',
   styleUrls: ['./events-tab.component.scss']
 })
-export class EventsTabComponent {
+export class EventsTabComponent implements OnInit {
   public events: IEvent[] = [];
+  public isLoading: boolean = true;
 
   constructor (
     @Inject(EventsService) private readonly eventsService: EventsService,) {
   }
 
-  public openAddEventDialog () {
-
+  ngOnInit() {
+    this.loadEvents();
   }
 
-  public goToEventDetails () {
-    
+  loadEvents() {
+    this.eventsService.getEvents().subscribe({
+      next: (data: IEvent[]) => {
+        this.events = data;
+      },
+      error: (error: any) => {
+        console.error('Error fetching events', error);
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  public openAddEventDialog () {
+
   }
 }

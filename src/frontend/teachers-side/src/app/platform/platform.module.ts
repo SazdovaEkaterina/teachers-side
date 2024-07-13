@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HomeComponent } from './components/home/home.component';
@@ -24,6 +25,7 @@ import { EventDetailsDialogComponent } from './components/event-details-dialog/e
   imports: [
     CommonModule,
     MatTabsModule,
+    MatCardModule,
     BrowserAnimationsModule
   ]
 })

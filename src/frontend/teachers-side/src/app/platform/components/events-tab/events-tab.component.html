@@ -1,8 +1,9 @@
 <button (click)="openAddEventDialog()">Add</button>
-<div *ngFor="let event of events">
-    {{ event.title }}
-    {{ event.location }}
-    Start: {{ event.startDate }}
-    End: {{ event.endDate }}
-    <button (click)="goToEventDetails()">See more</button>
+<div *ngIf="isLoading">
+    Loading events...
+</div>
+<div *ngIf="!isLoading">
+    <div *ngFor="let event of events">
+        <app-event-card [event]="event"></app-event-card>
+    </div>
 </div>
