@@ -22,5 +22,12 @@
 
         <button type="submit" [disabled]="formGroup.invalid">Login</button>
         <div style="color: red;">{{errorMessage}}</div>
+        <div style="color: red;">{{errorMessage}}</div>
+        <div style="padding: 5px">
+            <button type="submit" [disabled]="formGroup.invalid">Login</button>
+        </div>
+        <div style="padding: 5px">
+            <button (click)="navigateToRegister()">I don't have an account</button>
+        </div>
     </div>
 </form>
