@@ -31,14 +31,14 @@ public class MaterialsController : ControllerBase
     }
 
     [HttpPost("add")]
-    public async Task<ActionResult<bool>> AddAsync([FromBody] MaterialDto eventDto)
+    public async Task<ActionResult<bool>> AddAsync([FromBody] MaterialDto materialDto)
     {
         try
         {
-            var result = await _materialService.SaveAsync(eventDto);
+            var result = await _materialService.SaveAsync(materialDto);
             return Ok(result);
         }
-        catch (UserNotFoundException exception)
+        catch (Exception exception)
         {
             return Conflict();
         }

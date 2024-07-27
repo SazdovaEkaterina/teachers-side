@@ -1,28 +1,24 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using TeachersSideAPI.Domain.Models;
 
-namespace TeachersSideAPI.Domain.Models;
+namespace TeachersSideAPI.Domain.DTO;
 
-public class Post
+public class PostDto
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
-    [Required] 
-    public Forum Forum { get; set; } = new Forum();
-
-    [Required] 
-    public Teacher Creator { get; set; } = new Teacher();
+    [Required]
+    public ForumDto Forum { get; set; } = new ForumDto();
 
     [Required]
-    [MaxLength(100, ErrorMessage = "Title length cannot exceed 100 characters")]
+    public TeacherDto Creator { get; set; } = new TeacherDto();
+    
+    [Required]
     public string Title { get; set; } = string.Empty;
     
     [Required]
     public string Content { get; set; } = string.Empty;
     
-    [Required]
     public DateTime DateCreated { get; set; }
     
     public DateTime LastEdited { get; set; }
