@@ -6,7 +6,7 @@ namespace TeachersSideAPI.Domain.DTO;
 
 public class MaterialDto
 {
-    public int Id { get; }
+    public int Id { get; set; }
     
     [Required]
     public SubjectDto Subject { get; set; }

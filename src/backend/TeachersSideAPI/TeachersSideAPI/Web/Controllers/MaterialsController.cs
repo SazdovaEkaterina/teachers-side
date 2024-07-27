@@ -24,7 +24,7 @@ public class MaterialsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<MaterialDto>> Get([FromRoute]int id)
+    public async Task<ActionResult<MaterialDto>> GetAsync([FromRoute]int id)
     {
         var evt = await _materialService.GetAsync(id);
         return evt != null ? Ok(evt) : NotFound();
@@ -38,9 +38,9 @@ public class MaterialsController : ControllerBase
             var result = await _materialService.SaveAsync(eventDto);
             return Ok(result);
         }
-        catch (UserNotFoundException exception)
+        catch (Exception exception)
         {
-            return Conflict();
+            return Conflict(exception.Message);
         }
     }
     
