@@ -39,9 +39,9 @@ public class PostService : IPostService
     {
         var post = _mapper.Map<Post>(postDto);
         post.Forum = await _forumRepository.FindByIdAsync(postDto.Forum.Id) 
-                       ?? throw new ForumNotFoundException($"Forum with ID: {post.Forum.Id} not found");
+                       ?? throw new ForumNotFoundException($"Forum with ID: {post.Forum.Id} not found.");
         post.Creator = await _userManager.FindByEmailAsync(post.Creator.Email)
-                       ?? throw new UserNotFoundException($"User with email {post.Creator.Email} not found");
+                       ?? throw new UserNotFoundException($"User with email {post.Creator.Email} not found.");
         post.Title = postDto.Title;
         post.Content = postDto.Content;
         post.DateCreated = DateTime.UtcNow;
@@ -67,9 +67,9 @@ public class PostService : IPostService
             return false;
         
         post.Forum = await _forumRepository.FindByIdAsync(postDto.Forum.Id) 
-                     ?? throw new ForumNotFoundException($"Forum with ID: {post.Forum.Id} not found");
+                     ?? throw new ForumNotFoundException($"Forum with ID: {post.Forum.Id} not found.");
         post.Creator = await _userManager.FindByEmailAsync(post.Creator.Email)
-                       ?? throw new UserNotFoundException($"User with email {post.Creator.Email} not found");
+                       ?? throw new UserNotFoundException($"User with email {post.Creator.Email} not found.");
         post.Title = postDto.Title;
         post.Content = postDto.Content;
         post.DateCreated = DateTime.UtcNow;
@@ -81,7 +81,7 @@ public class PostService : IPostService
     public async Task<IEnumerable<PostDto>> GetAllByForumAsync(int forumId)
     {
         var forum =  await _forumRepository.FindByIdAsync(forumId) 
-                       ?? throw new ForumNotFoundException($"Forum with ID: {forumId} not found");
+                       ?? throw new ForumNotFoundException($"Forum with ID: {forumId} not found.");
         var posts = await _postRepository.GetAllByForumAsync(forum);
         return _mapper.Map<IEnumerable<PostDto>>(posts);
     }
