@@ -21,11 +21,14 @@
             <input type="password" placeholder="Enter Password" name="password" required formControlName="password">
             <app-validation-rules [validationRules]="passwordValidatorRules" [field]="formGroup.controls['password'].value"></app-validation-rules>
         </div>
+        <div style="padding: 5px" style="color: red;">
+            {{errorMessage}}
+        </div>
         <div style="padding: 5px">
             <button type="submit" [disabled]="formGroup.invalid">Register</button>
         </div>
-        <div style="padding: 5px" style="color: red;">
-            {{errorMessage}}
+        <div style="padding: 5px">
+            <button (click)="navigateToLogin()">I already have an account</button>
         </div>
     </div>
 </form>

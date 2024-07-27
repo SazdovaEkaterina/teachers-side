@@ -22,7 +22,7 @@ public class EventsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Event>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<EventDto>>> GetAllAsync()
     {
         return Ok(await _eventService.GetAllAsync());
     }
@@ -56,7 +56,7 @@ public class EventsController : ControllerBase
     }
     
     [HttpPost("{id}/edit")]
-    public async Task<ActionResult<Event>> EditAsync([FromRoute]int id, [FromBody] EventDto eventDto)
+    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromBody] EventDto eventDto)
     { 
         var result = await _eventService.EditAsync(id, eventDto);
         return result ? Ok(result) : NotFound();
