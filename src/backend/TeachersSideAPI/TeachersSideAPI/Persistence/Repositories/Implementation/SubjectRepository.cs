@@ -24,4 +24,11 @@ public class SubjectRepository : ISubjectRepository
             .Include(x => x.Teachers)
             .FirstOrDefaultAsync(x => x.Name.Equals(name) && x.Category == category);
     }
+
+    public async Task<Subject?> GetAsync(int id)
+    {
+        return await _context.Subjects
+            .Include(x => x.Teachers)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

@@ -14,5 +14,5 @@ public class SubjectDto
     [Required]
     public Category Category { get; set; }
     
-    public List<TeacherDto> Teachers { get; set; }
+    public List<TeacherDto>? Teachers { get; set; }
 }

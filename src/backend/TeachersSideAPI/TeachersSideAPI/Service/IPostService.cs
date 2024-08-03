@@ -9,5 +9,5 @@ public interface IPostService
     Task<bool> SaveAsync(PostDto postDto);
     Task<bool> DeleteAsync(int id);
     Task<bool> EditAsync(int id, PostDto postDto);
-    Task<IEnumerable<PostDto>> GetAllByForumAsync(int forumId);
+    Task<IEnumerable<PostDto>> GetAllPostsByForumAsync(int forumId);
 }
