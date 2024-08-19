@@ -51,8 +51,8 @@ public class EventsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> DeleteAsync([FromRoute] int id)
     {
-            var result = await _eventService.DeleteAsync(id);
-            return result ? Ok(result) : NotFound();
+        var result = await _eventService.DeleteAsync(id);
+        return result ? Ok(result) : NotFound();
     }
     
     [HttpPost("{id}/edit")]

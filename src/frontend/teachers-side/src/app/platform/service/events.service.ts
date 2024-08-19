@@ -18,4 +18,9 @@ export class EventsService {
     return this.httpClient.get<IEvent[]>('https://localhost:7067/api/events', { headers });
   }
 
+  public deleteEvent(eventId: number): Observable<boolean> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.delete<boolean>(`https://localhost:7067/api/events/${eventId}`, { headers });
+  }
 }

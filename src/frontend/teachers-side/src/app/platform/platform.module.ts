@@ -26,7 +26,7 @@ import { EventDetailsDialogComponent } from './components/event-details-dialog/e
     CommonModule,
     MatTabsModule,
     MatCardModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ]
 })
 export class PlatformModule { }
