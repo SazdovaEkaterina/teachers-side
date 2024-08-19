@@ -39,8 +39,9 @@ export class AddEditEventComponent implements OnInit {
     if(this.isEditMode){
       this.eventsService.editEvent(payload)
       .pipe(
-        tap(() => {
-          this.closeAddEdit.emit(true);
+        tap((result) => {
+          this.closeAddEdit.emit(result);
+          if(!result) this.errorMessage = "The edit was unsuccessful, please try again.";
         }),
         catchError((error) => {
           console.error(error);
@@ -52,8 +53,9 @@ export class AddEditEventComponent implements OnInit {
     } else {
       this.eventsService.addEvent(payload)
       .pipe(
-        tap(() => {
-          this.closeAddEdit.emit(true);
+        tap((result) => {
+          this.closeAddEdit.emit(result);
+          if(!result) this.errorMessage = "The add was unsuccessful, please try again.";
         }),
         catchError((error) => {
           console.error(error);
