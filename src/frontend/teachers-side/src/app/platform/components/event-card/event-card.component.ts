@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 
 import { IEvent } from '../../models/event';
 import { EventsService } from '../../service/events.service';
@@ -18,11 +18,16 @@ export class EventCardComponent {
     startDate: new Date(),
     endDate: new Date(),
   };
+  @Output() editEvent = new EventEmitter<IEvent>();
 
   public isLoading: boolean = false;
 
   constructor (@Inject(EventsService) private readonly eventsService: EventsService) 
   { }
+
+  public handleEdit(event: IEvent) {
+    this.editEvent.emit(event);
+  }
 
   public handleDelete(eventId: number) 
   {

@@ -10,15 +10,22 @@ import { EventsService } from '../../service/events.service';
 export class EventsTabComponent implements OnInit {
   public events: IEvent[] = [];
   public isLoading: boolean = true;
-  public isAddEventFormOpen: boolean = false;
+  public isAddEditEventFormOpen: boolean = false;
+  public eventForEdit: IEvent | null = null;
 
-  public goToAddEvent () {
-    this.isAddEventFormOpen = true;
+  public goToAddEvent() {
+    this.isAddEditEventFormOpen = true;
+    this.eventForEdit = null;
   }
 
-  public closeAddEvent(changed: boolean) {
+  public goToEditEvent(event: IEvent) {
+    this.isAddEditEventFormOpen = true;
+    this.eventForEdit = event;
+  }
+
+  public closeAddEditEvent(changed: boolean) {
     if(changed) this.loadEvents()
-    this.isAddEventFormOpen = false;
+    this.isAddEditEventFormOpen = false;
   }
 
   constructor (

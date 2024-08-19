@@ -30,8 +30,8 @@ public class EventsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<EventDto>> Get([FromRoute]int id)
     {
-            var evt = await _eventService.GetAsync(id);
-            return evt != null ? Ok(evt) : NotFound();
+        var evt = await _eventService.GetAsync(id);
+        return evt != null ? Ok(evt) : NotFound();
     }
 
     [HttpPost("add")]
@@ -51,14 +51,24 @@ public class EventsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> DeleteAsync([FromRoute] int id)
     {
+        var evt = await _eventService.GetAsync(id);
+        if (evt == null)
+        {
+            return NotFound();
+        }
         var result = await _eventService.DeleteAsync(id);
-        return result ? Ok(result) : NotFound();
+        return Ok(result);
     }
     
     [HttpPost("{id}/edit")]
     public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromBody] EventDto eventDto)
     { 
+        var evt = await _eventService.GetAsync(id);
+        if (evt == null)
+        {
+            return NotFound();
+        }
         var result = await _eventService.EditAsync(id, eventDto);
-        return result ? Ok(result) : NotFound();
+        return Ok(result);
     }
 }
