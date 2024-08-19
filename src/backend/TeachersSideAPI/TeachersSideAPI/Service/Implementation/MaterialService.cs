@@ -43,9 +43,9 @@ public class MaterialService : IMaterialService
     {
         var material = _mapper.Map<Material>(materialDto);
         material.Creator = await _userManager.FindByEmailAsync(materialDto.Creator.Email)
-                           ?? throw new UserNotFoundException($"User with email {material.Creator.Email} not found");
+                           ?? throw new UserNotFoundException($"User with email {material.Creator.Email} not found.");
         material.Subject = await _subjectRepository.GetBySubjectNameAndCategoryAsync(materialDto.Subject.Name, materialDto.Subject.Category)
-                           ?? throw new SubjectNotFoundException($"Subject {materialDto.Subject.Name} not found");
+                           ?? throw new SubjectNotFoundException($"Subject {materialDto.Subject.Name} not found.");
         material.DateCreated = DateTime.UtcNow;
         return await _materialRepository.SaveAsync(material);
     }
@@ -68,9 +68,9 @@ public class MaterialService : IMaterialService
             return false;
         
         material.Creator = await _userManager.FindByEmailAsync(materialDto.Creator.Email)
-                           ?? throw new UserNotFoundException($"User with email {material.Creator.Email} not found");
+                           ?? throw new UserNotFoundException($"User with email {material.Creator.Email} not found.");
         material.Subject = await _subjectRepository.GetBySubjectNameAndCategoryAsync(materialDto.Subject.Name, materialDto.Subject.Category)
-                           ?? throw new SubjectNotFoundException($"Subject {materialDto.Subject.Name}  not found");
+                           ?? throw new SubjectNotFoundException($"Subject {materialDto.Subject.Name}  not found.");
         material.FilePath = materialDto.FilePath;
         material.FileTitle = materialDto.FileTitle;
         material.FileType = materialDto.FileType;

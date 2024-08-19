@@ -16,5 +16,9 @@ public class MapperProfile : Profile
         CreateMap<Material, MaterialDto>();
         CreateMap<Subject, SubjectDto>();
         CreateMap<SubjectDto, Subject>();
+        CreateMap<Post, PostDto>();
+        CreateMap<PostDto, Post>();
+        CreateMap<Forum, ForumDto>();
+        CreateMap<ForumDto, Forum>();
     }
 }
