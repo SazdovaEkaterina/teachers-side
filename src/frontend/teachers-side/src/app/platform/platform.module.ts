@@ -9,8 +9,8 @@ import { EventsTabComponent } from './components/events-tab/events-tab.component
 import { MaterialsTabComponent } from './components/materials-tab/materials-tab.component';
 import { ForumsTabComponent } from './components/forums-tab/forums-tab.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
-import { EventAddDialogComponent } from './components/event-add-dialog/event-add-dialog.component';
-import { EventDetailsDialogComponent } from './components/event-details-dialog/event-details-dialog.component';
+import { AddEditEventComponent } from './components/add-edit-event/add-edit-event.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,14 +19,14 @@ import { EventDetailsDialogComponent } from './components/event-details-dialog/e
     MaterialsTabComponent,
     ForumsTabComponent,
     EventCardComponent,
-    EventAddDialogComponent,
-    EventDetailsDialogComponent
+    AddEditEventComponent,
   ],
   imports: [
     CommonModule,
     MatTabsModule,
     MatCardModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
   ]
 })
 export class PlatformModule { }

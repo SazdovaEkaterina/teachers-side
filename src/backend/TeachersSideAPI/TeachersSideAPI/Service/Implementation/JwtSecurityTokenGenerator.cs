@@ -25,6 +25,7 @@ public class JwtSecurityTokenGenerator : IJwtSecurityTokenGenerator
         var claimsForToken = new List<Claim>();
         claimsForToken.Add(new Claim("first_name", user.FirstName));
         claimsForToken.Add(new Claim("last_name", user.LastName));
+        claimsForToken.Add(new Claim("email", user.Email));
 
         var jwtSecurityToken = new JwtSecurityToken(
             _configuration["Authentication:Issuer"],

@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+
 import { IEvent } from '../../models/event';
+import { EventsService } from '../../service/events.service';
 
 @Component({
   selector: 'app-event-card',
@@ -7,7 +9,7 @@ import { IEvent } from '../../models/event';
   styleUrls: ['./event-card.component.scss']
 })
 export class EventCardComponent {
-  @Input() event: IEvent = {
+  @Input() event: IEvent | undefined = {
     id: 0,
     title: '',
     location: '',
@@ -16,8 +18,28 @@ export class EventCardComponent {
     startDate: new Date(),
     endDate: new Date(),
   };
+  @Output() editEvent = new EventEmitter<IEvent>();
 
-  public goToEventDetails () {
-    
+  public isLoading: boolean = false;
+
+  constructor (@Inject(EventsService) private readonly eventsService: EventsService) 
+  { }
+
+  public handleEdit(event: IEvent) {
+    this.editEvent.emit(event);
+  }
+
+  public handleDelete(eventId: number) 
+  {
+    this.isLoading = true;
+    this.eventsService.deleteEvent(eventId).subscribe({
+      error: (error: any) => {
+        console.error('Error deleting event', error);
+      },
+      complete: () => {
+        this.event = undefined;
+        this.isLoading = false;
+      }
+    });
   }
 }

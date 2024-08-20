@@ -10,9 +10,27 @@ import { EventsService } from '../../service/events.service';
 export class EventsTabComponent implements OnInit {
   public events: IEvent[] = [];
   public isLoading: boolean = true;
+  public isAddEditEventFormOpen: boolean = false;
+  public eventForEdit: IEvent | null = null;
+
+  public goToAddEvent() {
+    this.isAddEditEventFormOpen = true;
+    this.eventForEdit = null;
+  }
+
+  public goToEditEvent(event: IEvent) {
+    this.isAddEditEventFormOpen = true;
+    this.eventForEdit = event;
+  }
+
+  public closeAddEditEvent(changed: boolean) {
+    if(changed) this.loadEvents()
+    this.isAddEditEventFormOpen = false;
+  }
 
   constructor (
-    @Inject(EventsService) private readonly eventsService: EventsService,) {
+    @Inject(EventsService) private readonly eventsService: EventsService,
+  ) {
   }
 
   ngOnInit() {
@@ -31,9 +49,5 @@ export class EventsTabComponent implements OnInit {
         this.isLoading = false;
       }
     });
-  }
-
-  public openAddEventDialog () {
-
   }
 }
