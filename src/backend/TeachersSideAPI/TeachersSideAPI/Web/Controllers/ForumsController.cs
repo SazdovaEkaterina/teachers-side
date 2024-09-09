@@ -20,7 +20,7 @@ public class ForumsController : ControllerBase
         _postService = postService ?? throw new ArgumentNullException(nameof(postService));
     }
     
-    [HttpGet("/{id}/posts")]
+    [HttpGet("{id}/posts")]
     public async Task<ActionResult<PostDto>> GetByPostsByForumAsync([FromRoute]int id)
     {
         return Ok(await _postService.GetAllPostsByForumAsync(id));
@@ -33,10 +33,10 @@ public class ForumsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<EventDto>> Get([FromRoute]int id)
+    public async Task<ActionResult<ForumDto>> Get([FromRoute]int id)
     {
-        var evt = await _forumService.GetAsync(id);
-        return evt != null ? Ok(evt) : NotFound();
+        var forumDto = await _forumService.GetAsync(id);
+        return forumDto != null ? Ok(forumDto) : NotFound();
     }
 
     [HttpPost("add")]

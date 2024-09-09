@@ -13,7 +13,8 @@ using TeachersSideAPI.Service.Implementation;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(x => 
+    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
