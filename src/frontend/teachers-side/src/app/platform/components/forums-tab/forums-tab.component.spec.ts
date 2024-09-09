@@ -8,7 +8,7 @@ describe('ForumsTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ForumsTabComponent]
+      declarations: [ForumsTabComponent],
     });
     fixture = TestBed.createComponent(ForumsTabComponent);
     component = fixture.componentInstance;

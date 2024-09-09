@@ -6,7 +6,7 @@ import { EventsService } from '../../service/events.service';
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
-  styleUrls: ['./event-card.component.scss']
+  styleUrls: ['./event-card.component.scss'],
 })
 export class EventCardComponent {
   @Input() event: IEvent | undefined = {
@@ -22,15 +22,15 @@ export class EventCardComponent {
 
   public isLoading: boolean = false;
 
-  constructor (@Inject(EventsService) private readonly eventsService: EventsService) 
-  { }
+  constructor(
+    @Inject(EventsService) private readonly eventsService: EventsService
+  ) {}
 
   public handleEdit(event: IEvent) {
     this.editEvent.emit(event);
   }
 
-  public handleDelete(eventId: number) 
-  {
+  public handleDelete(eventId: number) {
     this.isLoading = true;
     this.eventsService.deleteEvent(eventId).subscribe({
       error: (error: any) => {
@@ -39,7 +39,7 @@ export class EventCardComponent {
       complete: () => {
         this.event = undefined;
         this.isLoading = false;
-      }
+      },
     });
   }
 }

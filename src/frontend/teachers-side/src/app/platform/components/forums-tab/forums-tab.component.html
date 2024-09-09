@@ -1,1 +1,20 @@
-<p>forums-tab works!</p>
+<mat-form-field>
+  <mat-select
+    [disabled]="isSubjectsLoading"
+    (selectionChange)="onSubjectSelect($event)"
+  >
+    <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+      {{ subject.name }} -
+      {{ subject.category === 0 ? "Primary School" : "High School" }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="selectedSubjectId">
+  <button>Add</button>
+  <div *ngIf="isForumPostsLoading">Loading posts...</div>
+  <div *ngIf="!isForumPostsLoading">
+    <div *ngFor="let forumPost of forumPosts">
+      <app-forum-post-card [forumPost]="forumPost"></app-forum-post-card>
+    </div>
+  </div>
+</div>
