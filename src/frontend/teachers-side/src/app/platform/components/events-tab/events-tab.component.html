@@ -1,17 +1,18 @@
-<app-add-edit-event 
-    *ngIf="isAddEditEventFormOpen"
-    [event]="eventForEdit"
-    (closeAddEdit)="closeAddEditEvent($event)"
+<app-add-edit-event
+  *ngIf="isAddEditEventFormOpen"
+  [event]="eventForEdit"
+  (closeAddEdit)="closeAddEditEvent($event)"
 >
 </app-add-edit-event>
 <div *ngIf="!isAddEditEventFormOpen">
-    <button (click)="goToAddEvent()">Add</button>
-    <div *ngIf="isLoading">
-        Loading events...
+  <button (click)="goToAddEvent()">Add</button>
+  <div *ngIf="isLoading">Loading events...</div>
+  <div *ngIf="!isLoading">
+    <div *ngFor="let event of events">
+      <app-event-card
+        [event]="event"
+        (editEvent)="goToEditEvent($event)"
+      ></app-event-card>
     </div>
-    <div *ngIf="!isLoading">
-        <div *ngFor="let event of events">
-            <app-event-card [event]="event" (editEvent)="goToEditEvent($event)"></app-event-card>
-        </div>
-    </div>
+  </div>
 </div>
