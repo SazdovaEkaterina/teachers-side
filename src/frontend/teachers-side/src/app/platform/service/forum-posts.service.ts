@@ -41,6 +41,14 @@ export class ForumPostsService {
     );
   }
 
+  public deleteForumPost(forumPostId: number): Observable<boolean> {
+    const headers = this.buildRequestHeaders();
+    return this.httpClient.delete<boolean>(
+      `https://localhost:7067/api/posts/${forumPostId}`,
+      { headers }
+    );
+  }
+
   private buildRequestHeaders() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

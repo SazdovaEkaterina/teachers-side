@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { IPost } from '../../models/post';
+import { ForumPostsService } from '../../service/forum-posts.service';
 
 @Component({
   selector: 'app-forum-post-card',
@@ -22,7 +23,26 @@ export class ForumPostCardComponent {
   @Input() forumId: number = 0;
   @Output() editForumPost = new EventEmitter<IPost>();
 
+  public isLoading: boolean = false;
+
+  constructor(
+    @Inject(ForumPostsService) private readonly forumPostsService: ForumPostsService
+  ) {}
+
   public handleEdit(forumPost: IPost) {
     this.editForumPost.emit(forumPost);
+  }
+
+  public handleDelete(forumPostId: number) {
+    this.isLoading = true;
+    this.forumPostsService.deleteForumPost(forumPostId).subscribe({
+      error: (error: any) => {
+        console.error('Error deleting forum post', error);
+      },
+      complete: () => {
+        this.forumPost = undefined;
+        this.isLoading = false;
+      },
+    });
   }
 }
