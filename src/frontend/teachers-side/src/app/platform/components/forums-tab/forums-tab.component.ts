@@ -17,6 +17,9 @@ export class ForumsTabComponent implements OnInit {
   public forumPosts: IPost[] = [];
   public isForumPostsLoading: boolean = true;
 
+  public isAddEditForumPostFormOpen: boolean = false;
+  public forumPostForEdit: IPost | null = null;
+
   constructor(
     @Inject(SubjectsService) private readonly subjectsService: SubjectsService,
     @Inject(ForumPostsService)
@@ -25,6 +28,21 @@ export class ForumsTabComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSubjects();
+  }
+
+  public goToAddForumPost() {
+    this.isAddEditForumPostFormOpen = true;
+    this.forumPostForEdit = null;
+  }
+
+  public goToEditForumPost(forumPost: IPost) {
+    this.isAddEditForumPostFormOpen = true;
+    this.forumPostForEdit = forumPost;
+  }
+
+  public closeAddEditEvent(changed: boolean) {
+    if (changed) this.loadForumPosts();
+    this.isAddEditForumPostFormOpen = false;
   }
 
   public onSubjectSelect(event: any) {

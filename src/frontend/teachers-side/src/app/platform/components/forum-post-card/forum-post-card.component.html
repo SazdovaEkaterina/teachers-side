@@ -16,5 +16,8 @@
       Last Edited: {{ forumPost.lastEdited }} <br />
       Date Created: {{ forumPost.dateCreated }}
     </div>
+    <mat-card-actions>
+      <button mat-button (click)="handleEdit(forumPost)">Edit</button>
+    </mat-card-actions>
   </mat-card-content>
 </mat-card>

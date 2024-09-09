@@ -7,18 +7,20 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EventsService } from '../../service/events.service';
+import { IPost } from '../../models/post';
+import { ForumPostsService } from '../../service/forum-posts.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { catchError, EMPTY, Subject, takeUntil, tap } from 'rxjs';
-import { IEvent } from '../../models/event';
+import { UserService } from 'src/app/authentication/service/user.service';
 
 @Component({
-  selector: 'app-add-edit-event',
-  templateUrl: './add-edit-event.component.html',
-  styleUrls: ['./add-edit-event.component.scss'],
+  selector: 'app-add-edit-forum-post',
+  templateUrl: './add-edit-forum-post.component.html',
+  styleUrls: ['./add-edit-forum-post.component.scss'],
 })
-export class AddEditEventComponent implements OnInit, OnDestroy {
-  @Input() event: IEvent | null = null;
+export class AddEditForumPostComponent implements OnInit, OnDestroy {
+  @Input() forumPost: IPost | null = null;
+  @Input() forumId: number | undefined;
   @Output() closeAddEdit = new EventEmitter<boolean>();
 
   public title: string = '';
@@ -30,23 +32,36 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(FormBuilder) private readonly formBuilder: FormBuilder,
-    @Inject(EventsService) private readonly eventsService: EventsService
+    @Inject(ForumPostsService)
+    private readonly forumPostsService: ForumPostsService,
+    @Inject(UserService) private readonly userService: UserService
   ) {
     this.formGroup = this.formBuilder.group({});
   }
 
   public ngOnInit(): void {
     this.initializeForm();
-    this.title = this.event ? 'Edit Event' : 'Add Event';
-    this.isEditMode = this.event ? true : false;
+    this.title = this.forumPost ? 'Edit Forum Post' : 'Add Forum Post';
+    this.isEditMode = this.forumPost ? true : false;
   }
 
-  public submit() {
-    const id = this.event?.id ?? 0;
-    const payload = { ...this.formGroup.getRawValue(), id } as IEvent;
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  public submit(): void {
+    const id = this.forumPost?.id ?? 0;
+    const creator = this.userService.getUser;
+    const payload = {
+      ...this.formGroup.getRawValue(),
+      creator,
+      id,
+      forum: { id: this.forumId },
+    } as IPost;
     if (this.isEditMode) {
-      this.eventsService
-        .editEvent(payload)
+      this.forumPostsService
+        .editForumPost(payload)
         .pipe(
           tap((result) => {
             this.closeAddEdit.emit(result);
@@ -63,8 +78,8 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
         )
         .subscribe();
     } else {
-      this.eventsService
-        .addEvent(payload)
+      this.forumPostsService
+        .addForumPost(payload)
         .pipe(
           tap((result) => {
             this.closeAddEdit.emit(result);
@@ -82,31 +97,16 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
-  private initializeForm() {
+  private initializeForm(): void {
     this.formGroup = this.formBuilder.group({
       title: [
-        this.event?.title ?? '',
+        this.forumPost?.title ?? '',
         [Validators.required, Validators.maxLength(100)],
       ],
-      description: [
-        this.event?.description ?? '',
-        [Validators.required, Validators.maxLength(100)],
+      content: [
+        this.forumPost?.content ?? '',
+        [Validators.required, Validators.maxLength(255)],
       ],
-      location: [
-        this.event?.location ?? '',
-        [Validators.required, Validators.maxLength(100)],
-      ],
-      image: [
-        this.event?.image ?? '',
-        [Validators.required, Validators.maxLength(100)],
-      ],
-      startDate: [this.event?.startDate ?? new Date(), [Validators.required]],
-      endDate: [this.event?.endDate ?? new Date(), [Validators.required]],
     });
   }
 }

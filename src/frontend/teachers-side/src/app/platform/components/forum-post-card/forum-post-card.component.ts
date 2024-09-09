@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPost } from '../../models/post';
 
 @Component({
@@ -8,6 +8,7 @@ import { IPost } from '../../models/post';
 })
 export class ForumPostCardComponent {
   @Input() forumPost: IPost | undefined = {
+    id: 0,
     creator: {
       firstName: '',
       lastName: '',
@@ -18,4 +19,10 @@ export class ForumPostCardComponent {
     dateCreated: new Date(),
     lastEdited: new Date(),
   };
+  @Input() forumId: number = 0;
+  @Output() editForumPost = new EventEmitter<IPost>();
+
+  public handleEdit(forumPost: IPost) {
+    this.editForumPost.emit(forumPost);
+  }
 }

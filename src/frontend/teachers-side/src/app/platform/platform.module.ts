@@ -16,6 +16,7 @@ import { ForumsTabComponent } from './components/forums-tab/forums-tab.component
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { AddEditEventComponent } from './components/add-edit-event/add-edit-event.component';
 import { ForumPostCardComponent } from './components/forum-post-card/forum-post-card.component';
+import { AddEditForumPostComponent } from './components/add-edit-forum-post/add-edit-forum-post.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ForumPostCardComponent } from './components/forum-post-card/forum-post-
     EventCardComponent,
     AddEditEventComponent,
     ForumPostCardComponent,
+    AddEditForumPostComponent,
   ],
   imports: [
     CommonModule,
