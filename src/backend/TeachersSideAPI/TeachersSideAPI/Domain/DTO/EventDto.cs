@@ -13,8 +13,8 @@ public class EventDto
     public string Description { get; set; } = string.Empty;
     
     public string Location { get; set; } = string.Empty;
-    
-    public string Image { get; set; } = string.Empty;
+
+    public IFormFile Image { get; set; }
     
     public DateTime StartDate { get; set; }
     

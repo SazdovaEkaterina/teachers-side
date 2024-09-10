@@ -47,7 +47,7 @@ public class EventsController : ControllerBase
             return Conflict();
         }
     }
-    
+
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> DeleteAsync([FromRoute] int id)
     {

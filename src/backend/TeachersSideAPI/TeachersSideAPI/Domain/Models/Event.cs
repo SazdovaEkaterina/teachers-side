@@ -25,8 +25,7 @@ public class Event
     public string Location { get; set; } = string.Empty;
     
     [Required]
-    [MaxLength(100, ErrorMessage = "Image path length cannot exceed 100 characters")]
-    public string Image { get; set; } = string.Empty;
+    public byte[] Image { get; set; }
     
     public DateTime DateCreated { get; set; }
     
