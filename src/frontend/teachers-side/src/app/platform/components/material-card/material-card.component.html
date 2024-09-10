@@ -2,7 +2,7 @@
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{ material.fileTitle }}</mat-card-title>
-    <mat-card-subtitle>{{ material.fileType }}</mat-card-subtitle>
+    <mat-card-subtitle>File type: {{ material.fileType | fileType }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div>
