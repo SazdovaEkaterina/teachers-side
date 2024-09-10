@@ -45,7 +45,6 @@
       >
         Login
       </button>
-      <div style="color: red">{{ errorMessage }}</div>
       <div>
         <button
           (click)="navigateToRegister()"
@@ -54,6 +53,9 @@
         >
           I don't have an account
         </button>
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        {{ errorMessage }}
       </div>
     </div>
   </form>

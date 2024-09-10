@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { PlatformModule } from './platform/platform.module';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     AuthenticationModule,
     PlatformModule,
-    AppRoutingModule,
-    FormsModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
