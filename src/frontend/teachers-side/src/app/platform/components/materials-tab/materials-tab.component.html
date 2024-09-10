@@ -1,20 +1,19 @@
 <mat-form-field>
-    <mat-select
-      [disabled]="isSubjectsLoading"
-      (selectionChange)="onSubjectSelect($event)"
-    >
-      <mat-option *ngFor="let subject of subjects" [value]="subject.id">
-        {{ subject.name }} -
-        {{ subject.category === 0 ? "Primary School" : "High School" }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div *ngIf="selectedSubjectId">
-    <div *ngIf="isMaterialsLoading">Loading materials...</div>
-    <div *ngIf="!isMaterialsLoading">
-      <div *ngFor="let material of materials">
-        {{ material.fileTitle }}
-      </div>
+  <mat-select
+    [disabled]="isSubjectsLoading"
+    (selectionChange)="onSubjectSelect($event)"
+  >
+    <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+      {{ subject.name }} -
+      {{ subject.category === 0 ? "Primary School" : "High School" }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="selectedSubjectId">
+  <div *ngIf="isMaterialsLoading">Loading materials...</div>
+  <div *ngIf="!isMaterialsLoading">
+    <div *ngFor="let material of materials">
+      <app-material-card [material]="material"></app-material-card>
     </div>
   </div>
-  
+</div>
