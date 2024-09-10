@@ -1,1 +1,28 @@
-<p>forums-tab works!</p>
+<mat-form-field *ngIf="!isAddEditForumPostFormOpen">
+  <mat-select
+    [disabled]="isSubjectsLoading"
+    (selectionChange)="onSubjectSelect($event)"
+  >
+    <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+      {{ subject.name }} -
+      {{ subject.category | subjectCategory }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<app-add-edit-forum-post
+  *ngIf="isAddEditForumPostFormOpen"
+  [forumPost]="forumPostForEdit"
+  [forumId]="selectedSubjectId"
+  (closeAddEdit)="closeAddEditEvent($event)"
+>
+</app-add-edit-forum-post>
+<div *ngIf="selectedSubjectId && !isAddEditForumPostFormOpen">
+  <button (click)="goToAddForumPost()">Add</button>
+  <div *ngIf="isForumPostsLoading">Loading posts...</div>
+  <div *ngIf="!isForumPostsLoading">
+    <div *ngFor="let forumPost of forumPosts">
+      <app-forum-post-card [forumPost]="forumPost" [forumId]="selectedSubjectId"
+      (editForumPost)="goToEditForumPost($event)"></app-forum-post-card>
+    </div>
+  </div>
+</div>
