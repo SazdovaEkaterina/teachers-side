@@ -17,6 +17,9 @@ import { EventCardComponent } from './components/event-card/event-card.component
 import { AddEditEventComponent } from './components/add-edit-event/add-edit-event.component';
 import { ForumPostCardComponent } from './components/forum-post-card/forum-post-card.component';
 import { AddEditForumPostComponent } from './components/add-edit-forum-post/add-edit-forum-post.component';
+import { MaterialCardComponent } from './components/material-card/material-card.component';
+import { FileTypePipe } from './pipes/file-type.pipe';
+import { SubjectCategoryPipe } from './pipes/subject-category.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { AddEditForumPostComponent } from './components/add-edit-forum-post/add-
     AddEditEventComponent,
     ForumPostCardComponent,
     AddEditForumPostComponent,
+    MaterialCardComponent,
+    FileTypePipe,
+    SubjectCategoryPipe,
   ],
   imports: [
     CommonModule,
