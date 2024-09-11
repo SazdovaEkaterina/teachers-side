@@ -21,8 +21,11 @@
   <div *ngIf="isForumPostsLoading">Loading posts...</div>
   <div *ngIf="!isForumPostsLoading">
     <div *ngFor="let forumPost of forumPosts">
-      <app-forum-post-card [forumPost]="forumPost" [forumId]="selectedSubjectId"
-      (editForumPost)="goToEditForumPost($event)"></app-forum-post-card>
+      <app-forum-post-card
+        [forumPost]="forumPost"
+        [forumId]="selectedSubjectId"
+        (editForumPost)="goToEditForumPost($event)"
+      ></app-forum-post-card>
     </div>
   </div>
 </div>

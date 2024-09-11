@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field *ngIf="!isAddEditMaterialFormOpen">
   <mat-select
     [disabled]="isSubjectsLoading"
     (selectionChange)="onSubjectSelect($event)"
@@ -9,11 +9,23 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
-<div *ngIf="selectedSubjectId">
+<app-add-edit-material
+  *ngIf="isAddEditMaterialFormOpen"
+  [material]="materialForEdit"
+  [subject]="getSelectedSubject()"
+  (closeAddEdit)="closeAddEditEvent($event)"
+>
+</app-add-edit-material>
+<div *ngIf="selectedSubjectId && !isAddEditMaterialFormOpen">
+  <button (click)="goToAddMaterial()">Add</button>
   <div *ngIf="isMaterialsLoading">Loading materials...</div>
   <div *ngIf="!isMaterialsLoading">
     <div *ngFor="let material of materials">
-      <app-material-card [material]="material"></app-material-card>
+      <app-material-card
+        [material]="material"
+        [subject]="getSelectedSubject()"
+        (editMaterial)="goToEditMaterial($event)"
+      ></app-material-card>
     </div>
   </div>
 </div>
