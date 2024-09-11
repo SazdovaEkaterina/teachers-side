@@ -2,6 +2,7 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 
 import { IEvent } from '../../models/event';
 import { EventsService } from '../../service/events.service';
+import { UserService } from 'src/app/authentication/service/user.service';
 
 @Component({
   selector: 'app-event-card',
@@ -11,6 +12,11 @@ import { EventsService } from '../../service/events.service';
 export class EventCardComponent {
   @Input() event: IEvent | undefined = {
     id: 0,
+    creator: {
+      firstName: '',
+      lastName: '',
+      email: '',
+    },
     title: '',
     location: '',
     description: '',
@@ -23,8 +29,13 @@ export class EventCardComponent {
   public isLoading: boolean = false;
 
   constructor(
-    @Inject(EventsService) private readonly eventsService: EventsService
+    @Inject(EventsService) private readonly eventsService: EventsService,
+    @Inject(UserService) private readonly userService: UserService,
   ) {}
+
+  public isCreator(event: IEvent) {
+    return event.creator.email === this.userService.getUser()?.email;
+  }
 
   public handleEdit(event: IEvent) {
     this.editEvent.emit(event);
