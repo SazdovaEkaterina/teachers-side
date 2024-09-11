@@ -12,4 +12,8 @@
     <br />
     <div>Date created: {{ material.dateCreated }}</div>
   </mat-card-content>
+  <mat-card-actions *ngIf="isCreator(material)">
+    <button mat-button (click)="handleEdit(material)">Edit</button>
+    <button mat-button (click)="handleDelete(material.id)">Delete</button>
+  </mat-card-actions>
 </mat-card>

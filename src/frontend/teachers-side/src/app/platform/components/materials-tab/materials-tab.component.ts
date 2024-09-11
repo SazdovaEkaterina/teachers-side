@@ -17,6 +17,9 @@ export class MaterialsTabComponent {
   public materials: IMaterial[] = [];
   public isMaterialsLoading: boolean = true;
 
+  public isAddEditMaterialFormOpen: boolean = false;
+  public materialForEdit: IMaterial | null = null;
+
   constructor(
     @Inject(SubjectsService) private readonly subjectsService: SubjectsService,
     @Inject(MaterialsService)
@@ -27,9 +30,32 @@ export class MaterialsTabComponent {
     this.loadSubjects();
   }
 
+  public goToAddMaterial() {
+    this.isAddEditMaterialFormOpen = true;
+    this.materialForEdit = null;
+  }
+
+  public goToEditMaterial(material: IMaterial) {
+    this.isAddEditMaterialFormOpen = true;
+    this.materialForEdit = material;
+  }
+
+  public closeAddEditEvent(changed: boolean) {
+    if (changed) this.loadMaterials();
+    this.isAddEditMaterialFormOpen = false;
+  }
+
   public onSubjectSelect(event: any) {
     this.selectedSubjectId = event.value;
     this.loadMaterials();
+  }
+
+  public getSelectedSubject(): ISubject {
+    return (
+      this.subjects.find(
+        (subject) => subject.id === this.selectedSubjectId
+      ) ?? { id: 0, name: '', category: 0 }
+    );
   }
 
   private loadSubjects() {

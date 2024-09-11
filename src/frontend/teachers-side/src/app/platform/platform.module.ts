@@ -20,6 +20,7 @@ import { AddEditForumPostComponent } from './components/add-edit-forum-post/add-
 import { MaterialCardComponent } from './components/material-card/material-card.component';
 import { FileTypePipe } from './pipes/file-type.pipe';
 import { SubjectCategoryPipe } from './pipes/subject-category.pipe';
+import { AddEditMaterialComponent } from './components/add-edit-material/add-edit-material.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SubjectCategoryPipe } from './pipes/subject-category.pipe';
     MaterialCardComponent,
     FileTypePipe,
     SubjectCategoryPipe,
+    AddEditMaterialComponent,
   ],
   imports: [
     CommonModule,
