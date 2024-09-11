@@ -73,9 +73,7 @@ export class MaterialsTabComponent {
   }
 
   private loadMaterials() {
-    const selectedSubject = this.subjects.find(
-      (subject) => subject.id === this.selectedSubjectId
-    );
+    const selectedSubject = this.getSelectedSubject();
     const { selectedSubjectCategory, selectedSubjectName } = {
       selectedSubjectCategory: selectedSubject?.category ?? 0,
       selectedSubjectName: selectedSubject?.name ?? '',

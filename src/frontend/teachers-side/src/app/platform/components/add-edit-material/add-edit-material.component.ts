@@ -98,7 +98,7 @@ export class AddEditMaterialComponent {
     this.formGroup = this.formBuilder.group({
       fileTitle: [this.material?.fileTitle ?? '', [Validators.required]],
       filePath: [this.material?.filePath ?? '', [Validators.required]],
-      fileType: [this.material?.fileType ?? '', [Validators.required]],
+      fileType: [this.material?.fileType ?? 0, [Validators.required]],
     });
   }
 }

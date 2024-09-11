@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeachersSideAPI.Domain.DTO;
 using TeachersSideAPI.Service;
-using TeachersSideAPI.Service.Exceptions;
 
 namespace TeachersSideAPI.Web.Controllers;
 

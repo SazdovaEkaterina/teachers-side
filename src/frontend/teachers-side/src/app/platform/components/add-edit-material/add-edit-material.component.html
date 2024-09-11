@@ -15,7 +15,12 @@
       </div>
       <div>
         <label for="fileType">File Type</label>
-        <input id="fileType" formControlName="fileType" type="text" />
+        <select name="cars" formControlName="fileType" id="fileType">
+          <option value="0">PDF</option>
+          <option value="1">DOCX</option>
+          <option value="2">XLS</option>
+          <option value="3">PPTX</option>
+        </select>
       </div>
       <div style="padding: 5px" style="color: red">
         {{ errorMessage }}
