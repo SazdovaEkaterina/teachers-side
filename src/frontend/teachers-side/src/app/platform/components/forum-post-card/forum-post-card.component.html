@@ -17,7 +17,7 @@
       Last Edited: {{ forumPost.lastEdited }} <br />
       Date Created: {{ forumPost.dateCreated }}
     </div>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="isCreator(forumPost)">
       <button mat-button (click)="handleEdit(forumPost)">Edit</button>
       <button mat-button (click)="handleDelete(forumPost.id)">Delete</button>
     </mat-card-actions>

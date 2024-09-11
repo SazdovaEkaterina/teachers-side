@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { IPost } from '../../models/post';
 import { ForumPostsService } from '../../service/forum-posts.service';
+import { UserService } from 'src/app/authentication/service/user.service';
 
 @Component({
   selector: 'app-forum-post-card',
@@ -26,8 +27,14 @@ export class ForumPostCardComponent {
   public isLoading: boolean = false;
 
   constructor(
-    @Inject(ForumPostsService) private readonly forumPostsService: ForumPostsService
+    @Inject(ForumPostsService)
+    private readonly forumPostsService: ForumPostsService,
+    @Inject(UserService) private readonly userService: UserService
   ) {}
+
+  public isCreator(forumPost: IPost) {
+    return forumPost.creator.email === this.userService.getUser()?.email;
+  }
 
   public handleEdit(forumPost: IPost) {
     this.editForumPost.emit(forumPost);
