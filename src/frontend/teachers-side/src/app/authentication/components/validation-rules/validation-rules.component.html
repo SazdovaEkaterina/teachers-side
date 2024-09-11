@@ -1,6 +1,12 @@
-<div>
-    <div *ngFor="let rule of validationRules" style="padding: 3px">
-        <span>{{isFulfilled(rule.id) ? '✅︎' : '❌'}}</span>
-        {{rule.text}}
+<div *ngIf="field">
+  <div *ngFor="let rule of validationRules">
+    <div [class]="isFulfilled(rule) ? 'text-success' : 'text-danger'">
+      <div class="icon-container">
+        <div
+          [class]="isFulfilled(rule) ? 'icon-checkmark' : 'icon-cross'"
+        ></div>
+      </div>
+      <div class="text-container">&nbsp;{{ rule.text }}</div>
     </div>
+  </div>
 </div>

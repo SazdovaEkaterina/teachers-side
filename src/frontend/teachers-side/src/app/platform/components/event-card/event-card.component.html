@@ -1,4 +1,4 @@
-<div *ngIf="isLoading">Loading event...</div>
+<div *ngIf="isLoading">Loading...</div>
 <mat-card
   class="example-card"
   appearance="outlined"
@@ -20,7 +20,7 @@
       End: {{ event.endDate }}
     </div>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions *ngIf="isCreator(event)">
     <button mat-button (click)="handleEdit(event)">Edit</button>
     <button mat-button (click)="handleDelete(event.id)">Delete</button>
   </mat-card-actions>

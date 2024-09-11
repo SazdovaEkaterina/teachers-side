@@ -1,4 +1,5 @@
-<mat-card class="example-card" appearance="outlined" *ngIf="forumPost">
+<div *ngIf="isLoading">Loading...</div>
+<mat-card class="example-card" appearance="outlined" *ngIf="!isLoading && forumPost">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{ forumPost.title }}</mat-card-title>
@@ -16,5 +17,9 @@
       Last Edited: {{ forumPost.lastEdited }} <br />
       Date Created: {{ forumPost.dateCreated }}
     </div>
+    <mat-card-actions *ngIf="isCreator(forumPost)">
+      <button mat-button (click)="handleEdit(forumPost)">Edit</button>
+      <button mat-button (click)="handleDelete(forumPost.id)">Delete</button>
+    </mat-card-actions>
   </mat-card-content>
 </mat-card>

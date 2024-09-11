@@ -9,22 +9,25 @@ import { ITokenResponse } from '../../models/token-response';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  public title: string = 'Welcome back';
+  public subtitle: string = 'Enter your credentials to access your account';
 
   public formGroup: FormGroup = this.formBuilder.group({});
-  public errorMessage: string = "";
+  public errorMessage: string = '';
 
-  private emailRegex: string = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+  private emailRegex: string = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
   private ngUnsubscribe = new Subject<void>();
 
   constructor(
     @Inject(FormBuilder) private readonly formBuilder: FormBuilder,
-    @Inject(AuthenticationService) private readonly authenticationService: AuthenticationService,
-    @Inject(Router) private router: Router,
-    ) { }
+    @Inject(AuthenticationService)
+    private readonly authenticationService: AuthenticationService,
+    @Inject(Router) private router: Router
+  ) {}
 
   public ngOnInit(): void {
     this.buildForm();
@@ -32,30 +35,30 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public submit() {
     const payload = this.formGroup.getRawValue() as LoginModel;
-    this.authenticationService.login(payload)
+    this.authenticationService
+      .login(payload)
       .pipe(
         tap((response: ITokenResponse) => {
-          localStorage.setItem('token',response.token);
+          localStorage.setItem('token', response.token);
           localStorage.setItem('expiration', response.expiration.toString());
           this.router.navigate(['/']);
         }),
         catchError((error) => {
-          if(error.status === 401){
-            this.errorMessage = "Incorrect password."
-          }
-          else if(error.status === 404){
-            this.errorMessage = "Incorrect email or password."
-          }
-          else {
-            this.errorMessage = "Something went wrong, please try again.";
+          if (error.status === 401) {
+            this.errorMessage = 'Incorrect password.';
+          } else if (error.status === 404) {
+            this.errorMessage = 'Incorrect email or password.';
+          } else {
+            this.errorMessage = 'Something went wrong, please try again.';
           }
           return EMPTY;
         }),
         takeUntil(this.ngUnsubscribe)
-      ).subscribe();
+      )
+      .subscribe();
   }
 
-  public navigateToRegister(){
+  public navigateToRegister() {
     this.router.navigate(['/register']);
   }
 
@@ -70,5 +73,4 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
     });
   }
-
 }
