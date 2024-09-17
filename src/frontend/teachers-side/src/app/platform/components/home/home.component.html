@@ -1,8 +1,35 @@
-<h1>TeachersSide</h1>
-<h3>Education Platform</h3>
-<button (click)="logOut()">Log out</button>
-<mat-tab-group>
-    <mat-tab label="Materials"><app-materials-tab></app-materials-tab></mat-tab>
-    <mat-tab label="Forums"><app-forums-tab></app-forums-tab></mat-tab>
-    <mat-tab label="Events"><app-events-tab></app-events-tab></mat-tab>
-</mat-tab-group>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachersSide</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body style="background-color:#F0F2EF;">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img alt="TeachersSide" src="#">
+            <p>Education Platform</p>
+        </a>
+        <div class="collapse navbar-collapse" style="background-color:#F0F2EF;" >
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/materials-tab.component.html"><i class="fas fa-book"></i> Materials</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-comments"></i> Forums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-calendar-alt"></i> Events</a>
+                </li>
+            </ul>
+            <button class="logout-button">Log out</button>
+        </div>
+    </nav>
+    <div class="container">
+              <h1>Welcome to Education platform - Teacher Side</h1>
+    </div>
+</body>
+</html>
