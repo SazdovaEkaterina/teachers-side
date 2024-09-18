@@ -1,19 +1,63 @@
-<form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <div class="container">
-        <div style="padding: 5px">
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter email" name="email" required formControlName="email">
-        </div>
-        <div style="padding: 5px">
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required formControlName="password">
-        </div>
-        <div style="color: red;">{{errorMessage}}</div>
-        <div style="padding: 5px">
-            <button type="submit" [disabled]="formGroup.invalid">Login</button>
-        </div>
-        <div style="padding: 5px">
-            <button (click)="navigateToRegister()">I don't have an account</button>
-        </div>
+<div class="form-side d-flex justify-content-center align-self-center">
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="submit()"
+    style="width: 50%; margin-top: 50px"
+  >
+    <div class="logo" class="d-grid gap-2 m-4">
+      <img alt="logo" src="../../../../assets/images/logo.PNG" width="100%" />
     </div>
-</form>
+    <div class="container" class="d-grid gap-2">
+      <div>
+        <h3>{{ title }}</h3>
+        <h6>{{ subtitle }}</h6>
+      </div>
+      <div>
+        <label for="email"><b>Email</b></label
+        ><br />
+        <input
+          type="text"
+          placeholder="Enter email"
+          name="email"
+          required
+          formControlName="email"
+          class="form-control"
+        />
+      </div>
+      <div>
+        <label for="password"><b>Password</b> </label>
+        <br />
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          required
+          formControlName="password"
+          class="form-control"
+        />
+      </div>
+
+      <button
+        class="btn btn-dark btn-sm mt-2"
+        type="submit"
+        [disabled]="formGroup.invalid"
+      >
+        Login
+      </button>
+      <div>
+        <button
+          (click)="navigateToRegister()"
+          class="btn btn-light btn-sm"
+          style="width: 100%"
+        >
+          I don't have an account
+        </button>
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</div>
+<div class="image-side"></div>

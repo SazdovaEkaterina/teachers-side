@@ -5,15 +5,32 @@ import { EventsService } from '../../service/events.service';
 @Component({
   selector: 'app-events-tab',
   templateUrl: './events-tab.component.html',
-  styleUrls: ['./events-tab.component.scss']
+  styleUrls: ['./events-tab.component.scss'],
 })
 export class EventsTabComponent implements OnInit {
   public events: IEvent[] = [];
   public isLoading: boolean = true;
+  public isAddEditEventFormOpen: boolean = false;
+  public eventForEdit: IEvent | null = null;
 
-  constructor (
-    @Inject(EventsService) private readonly eventsService: EventsService,) {
+  public goToAddEvent() {
+    this.isAddEditEventFormOpen = true;
+    this.eventForEdit = null;
   }
+
+  public goToEditEvent(event: IEvent) {
+    this.isAddEditEventFormOpen = true;
+    this.eventForEdit = event;
+  }
+
+  public closeAddEditEvent(changed: boolean) {
+    if (changed) this.loadEvents();
+    this.isAddEditEventFormOpen = false;
+  }
+
+  constructor(
+    @Inject(EventsService) private readonly eventsService: EventsService
+  ) {}
 
   ngOnInit() {
     this.loadEvents();
@@ -29,11 +46,7 @@ export class EventsTabComponent implements OnInit {
       },
       complete: () => {
         this.isLoading = false;
-      }
+      },
     });
-  }
-
-  public openAddEventDialog () {
-
   }
 }

@@ -1,0 +1,19 @@
+<mat-card class="example-card" appearance="outlined" *ngIf="material">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ material.fileTitle }}</mat-card-title>
+    <mat-card-subtitle>File type: {{ material.fileType | fileType }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      Uploaded by: {{ material.creator.firstName }}
+      {{ material.creator.lastName }}
+    </div>
+    <br />
+    <div>Date created: {{ material.dateCreated }}</div>
+  </mat-card-content>
+  <mat-card-actions *ngIf="isCreator(material)">
+    <button mat-button (click)="handleEdit(material)">Edit</button>
+    <button mat-button (click)="handleDelete(material.id)">Delete</button>
+  </mat-card-actions>
+</mat-card>

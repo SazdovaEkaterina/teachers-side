@@ -4,5 +4,8 @@ namespace TeachersSideAPI.Persistence.Repositories;
 
 public interface IForumRepository
 {
-    Task<Forum?> FindByIdAsync(int id);
-}
+    Task<IEnumerable<Forum>> GetAllAsync();
+    Task<Forum?> GetAsync(int id);
+    Task<bool> SaveAsync(Forum forum);
+    Task<bool> DeleteAsync(Forum forum);
+    Task<bool> SaveChangesAsync();}
