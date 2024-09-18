@@ -4,7 +4,7 @@ public class CommentDto
 {
     public int Id { get; set; }
 
-    public PostDto Post { get; set; } = new();
+    public int PostId { get; set; } = new();
     
     public TeacherDto Creator { get; set; } = new();
     
