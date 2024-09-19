@@ -1,14 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+
 import { IEvent } from '../../models/event';
+import { EventsService } from '../../service/events.service';
+import { UserService } from 'src/app/authentication/service/user.service';
 
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
-  styleUrls: ['./event-card.component.scss']
+  styleUrls: ['./event-card.component.scss'],
 })
 export class EventCardComponent {
-  @Input() event: IEvent = {
+  @Input() event: IEvent | undefined = {
     id: 0,
+    creator: {
+      firstName: '',
+      lastName: '',
+      email: '',
+    },
     title: '',
     location: '',
     description: '',
@@ -16,7 +24,37 @@ export class EventCardComponent {
     startDate: new Date(),
     endDate: new Date(),
   };
-  formatDate(date: Date): string {
+  @Output() editEvent = new EventEmitter<IEvent>();
+
+  public isLoading: boolean = false;
+
+  constructor(
+    @Inject(EventsService) private readonly eventsService: EventsService,
+    @Inject(UserService) private readonly userService: UserService,
+  ) {}
+
+  public isCreator(event: IEvent) {
+    return event.creator.email === this.userService.getUser()?.email;
+  }
+
+  public handleEdit(event: IEvent) {
+    this.editEvent.emit(event);
+  }
+
+  public handleDelete(eventId: number) {
+    this.isLoading = true;
+    this.eventsService.deleteEvent(eventId).subscribe({
+      error: (error: any) => {
+        console.error('Error deleting event', error);
+      },
+      complete: () => {
+        this.event = undefined;
+        this.isLoading = false;
+      },
+    });
+  }
+
+  public formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: '2-digit',
@@ -27,8 +65,5 @@ export class EventCardComponent {
       hour12: false
     };
     return new Intl.DateTimeFormat('en-GB', options).format(date);
-  }
-  public goToEventDetails () {
-    
   }
 }
