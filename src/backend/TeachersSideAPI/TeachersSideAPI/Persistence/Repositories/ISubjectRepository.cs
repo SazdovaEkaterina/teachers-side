@@ -7,4 +7,5 @@ public interface ISubjectRepository
 {
     Task<IEnumerable<Subject>> GetSubjectsAsync();
     Task<Subject?> GetBySubjectNameAndCategoryAsync(string name, Category category);
+    Task<Subject?> GetAsync(int id);
 }

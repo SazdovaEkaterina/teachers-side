@@ -1,22 +1,21 @@
-<mat-card class="card" style="width: 18rem;" appearance="outlined">
-    <mat-card-header >
-      <img mat-card-image  class="card-img-top" src="{{ event.image }}" width="250px" height="100px"  >
+<mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title class="card-title">{{ event.title }}</mat-card-title><br>
+      <mat-card-title>{{ event.title }}</mat-card-title>
       <mat-card-subtitle>{{ event.location }}</mat-card-subtitle>
     </mat-card-header>
-
+    <img mat-card-image src="{{ event.image }}">
     <mat-card-content>
       <div>
         {{ event.description }}
       </div>
       <br/>
-      <div style="margin-bottom:10px;">
-        Start: {{ formatDate(event.startDate) }} <br/>
-        End: {{ formatDate(event.endDate) }}
+      <div>
+        Start: {{ event.startDate }} <br/>
+        End: {{ event.endDate }}
       </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="goToEventDetails()">See more</button>
     </mat-card-actions>
-</mat-card>
+  </mat-card>

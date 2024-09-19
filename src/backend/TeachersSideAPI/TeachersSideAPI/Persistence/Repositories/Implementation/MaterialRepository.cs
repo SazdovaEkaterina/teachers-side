@@ -45,7 +45,7 @@ public class MaterialRepository : IMaterialRepository
         return await _context.Materials
             .Include(x => x.Subject)
             .Include(x => x.Creator)
-            .Where(x => x.Subject.Name.Equals(subjectName) && x.Subject.Category == category)
+            .Where(x => x.Subject.Name.ToLower().Equals(subjectName.ToLower()) && x.Subject.Category == category)
             .ToListAsync();
     }
 

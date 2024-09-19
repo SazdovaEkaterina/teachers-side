@@ -1,0 +1,21 @@
+.icon-container {
+  display: inline-block;
+}
+
+.text-container {
+  display: inline-block;
+}
+
+.icon-checkmark {
+  background: url(../../../../assets/icons/checkmark.svg);
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+}
+
+.icon-cross {
+  background: url(../../../../assets/icons/cross.svg);
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+}

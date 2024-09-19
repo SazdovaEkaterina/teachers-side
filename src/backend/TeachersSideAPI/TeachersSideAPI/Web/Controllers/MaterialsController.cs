@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeachersSideAPI.Domain.DTO;
 using TeachersSideAPI.Service;
-using TeachersSideAPI.Service.Exceptions;
 
 namespace TeachersSideAPI.Web.Controllers;
 
@@ -58,9 +56,9 @@ public class MaterialsController : ControllerBase
         return result ? Ok(result) : NotFound();
     }
     
-    [HttpGet("{category}/{subjectName}")]
-    public async Task<ActionResult<IEnumerable<MaterialDto>>> GetAllBySubjectAsync([FromRoute] string category, [FromRoute] string subjectName)
+    [HttpGet("{subjectCategory}/{subjectName}")]
+    public async Task<ActionResult<IEnumerable<MaterialDto>>> GetAllBySubjectAsync([FromRoute] string subjectCategory, [FromRoute] string subjectName)
     {
-        return Ok(await _materialService.GetAllBySubjectAndCategoryAsync(subjectName, category));
+        return Ok(await _materialService.GetAllBySubjectAndCategoryAsync(subjectName, subjectCategory));
     }
 }

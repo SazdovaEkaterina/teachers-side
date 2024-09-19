@@ -28,7 +28,6 @@ export class EventCardComponent {
     };
     return new Intl.DateTimeFormat('en-GB', options).format(date);
   }
-
   public goToEventDetails () {
     
   }

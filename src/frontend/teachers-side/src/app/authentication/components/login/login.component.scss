@@ -1,0 +1,15 @@
+.form-side {
+    width: 50%;
+    position: absolute;
+    left: 0px;
+    height: 100%;
+}
+
+.image-side {
+    background: url(../../../../assets/images/login.jpg);
+    background-size: cover;
+    width: 50%;
+    position: fixed;
+    right: 0px;
+    height: 100%;
+}

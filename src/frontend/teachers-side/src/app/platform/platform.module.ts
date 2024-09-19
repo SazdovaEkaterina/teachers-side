@@ -3,14 +3,24 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HomeComponent } from './components/home/home.component';
 import { EventsTabComponent } from './components/events-tab/events-tab.component';
 import { MaterialsTabComponent } from './components/materials-tab/materials-tab.component';
 import { ForumsTabComponent } from './components/forums-tab/forums-tab.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
-import { EventAddDialogComponent } from './components/event-add-dialog/event-add-dialog.component';
-import { EventDetailsDialogComponent } from './components/event-details-dialog/event-details-dialog.component';
+import { AddEditEventComponent } from './components/add-edit-event/add-edit-event.component';
+import { ForumPostCardComponent } from './components/forum-post-card/forum-post-card.component';
+import { AddEditForumPostComponent } from './components/add-edit-forum-post/add-edit-forum-post.component';
+import { MaterialCardComponent } from './components/material-card/material-card.component';
+import { FileTypePipe } from './pipes/file-type.pipe';
+import { SubjectCategoryPipe } from './pipes/subject-category.pipe';
+import { AddEditMaterialComponent } from './components/add-edit-material/add-edit-material.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +29,25 @@ import { EventDetailsDialogComponent } from './components/event-details-dialog/e
     MaterialsTabComponent,
     ForumsTabComponent,
     EventCardComponent,
-    EventAddDialogComponent,
-    EventDetailsDialogComponent
+    AddEditEventComponent,
+    ForumPostCardComponent,
+    AddEditForumPostComponent,
+    MaterialCardComponent,
+    FileTypePipe,
+    SubjectCategoryPipe,
+    AddEditMaterialComponent,
   ],
   imports: [
     CommonModule,
     MatTabsModule,
     MatCardModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
   ]
 })
 export class PlatformModule { }

@@ -38,7 +38,7 @@ public class PostService : IPostService
     public async Task<bool> SaveAsync(PostDto postDto)
     {
         var post = _mapper.Map<Post>(postDto);
-        post.Forum = await _forumRepository.FindByIdAsync(postDto.Forum.Id) 
+        post.Forum = await _forumRepository.GetAsync(postDto.Forum.Id) 
                        ?? throw new ForumNotFoundException($"Forum with ID: {post.Forum.Id} not found.");
         post.Creator = await _userManager.FindByEmailAsync(post.Creator.Email)
                        ?? throw new UserNotFoundException($"User with email {post.Creator.Email} not found.");
@@ -66,21 +66,21 @@ public class PostService : IPostService
         if (post == null)
             return false;
         
-        post.Forum = await _forumRepository.FindByIdAsync(postDto.Forum.Id) 
+        post.Forum = await _forumRepository.GetAsync(postDto.Forum.Id) 
                      ?? throw new ForumNotFoundException($"Forum with ID: {post.Forum.Id} not found.");
         post.Creator = await _userManager.FindByEmailAsync(post.Creator.Email)
                        ?? throw new UserNotFoundException($"User with email {post.Creator.Email} not found.");
         post.Title = postDto.Title;
         post.Content = postDto.Content;
-        post.DateCreated = DateTime.UtcNow;
+        post.DateCreated = postDto.DateCreated;
         post.LastEdited = DateTime.UtcNow;
 
         return await _postRepository.SaveChangesAsync();
     }
     
-    public async Task<IEnumerable<PostDto>> GetAllByForumAsync(int forumId)
+    public async Task<IEnumerable<PostDto>> GetAllPostsByForumAsync(int forumId)
     {
-        var forum =  await _forumRepository.FindByIdAsync(forumId) 
+        var forum =  await _forumRepository.GetAsync(forumId) 
                        ?? throw new ForumNotFoundException($"Forum with ID: {forumId} not found.");
         var posts = await _postRepository.GetAllByForumAsync(forum);
         return _mapper.Map<IEnumerable<PostDto>>(posts);
