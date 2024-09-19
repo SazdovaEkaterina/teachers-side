@@ -3,11 +3,12 @@ import { IMaterial } from '../../models/material';
 import { ISubject } from '../../models/subject';
 import { SubjectsService } from '../../service/subjects.service';
 import { MaterialsService } from '../../service/materials.service';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-materials-tab',
   templateUrl: './materials-tab.component.html',
-  styleUrls: ['./materials-tab.component.scss'],
+  styleUrls: ['./materials-tab.component.scss']
 })
 export class MaterialsTabComponent {
   public subjects: ISubject[] = [];

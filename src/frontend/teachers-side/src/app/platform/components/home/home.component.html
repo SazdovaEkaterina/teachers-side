@@ -8,22 +8,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body style="background-color:#F0F2EF;">
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
-            <img alt="TeachersSide" src="#">
-            <p>Education Platform</p>
-        </a>
-        <div class="collapse navbar-collapse" style="background-color:#F0F2EF;" >
-            <mat-tab-group class="navbar-nav ml-auto">
-                <mat-tab label="Materials"><app-materials-tab></app-materials-tab></mat-tab>
-                <mat-tab label="Forums"><app-forums-tab></app-forums-tab></mat-tab>
-                <mat-tab label="Events"><app-events-tab></app-events-tab></mat-tab>
-              </mat-tab-group>
-            <button (click)="logOut()" class="logout-button">Log out</button>
+    <nav>
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="#">
+                <img alt="TeachersSide" src="../../../../assets/images/logo.PNG" width="300px"> 
+            </a>
+            <button (click)="logOut()" class="btn btn-dark">Log out</button>
+        </div>
+        <div class="container mt-5" style="background-color: white; height: 900px; width: 80%;">
+            <div class="container mt-5" style="background-color:#F0F2EF; height: 50px; width: 1300px; display:block; margin-left: -30px; ">
+                <mat-tab-group>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="fas fa-box"></i> Materials
+                        </ng-template>
+                        <app-materials-tab></app-materials-tab>
+                        </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="fas fa-comments"></i> Forums
+                        </ng-template>
+                        <app-forums-tab></app-forums-tab>
+                   </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="fas fa-calendar"></i> Events
+                        </ng-template>
+                        <app-events-tab></app-events-tab>
+                   </mat-tab>
+                </mat-tab-group>
+             </div>
         </div>
     </nav>
-    <!-- <div class="container">
-              <h1>Welcome to Education platform - Teacher Side</h1>
-    </div> -->
+    
 </body>
 </html>
