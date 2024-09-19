@@ -37,7 +37,7 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.initializeForm();
-    this.title = this.event ? 'Edit Event' : 'Add Event';
+    this.title = this.event ? 'Edit Event' : 'Add New Event';
     this.isEditMode = this.event ? true : false;
   }
 
