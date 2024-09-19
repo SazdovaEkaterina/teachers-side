@@ -1,27 +1,28 @@
 <div *ngIf="isLoading">Loading...</div>
+
 <mat-card
-  class="example-card"
+  class="card" style="width: 250px;px; background-color:#F0F2EF;"
   appearance="outlined"
   *ngIf="event && !isLoading"
 >
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ event.title }}</mat-card-title>
+    <mat-card-title class="card-title">{{ event.title }}</mat-card-title>
     <mat-card-subtitle>{{ event.location }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="{{ event.image }}" />
-  <mat-card-content>
+  <img mat-card-image class="card-img-top" src="{{ event.image }}" />
+  <mat-card-content class="card-body">
     <div>
       {{ event.description }}
     </div>
     <br />
     <div>
-      Start: {{ event.startDate }} <br />
-      End: {{ event.endDate }}
+      Start:{{ formatDate(event.startDate) }}  <br />
+      End: {{ formatDate(event.startDate) }} 
     </div>
   </mat-card-content>
   <mat-card-actions *ngIf="isCreator(event)">
-    <button mat-button (click)="handleEdit(event)">Edit</button>
+    <button mat-button (click)="handleEdit(event)" >Edit</button>
     <button mat-button (click)="handleDelete(event.id)">Delete</button>
   </mat-card-actions>
 </mat-card>
