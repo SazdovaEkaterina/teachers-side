@@ -29,6 +29,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title> Comments </mat-panel-title>
       </mat-expansion-panel-header>
+      <button (click)="handleAddComment()">Add</button>
       <div *ngIf="isCommentsLoading">Loading...</div>
       <div *ngIf="!isCommentsLoading && !comments.length">
         This post doesn't have any comments.
@@ -37,6 +38,7 @@
         <div *ngFor="let comment of comments">
           <app-forum-post-comment-card
             [comment]="comment"
+            (editComment)="handleEditComment($event)"
           ></app-forum-post-comment-card>
         </div>
       </div>

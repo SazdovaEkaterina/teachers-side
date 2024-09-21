@@ -22,7 +22,6 @@ export class ForumPostCommentCardComponent {
     dateCreated: new Date(),
     lastEdited: new Date(),
   };
-  
   @Output() editComment = new EventEmitter<IComment>();
 
   public isLoading: boolean = false;
