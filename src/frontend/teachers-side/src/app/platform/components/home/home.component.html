@@ -1,45 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeachersSide</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<body style="background-color:#F0F2EF;">
-    <nav>
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <a class="navbar-brand" href="#">
-                <img alt="TeachersSide" src="../../../../assets/images/logo.PNG" width="300px"> 
-            </a>
-            <button (click)="logOut()" class="btn btn-dark">Log out</button>
-        </div>
-        <div class="container mt-5" style="background-color: white; height: 900px; width: 80%;">
-            <div class="container mt-5" style="background-color:#F0F2EF; height: 50px; width: 1300px; display:block; margin-left: -30px; ">
-                <mat-tab-group>
-                    <mat-tab>
-                        <ng-template mat-tab-label>
-                            <i class="fas fa-box"></i> Materials
-                        </ng-template>
-                        <app-materials-tab></app-materials-tab>
-                        </mat-tab>
-                    <mat-tab>
-                        <ng-template mat-tab-label>
-                            <i class="fas fa-comments"></i> Forums
-                        </ng-template>
-                        <app-forums-tab></app-forums-tab>
-                   </mat-tab>
-                    <mat-tab>
-                        <ng-template mat-tab-label>
-                            <i class="fas fa-calendar"></i> Events
-                        </ng-template>
-                        <app-events-tab></app-events-tab>
-                   </mat-tab>
-                </mat-tab-group>
-             </div>
-        </div>
-    </nav>
-    
-</body>
-</html>
+<h1>TeachersSide</h1>
+<h3>Education Platform</h3>
+<button (click)="logOut()">Log out</button>
+<mat-tab-group>
+  <mat-tab label="Materials"><app-materials-tab></app-materials-tab></mat-tab>
+  <mat-tab label="Forums"><app-forums-tab></app-forums-tab></mat-tab>
+  <mat-tab label="Events"><app-events-tab></app-events-tab></mat-tab>
+</mat-tab-group>
