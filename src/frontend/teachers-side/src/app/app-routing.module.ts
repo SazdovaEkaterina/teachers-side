@@ -5,40 +5,27 @@ import { RegisterComponent } from './authentication/components/register/register
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './platform/components/home/home.component';
 import { AuthGuard } from './authentication/guards/auth.guard';
-import { EventsTabComponent } from './platform/components/events-tab/events-tab.component';
-
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard], 
-    component: HomeComponent
+    canActivate: [AuthGuard],
+    component: HomeComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
-  {
-    path: 'eventsTab',
-    component: EventsTabComponent 
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  }
 ];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
-  ],
+  imports: [CommonModule, RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
