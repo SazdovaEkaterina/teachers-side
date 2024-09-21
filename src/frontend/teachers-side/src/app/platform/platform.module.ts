@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HomeComponent } from './components/home/home.component';
 import { EventsTabComponent } from './components/events-tab/events-tab.component';
@@ -21,6 +22,8 @@ import { MaterialCardComponent } from './components/material-card/material-card.
 import { FileTypePipe } from './pipes/file-type.pipe';
 import { SubjectCategoryPipe } from './pipes/subject-category.pipe';
 import { AddEditMaterialComponent } from './components/add-edit-material/add-edit-material.component';
+import { ForumPostCommentCardComponent } from './components/forum-post-comment-card/forum-post-comment-card.component';
+import { AddEditForumPostCommentComponent } from './components/add-edit-forum-post-comment/add-edit-forum-post-comment.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { AddEditMaterialComponent } from './components/add-edit-material/add-edi
     FileTypePipe,
     SubjectCategoryPipe,
     AddEditMaterialComponent,
+    ForumPostCommentCardComponent,
+    AddEditForumPostCommentComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +53,7 @@ import { AddEditMaterialComponent } from './components/add-edit-material/add-edi
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatExpansionModule,
   ]
 })
 export class PlatformModule { }

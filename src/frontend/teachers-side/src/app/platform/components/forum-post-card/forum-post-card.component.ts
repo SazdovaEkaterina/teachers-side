@@ -2,6 +2,8 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { IPost } from '../../models/post';
 import { ForumPostsService } from '../../service/forum-posts.service';
 import { UserService } from 'src/app/authentication/service/user.service';
+import { IComment } from '../../models/comment';
+import { ForumPostCommentsService } from '../../service/forum-post-comments.service';
 
 @Component({
   selector: 'app-forum-post-card',
@@ -26,9 +28,14 @@ export class ForumPostCardComponent {
 
   public isLoading: boolean = false;
 
+  public comments: IComment[] = [];
+  public isCommentsLoading: boolean = true;
+
   constructor(
     @Inject(ForumPostsService)
     private readonly forumPostsService: ForumPostsService,
+    @Inject(ForumPostCommentsService)
+    private readonly forumPostCommentsService: ForumPostCommentsService,
     @Inject(UserService) private readonly userService: UserService
   ) {}
 
@@ -51,5 +58,25 @@ export class ForumPostCardComponent {
         this.isLoading = false;
       },
     });
+  }
+
+  public handleCommentsPanelOpen() {
+    this.loadComments();
+  }
+
+  private loadComments() {
+    this.forumPostCommentsService
+      .getPostComments(this.forumPost?.id ?? 0)
+      .subscribe({
+        next: (data: IComment[]) => {
+          this.comments = data;
+        },
+        error: (error: any) => {
+          console.error('Error fetching comments', error);
+        },
+        complete: () => {
+          this.isCommentsLoading = false;
+        },
+      });
   }
 }
