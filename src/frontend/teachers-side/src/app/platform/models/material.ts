@@ -7,7 +7,8 @@ export interface IMaterial {
   };
   creator: IUser;
   dateCreated: Date;
-  fileTitle: string;
-  filePath: string;
+  fileTitle: string,
+  file: File | null;
+  filePath: string | null;
   fileType: number;
 }

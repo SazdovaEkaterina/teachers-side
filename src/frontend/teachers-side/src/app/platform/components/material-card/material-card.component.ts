@@ -23,6 +23,7 @@ export class MaterialCardComponent {
     dateCreated: new Date(),
     fileTitle: '',
     filePath: '',
+    file: null,
     fileType: 0,
   };
   @Input() subject: ISubject = {

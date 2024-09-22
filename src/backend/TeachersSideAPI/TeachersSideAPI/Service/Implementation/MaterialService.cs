@@ -67,13 +67,14 @@ public class MaterialService : IMaterialService
         if (material == null)
             return false;
         
-        material.Creator = await _userManager.FindByEmailAsync(materialDto.Creator.Email)
-                           ?? throw new UserNotFoundException($"User with email {material.Creator.Email} not found.");
-        material.Subject = await _subjectRepository.GetBySubjectNameAndCategoryAsync(materialDto.Subject.Name, materialDto.Subject.Category)
-                           ?? throw new SubjectNotFoundException($"Subject {materialDto.Subject.Name}  not found.");
-        material.FilePath = materialDto.FilePath;
-        material.FileTitle = materialDto.FileTitle;
-        material.FileType = materialDto.FileType;
+        var mappedMaterial = _mapper.Map<Material>(materialDto);
+        material.Creator = await _userManager.FindByEmailAsync(mappedMaterial.Creator.Email)
+                           ?? throw new UserNotFoundException($"User with email {mappedMaterial.Creator.Email} not found.");
+        material.Subject = await _subjectRepository.GetBySubjectNameAndCategoryAsync(mappedMaterial.Subject.Name, materialDto.Subject.Category)
+                           ?? throw new SubjectNotFoundException($"Subject {mappedMaterial.Subject.Name}  not found.");
+        material.FilePath = mappedMaterial.FilePath;
+        material.FileTitle = mappedMaterial.FileTitle;
+        material.FileType = mappedMaterial.FileType;
 
         return await _materialRepository.SaveChangesAsync();
     }

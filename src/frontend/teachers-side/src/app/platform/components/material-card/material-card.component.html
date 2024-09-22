@@ -8,6 +8,9 @@
     <div>
       Uploaded by: {{ material.creator.firstName }}
       {{ material.creator.lastName }}
+    </div>	      
+    <div>
+      <a mat-card-image  [href]="'https://localhost:7067' +  material.filePath" [download]="material.filePath" *ngIf="material.filePath">{{ material.file?.name }}</a>
     </div>
     <br />
     <div>Date created: {{ material.dateCreated }}</div>

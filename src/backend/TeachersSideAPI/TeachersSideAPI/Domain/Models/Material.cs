@@ -22,7 +22,7 @@ public class Material
     [MaxLength(100, ErrorMessage = "FileTitle length cannot exceed 100 characters")]
     public string FileTitle { get; set; } = string.Empty;
 
-    [MaxLength(100, ErrorMessage = "FileTitle length cannot exceed 100 characters")]
+    [MaxLength(1000, ErrorMessage = "FileTitle length cannot exceed 1000 characters")]
     [Required] 
     public string FilePath { get; set; } = string.Empty;
     

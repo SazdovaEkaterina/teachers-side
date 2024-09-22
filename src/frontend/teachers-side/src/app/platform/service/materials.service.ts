@@ -24,22 +24,30 @@ export class MaterialsService {
     );
   }
 
-  public addMaterial(material: IMaterial): Observable<boolean> {
+  public addMaterial(formData: FormData): Observable<boolean> {
     const headers = this.buildRequestHeaders();
+    headers.set("type", "application/json");
     const creator = this.userService.getUser();
+    if (creator) {
+      formData.append("creatorDto", JSON.stringify(creator));
+    }
     return this.httpClient.post<boolean>(
       `https://localhost:7067/api/materials/add`,
-      { ...material, creator },
+      formData, 
       { headers }
     );
   }
 
-  public editMaterial(material: IMaterial): Observable<boolean> {
+  public editMaterial(formData: FormData): Observable<boolean> {
     const headers = this.buildRequestHeaders();
+    headers.set("type", "application/json");
     const creator = this.userService.getUser();
+    if (creator) {
+      formData.append("creatorDto", JSON.stringify(creator));
+    }
     return this.httpClient.post<boolean>(
-      `https://localhost:7067/api/materials/${material.id}/edit`,
-      { ...material, creator },
+      `https://localhost:7067/api/materials/${formData.get("id")}/edit`,
+      formData,
       { headers }
     );
   }
