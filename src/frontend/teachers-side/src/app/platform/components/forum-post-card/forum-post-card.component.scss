@@ -1,0 +1,61 @@
+
+.example-card {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
+  
+.mat-card-header {
+    display: flex;
+    align-items: center;
+}
+  
+.mat-card-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+  
+.mat-card-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+  
+.mat-card-subtitle {
+    color: #6c757d;
+    font-size: 14px;
+}
+  
+.mat-card-content p {
+    font-size: 16px;
+    color: #333;
+}
+  
+.mat-card-actions {
+    margin-top: 20px;
+}
+  
+.btn-primary {
+    background-color: #4f81bd;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    color: white;
+}
+  
+.btn-danger {
+    background-color: #d9534f;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+}
+  
+.text-muted {
+    font-size: 14px;
+    color: #6c757d;
+}
+  
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+  
+
