@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <div class="card" style="background-color: #f0f2ef; width: 500px">
+  <div class="card">
     <div class="card-header">
       <button
         class="btn btn-light float-left"
@@ -39,14 +39,13 @@
           <button
             mat-button
             (click)="closeAddEdit.emit(false)"
-            class="btn btn-secondary"
+            class="btn btn-secondary mr-3"
           >
             Cancel
           </button>
           <button
-            class="btn btn-primary"
+            class="btn btn-primary save-btn"
             type="submit"
-            style="background-color: #588157; border-color: #588157"
             [disabled]="!formGroup.valid"
           >
             Save

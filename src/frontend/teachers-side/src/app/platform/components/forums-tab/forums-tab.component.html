@@ -1,4 +1,6 @@
-<mat-form-field *ngIf="!isAddEditForumPostFormOpen && !isAddEditCommentFormOpen">
+<mat-form-field
+  *ngIf="!isAddEditForumPostFormOpen && !isAddEditCommentFormOpen"
+>
   <mat-select
     [disabled]="isSubjectsLoading"
     (selectionChange)="onSubjectSelect($event)"
@@ -23,8 +25,16 @@
   (closeAddEdit)="closeAddEditComment($event)"
 >
 </app-add-edit-forum-post-comment>
-<div *ngIf="selectedSubjectId && !isAddEditForumPostFormOpen && !isAddEditCommentFormOpen">
-  <button (click)="goToAddForumPost()">Add</button>
+<div
+  *ngIf="
+    selectedSubjectId &&
+    !isAddEditForumPostFormOpen &&
+    !isAddEditCommentFormOpen
+  "
+>
+  <button (click)="goToAddForumPost()" class="btn btn-primary add-btn">
+    Add
+  </button>
   <div *ngIf="isForumPostsLoading">Loading posts...</div>
   <div *ngIf="!isForumPostsLoading">
     <div *ngFor="let forumPost of forumPosts">

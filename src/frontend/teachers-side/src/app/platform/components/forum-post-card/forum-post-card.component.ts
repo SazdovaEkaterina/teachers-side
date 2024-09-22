@@ -58,6 +58,10 @@ export class ForumPostCardComponent implements OnChanges {
     return forumPost.creator.email === this.userService.getUser()?.email;
   }
 
+  public hasBeenEdited() {
+    return this.forumPost?.dateCreated !== this.forumPost?.lastEdited;
+  }
+
   public handleEdit(forumPost: IPost) {
     this.editForumPost.emit(forumPost);
   }

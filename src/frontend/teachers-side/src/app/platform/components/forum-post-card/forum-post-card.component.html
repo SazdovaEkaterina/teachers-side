@@ -1,13 +1,13 @@
 <div *ngIf="isLoading" class="text-center">Loading...</div>
 <mat-card
-  class="example-card shadow-sm mt-3"
+  class="mat-card shadow-sm mt-3"
   style="margin: 30px"
   appearance="outlined"
   *ngIf="!isLoading && forumPost"
 >
   <mat-card-header class="d-flex align-items-center">
     <img
-      src="path/to/avatar.jpg"
+      src="./../../../../assets/images/generic-profile.png"
       class="rounded-circle mr-2"
       alt="avatar"
       width="40"
@@ -24,9 +24,7 @@
           {{ forumPost.creator.lastName }}</span
         >
         <br />
-        <small class="text-muted">{{
-          forumPost.dateCreated | date : "longDate"
-        }}</small>
+        <small class="text-muted">{{ forumPost.dateCreated | date : "medium" }}</small>
       </mat-card-subtitle>
     </div>
   </mat-card-header>
@@ -34,17 +32,16 @@
     ><br />
     <p>{{ forumPost.content }}</p>
     <hr />
-    <div class="text-muted">
-      Last Edited: {{ forumPost.lastEdited | date : "short" }} <br />
-      Date Created: {{ forumPost.dateCreated | date : "short" }}
-    </div>
+    <small class="text-muted">
+      Last Edited: {{ hasBeenEdited() ? (forumPost.lastEdited | date : "medium") : 'Never' }}
+    </small>
     <mat-card-actions
       *ngIf="isCreator(forumPost)"
       class="d-flex justify-content-end"
     >
       <button
         mat-button
-        class="btn btn-primary"
+        class="btn btn-secondary mr-3"
         (click)="handleEdit(forumPost)"
       >
         Edit
@@ -61,7 +58,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title> Comments </mat-panel-title>
       </mat-expansion-panel-header>
-      <button (click)="handleAddComment()">Add</button>
+      <button (click)="handleAddComment()" class="btn btn-primary add-btn">Add Comment</button>
       <div *ngIf="isCommentsLoading">Loading...</div>
       <div *ngIf="!isCommentsLoading && !comments.length">
         This post doesn't have any comments.

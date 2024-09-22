@@ -1,25 +1,56 @@
 <div *ngIf="isLoading">Loading...</div>
 <mat-card *ngIf="!isLoading && comment">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ comment.title }}</mat-card-title>
-    <mat-card-subtitle
-      >{{ comment.creator.firstName }}
-      {{ comment.creator.lastName }}</mat-card-subtitle
-    >
+  <mat-card-header class="d-flex align-items-center">
+    <img
+      src="./../../../../assets/images/generic-profile.png"
+      class="rounded-circle mr-2"
+      alt="avatar"
+      width="40"
+      height="40"
+    />
+    <div style="padding: 20px">
+      <mat-card-title
+        style="margin-top: -30px; margin-left: -50px; font-weight: bold"
+        >{{ comment.title }}</mat-card-title
+      >
+      <mat-card-subtitle>
+        <span
+          >{{ comment.creator.firstName }} {{ comment.creator.lastName }}</span
+        >
+        <br />
+        <small class="text-muted">{{
+          comment.dateCreated | date : "medium"
+        }}</small>
+      </mat-card-subtitle>
+    </div>
   </mat-card-header>
   <mat-card-content>
     <div>
       {{ comment.content }}
     </div>
-    <br />
-    <div>
-      Last Edited: {{ comment.lastEdited }} <br />
-      Date Created: {{ comment.dateCreated }}
-    </div>
-    <mat-card-actions *ngIf="isCreator(comment)">
-      <button mat-button (click)="handleEdit(comment)">Edit</button>
-      <button mat-button (click)="handleDelete(comment.id)">Delete</button>
+    <hr />
+    <small class="text-muted">
+      Last Edited:
+      {{ hasBeenEdited() ? (comment.lastEdited | date : "medium") : "Never" }}
+    </small>
+    <mat-card-actions
+      *ngIf="isCreator(comment)"
+      class="d-flex justify-content-end"
+    >
+      <button
+        mat-button
+        class="btn btn-secondary mr-3"
+        (click)="handleEdit(comment)"
+      >
+        Edit
+      </button>
+      <button
+        mat-button
+        class="btn btn-danger"
+        (click)="handleDelete(comment.id)"
+      >
+        Delete
+      </button>
     </mat-card-actions>
   </mat-card-content>
 </mat-card>

@@ -1,19 +1,21 @@
-button{
-    background-color: #588157;
+.add-btn {
+  background-color: #588157;
+  border: #588157;
+  color: #ffffff;
+  cursor: pointer;
+}
 
-    color: #fff;
+.add-btn:disabled {
+  background-color: #588157;
+  opacity: 75%;
+  border: #588157;
+  color: #ffffff;
+  cursor: pointer;
+}
 
-    padding: 20px;
-
-    border: none;
-
-    border-radius: 5px;
-
-    cursor: pointer;
-
-    font-size: 16px;
-
-    width:100px;
-
-    margin:50;
+.add-btn:hover {
+  background-color: darken(#588157, 10%);
+  border: #588157;
+  color: #ffffff;
+  cursor: pointer;
 }

@@ -1,5 +1,5 @@
 <button mat-button (click)="closeAddEdit.emit(false)">Back</button>
-<mat-card class="example-card" appearance="outlined">
+<mat-card class="card" appearance="outlined">
   <mat-card-header>
     <mat-card-title> {{ title }} </mat-card-title>
   </mat-card-header>
@@ -20,11 +20,11 @@
         <button
           mat-button
           (click)="closeAddEdit.emit(false)"
-          class="btn btn-secondary"
+          class="btn btn-secondary mr-3"
         >
           Cancel
         </button>
-        <button mat-button type="submit" [disabled]="!formGroup.valid">
+        <button mat-button type="submit" class="btn btn-primary save-btn" [disabled]="!formGroup.valid">
           Save
         </button>
       </mat-card-actions>
