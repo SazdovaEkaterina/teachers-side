@@ -1,19 +1,25 @@
-.container {
-    margin-top: 20px;
-  }
-  
-  .card {
-    background-color: #F0F2EF;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-header {
-    background-color:#F0F2EF;
-    border-bottom: 2px solid #eee;
-  }
-  
-  .btn-primary {
-    background-color: #EFA106;
-    border-color: #EFA106;
-  }
-  
+.save-btn {
+  background-color: #efa106;
+  border: #efa106;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  background-color: #efa106;
+  opacity: 75%;
+  border: #efa106;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: darken(#efa106, 10%);
+  border: #efa106;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.form-card {
+  background-color: #f0f2ef;
+}

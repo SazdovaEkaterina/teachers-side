@@ -1,98 +1,96 @@
-<button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-secondary">
-  Back
-</button>
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card p-4">
-        <div class="card-header">
-          <h3>{{ title }}</h3>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="formGroup" (submit)="submit()">
-            <div class="form-group">
-              <label for="title">Title</label>
+<div class="row justify-content-center">
+  <div class="col-9 p-5 bg-white">
+    <button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-dark">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Back
+    </button>
+    <div class="form-card p-4 mt-4">
+      <div class="card-header bg-transparent">
+        <h4>{{ title }}</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="formGroup" (submit)="submit()">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              id="title"
+              formControlName="title"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input
+              id="location"
+              formControlName="location"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              formControlName="description"
+              class="form-control"
+            ></textarea>
+          </div>
+          <div>
+            <label for="image">Upload a Photo</label>
+            <input
+              id="image"
+              formControlName="image"
+              type="file"
+              (change)="onImageUpload($event)"
+              class="form-control-file"
+            />
+            <img
+              *ngIf="imagePreview"
+              [src]="imagePreview"
+              alt="Image Preview"
+              height="200"
+              class="pt-3 pb-3"
+            />
+          </div>
+          <div class="form-row mt-3">
+            <div class="form-group col-6">
+              <label for="startDate">Start Date</label>&nbsp;
               <input
-                id="title"
-                formControlName="title"
-                type="text"
-                class="form-control"
+                id="startDate"
+                formControlName="startDate"
+                type="datetime-local"
               />
             </div>
-            <div class="form-group">
-              <label for="location">Location</label>
+            <div class="form-group col-6">
+              <label for="endDate">End Date</label>&nbsp;
               <input
-                id="location"
-                formControlName="location"
-                type="text"
-                class="form-control"
+                id="endDate"
+                formControlName="endDate"
+                type="datetime-local"
               />
             </div>
-            <div class="form-group">
-              <label for="description">Description</label>
-              <textarea
-                id="description"
-                formControlName="description"
-                class="form-control"
-              ></textarea>
-            </div>
-            <div>
-              <label for="image">Upload a Photo</label>
-              <input
-                id="image"
-                formControlName="image"
-                type="file"
-                (change)="onImageUpload($event)"
-                class="form-control-file"
-              />
-              <img
-                *ngIf="imagePreview"
-                [src]="imagePreview"
-                alt="Image Preview"
-                width="200"
-                height="200"
-              />
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="startDate">Start Date</label>
-                <input
-                  id="startDate"
-                  formControlName="startDate"
-                  type="datetime-local"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="endDate">End Date</label>
-                <input
-                  id="endDate"
-                  formControlName="endDate"
-                  type="datetime-local"
-                />
-              </div>
-            </div>
-            <div class="form-group text-danger">
-              {{ errorMessage }}
-            </div>
-            <div class="card-footer">
-              <button
-                mat-button
-                (click)="closeAddEdit.emit(false)"
-                class="btn btn-secondary"
-              >
-                Cancel
-              </button>
-              <button
-                mat-button
-                type="submit"
-                [disabled]="!formGroup.valid"
-                class="btn btn-primary"
-              >
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="form-group text-danger">
+            {{ errorMessage }}
+          </div>
+          <div class="card-footer bg-transparent d-flex justify-content-end">
+            <button
+              mat-button
+              (click)="closeAddEdit.emit(false)"
+              class="btn btn-secondary mr-3"
+            >
+              Cancel
+            </button>
+            <button
+              mat-button
+              type="submit"
+              [disabled]="!formGroup.valid"
+              class="btn btn-primary save-btn"
+            >
+              Save
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
