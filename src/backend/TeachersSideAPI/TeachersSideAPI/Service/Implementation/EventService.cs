@@ -79,13 +79,4 @@ public class EventService : IEventService
 
         return await _eventRepository.SaveChangesAsync();
     }
-
-    private async Task<byte[]> GetImageBytes(IFormFile image)
-    {
-        using (var stream = new MemoryStream())
-        {
-            await image.CopyToAsync(stream);
-            return stream.ToArray();
-        }
-    }
 }
