@@ -36,7 +36,7 @@ public class EventsController : ControllerBase
     }
 
     [HttpPost("add")]
-    public async Task<ActionResult<bool>> AddAsync([FromForm] EventDto eventDto, [FromForm] string creatorDto)
+    public async Task<ActionResult<bool>> AddAsync([FromForm] EventDto eventDto)
     {
         try
         {
@@ -68,7 +68,7 @@ public class EventsController : ControllerBase
     }
     
     [HttpPost("{id}/edit")]
-    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromForm] EventDto eventDto, [FromForm] string creatorDto)
+    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromForm] EventDto eventDto)
     { 
         try
         {
