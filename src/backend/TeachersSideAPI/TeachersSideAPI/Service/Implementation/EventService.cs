@@ -14,14 +14,12 @@ public class EventService : IEventService
     private readonly IEventRepository _eventRepository;
     private readonly IMapper _mapper;
     private readonly UserManager<Teacher> _userManager;
-    private readonly IWebHostEnvironment _env;
 
-    public EventService(IEventRepository eventRepository, IMapper mapper, UserManager<Teacher> userManager, IWebHostEnvironment env)
+    public EventService(IEventRepository eventRepository, IMapper mapper, UserManager<Teacher> userManager)
     {
         _eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
         _mapper = mapper;
         _userManager = userManager;
-        _env = env;
     }
 
     public async Task<IEnumerable<EventDto>> GetAllAsync()
