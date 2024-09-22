@@ -6,10 +6,13 @@ namespace TeachersSideAPI.Domain;
 
 public class MapperProfile : Profile
 {
-    public MapperProfile()
+    public MapperProfile(string webRootPath)
     {
-        CreateMap<EventDto, Event>();
-        CreateMap<Event, EventDto>();
+        CreateMap<EventDto, Event>()
+            .ForMember(dest => dest.Image, opt => opt.MapFrom(src => ConvertToString(src.Image, webRootPath)));
+        CreateMap<Event, EventDto>()
+            .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.Image))
+            .ForMember(dest => dest.Image, opt => opt.MapFrom(src => (IFormFile?)null));
         CreateMap<Teacher, TeacherDto>();
         CreateMap<TeacherDto, Teacher>();
         CreateMap<MaterialDto, Material>();
@@ -22,5 +25,25 @@ public class MapperProfile : Profile
         CreateMap<ForumDto, Forum>();
         CreateMap<Comment, CommentDto>();
         CreateMap<CommentDto, Comment>();
+    }
+
+    private string ConvertToString(IFormFile file, string webRootPath)
+    {
+        string path = "";
+        if (file.Length > 0)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+
+            var filePath = Path.Combine(webRootPath, "wwwroot", "images", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyToAsync(stream).Wait();
+            }
+
+            path = $"/images/{fileName}";
+        }
+
+        return path;
     }
 }

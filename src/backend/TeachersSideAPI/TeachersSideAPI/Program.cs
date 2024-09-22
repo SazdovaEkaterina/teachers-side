@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -60,6 +61,11 @@ builder.Services.AddAuthentication("Bearer")
         }
     );
 
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 104857600;
+});
+
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IForumRepository, ForumRepository>();
@@ -75,7 +81,14 @@ builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<ISubjectService, SubjectService>();
 
 builder.Services.AddTransient<IJwtSecurityTokenGenerator, JwtSecurityTokenGenerator>();
-builder.Services.AddAutoMapper(typeof(MapperProfile));
+
+var env = builder.Environment;
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile(new MapperProfile(env.ContentRootPath)); 
+});
+
 builder.Services.AddScoped(typeof(UserManager<>));
 
 var app = builder.Build();
@@ -85,6 +98,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

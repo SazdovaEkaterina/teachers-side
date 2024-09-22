@@ -20,22 +20,30 @@ export class EventsService {
     });
   }
 
-  public addEvent(event: IEvent): Observable<boolean> {
+  public addEvent(formData: FormData): Observable<boolean> {
     const headers = this.buildRequestHeaders();
+    headers.set("type", "application/json");
     const creator = this.userService.getUser();
+    if (creator) {
+        formData.append("creatorDto", JSON.stringify(creator));
+    }
     return this.httpClient.post<boolean>(
       `https://localhost:7067/api/events/add`,
-      { ...event, creator },
+      formData,
       { headers }
     );
   }
 
-  public editEvent(event: IEvent): Observable<boolean> {
+  public editEvent(formData: FormData): Observable<boolean> {
     const headers = this.buildRequestHeaders();
+    headers.set("type", "application/json");
     const creator = this.userService.getUser();
+    if (creator) {
+        formData.append("creatorDto", JSON.stringify(creator));
+    }
     return this.httpClient.post<boolean>(
-      `https://localhost:7067/api/events/${event.id}/edit`,
-      { ...event, creator },
+      `https://localhost:7067/api/events/${formData.get("id")}/edit`,
+      formData,
       { headers }
     );
   }

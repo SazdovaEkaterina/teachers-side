@@ -19,7 +19,8 @@
       </div>
       <div>
         <label for="image">Image Link</label>
-        <input id="image" formControlName="image" type="text" />
+        <input id="image" formControlName="image" type="file" (change)="onImageUpload($event)"/>
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" width="200" height="200"/>
       </div>
       <div>
         <label for="startDate">Start Date</label>
@@ -34,7 +35,7 @@
       </div>
       <mat-card-actions>
         <button mat-button (click)="closeAddEdit.emit(false)">Cancel</button>
-        <button mat-button type="submit" [disabled]="!formGroup.valid">
+        <button mat-button type="submit" [disabled]="!formGroup.valid && !isEditMode">
           Save
         </button>
       </mat-card-actions>

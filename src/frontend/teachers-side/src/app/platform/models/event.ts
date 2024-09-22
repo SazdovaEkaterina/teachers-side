@@ -6,7 +6,8 @@ export interface IEvent {
   title: string;
   location: string;
   description: string;
-  image: string;
+  image: File | null;
+  imagePath: string | null;
   startDate: Date;
   endDate: Date;
 }
