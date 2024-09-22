@@ -1,25 +1,61 @@
 <div *ngIf="isLoading" class="text-center">Loading...</div>
-<mat-card class="example-card shadow-sm mt-3" style="margin:30px" appearance="outlined" *ngIf="!isLoading && forumPost">
+<mat-card
+  class="example-card shadow-sm mt-3"
+  style="margin: 30px"
+  appearance="outlined"
+  *ngIf="!isLoading && forumPost"
+>
   <mat-card-header class="d-flex align-items-center">
-    <img src="path/to/avatar.jpg" class="rounded-circle mr-2" alt="avatar" width="40" height="40" />
-    <div style="padding: 20px;">
-      <mat-card-title style="margin-top: -30px; margin-left:-50px; font-weight:bold; ">{{ forumPost.title }}</mat-card-title>
+    <img
+      src="path/to/avatar.jpg"
+      class="rounded-circle mr-2"
+      alt="avatar"
+      width="40"
+      height="40"
+    />
+    <div style="padding: 20px">
+      <mat-card-title
+        style="margin-top: -30px; margin-left: -50px; font-weight: bold"
+        >{{ forumPost.title }}</mat-card-title
+      >
       <mat-card-subtitle>
-        <span>{{ forumPost.creator.firstName }} {{ forumPost.creator.lastName }}</span> <br>
-        <small class="text-muted">{{ forumPost.dateCreated | date:'longDate' }}</small>
+        <span
+          >{{ forumPost.creator.firstName }}
+          {{ forumPost.creator.lastName }}</span
+        >
+        <br />
+        <small class="text-muted">{{
+          forumPost.dateCreated | date : "longDate"
+        }}</small>
       </mat-card-subtitle>
     </div>
   </mat-card-header>
-  <mat-card-content><br>
+  <mat-card-content
+    ><br />
     <p>{{ forumPost.content }}</p>
     <hr />
     <div class="text-muted">
-      Last Edited: {{ forumPost.lastEdited | date:'short' }} <br />
-      Date Created: {{ forumPost.dateCreated | date:'short' }}
+      Last Edited: {{ forumPost.lastEdited | date : "short" }} <br />
+      Date Created: {{ forumPost.dateCreated | date : "short" }}
     </div>
-    <mat-card-actions *ngIf="isCreator(forumPost)" class="d-flex justify-content-end">
-      <button mat-button class="btn btn-primary" (click)="handleEdit(forumPost)">Edit</button>
-      <button mat-button class="btn btn-danger" (click)="handleDelete(forumPost.id)">Delete</button>
+    <mat-card-actions
+      *ngIf="isCreator(forumPost)"
+      class="d-flex justify-content-end"
+    >
+      <button
+        mat-button
+        class="btn btn-primary"
+        (click)="handleEdit(forumPost)"
+      >
+        Edit
+      </button>
+      <button
+        mat-button
+        class="btn btn-danger"
+        (click)="handleDelete(forumPost.id)"
+      >
+        Delete
+      </button>
     </mat-card-actions>
     <mat-expansion-panel (opened)="handleCommentsPanelOpen()">
       <mat-expansion-panel-header>

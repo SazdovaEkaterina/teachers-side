@@ -1,25 +1,55 @@
 <div class="container mt-5">
-  <div class="card" style="background-color: #F0F2EF; width:500px;">
+  <div class="card" style="background-color: #f0f2ef; width: 500px">
     <div class="card-header">
-      <button class="btn btn-light float-left" (click)="closeAddEdit.emit(false)">Back</button>
+      <button
+        class="btn btn-light float-left"
+        (click)="closeAddEdit.emit(false)"
+      >
+        Back
+      </button>
       <h3 class="text-center">{{ title }}</h3>
     </div>
     <div class="card-body">
       <form [formGroup]="formGroup" (submit)="submit()">
         <div class="form-group">
           <label for="title">Title</label>
-          <input id="title" formControlName="title" type="text" class="form-control w-100" /> <!-- Added w-100 for full width -->
+          <input
+            id="title"
+            formControlName="title"
+            type="text"
+            class="form-control w-100"
+          />
+          <!-- Added w-100 for full width -->
         </div>
         <div class="form-group">
           <label for="content">Content</label>
-          <textarea id="content" formControlName="content" type="text" class="form-control w-100" rows="5"></textarea> <!-- Use textarea for larger content area -->
+          <textarea
+            id="content"
+            formControlName="content"
+            type="text"
+            class="form-control w-100"
+            rows="5"
+          ></textarea>
+          <!-- Use textarea for larger content area -->
         </div>
         <div class="text-danger mb-3">
           {{ errorMessage }}
         </div>
         <div class="d-flex justify-content-center">
-          <button class="btn btn-primary" type="submit" style="background-color: #588157; border-color: #588157;" [disabled]="!formGroup.valid">
-            Add Post
+          <button
+            mat-button
+            (click)="closeAddEdit.emit(false)"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            style="background-color: #588157; border-color: #588157"
+            [disabled]="!formGroup.valid"
+          >
+            Save
           </button>
         </div>
       </form>

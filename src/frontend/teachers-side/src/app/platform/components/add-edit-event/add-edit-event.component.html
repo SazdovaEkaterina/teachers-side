@@ -1,4 +1,6 @@
-<button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-secondary">Back</button>
+<button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-secondary">
+  Back
+</button>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -10,36 +12,82 @@
           <form [formGroup]="formGroup" (submit)="submit()">
             <div class="form-group">
               <label for="title">Title</label>
-              <input id="title" formControlName="title" type="text" class="form-control" />
+              <input
+                id="title"
+                formControlName="title"
+                type="text"
+                class="form-control"
+              />
             </div>
             <div class="form-group">
               <label for="location">Location</label>
-              <input id="location" formControlName="location" type="text" class="form-control" />
+              <input
+                id="location"
+                formControlName="location"
+                type="text"
+                class="form-control"
+              />
             </div>
             <div class="form-group">
               <label for="description">Description</label>
-              <textarea id="description" formControlName="description" class="form-control"></textarea>
+              <textarea
+                id="description"
+                formControlName="description"
+                class="form-control"
+              ></textarea>
             </div>
-            <div class="form-group">
-              <label for="image">Upload a photo</label>
-              <input id="image" formControlName="image" type="file" class="form-control-file" />
+            <div>
+              <label for="image">Upload a Photo</label>
+              <input
+                id="image"
+                formControlName="image"
+                type="file"
+                (change)="onImageUpload($event)"
+                class="form-control-file"
+              />
+              <img
+                *ngIf="imagePreview"
+                [src]="imagePreview"
+                alt="Image Preview"
+                width="200"
+                height="200"
+              />
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="startDate">Start Date</label>
-                <input id="startDate" formControlName="startDate" type="date" class="form-control" />
+                <input
+                  id="startDate"
+                  formControlName="startDate"
+                  type="datetime-local"
+                />
               </div>
               <div class="form-group col-md-6">
                 <label for="endDate">End Date</label>
-                <input id="endDate" formControlName="endDate" type="date" class="form-control" />
+                <input
+                  id="endDate"
+                  formControlName="endDate"
+                  type="datetime-local"
+                />
               </div>
             </div>
             <div class="form-group text-danger">
               {{ errorMessage }}
             </div>
             <div class="card-footer">
-              <button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-secondary">Cancel</button>
-              <button mat-button type="submit" [disabled]="!formGroup.valid" class="btn btn-primary">
+              <button
+                mat-button
+                (click)="closeAddEdit.emit(false)"
+                class="btn btn-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                mat-button
+                type="submit"
+                [disabled]="!formGroup.valid"
+                class="btn btn-primary"
+              >
                 Save
               </button>
             </div>

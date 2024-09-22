@@ -55,22 +55,47 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
     formData.append('description', this.formGroup.get('description')?.value);
     formData.append('location', this.formGroup.get('location')?.value);
 
-    const startDate = this.formGroup.get('startDate')?.value;
-    const endDate = this.formGroup.get('endDate')?.value;
+    const startDateLocal = this.formGroup.get('startDate')?.value;
+    const startDateUtc = new Date(`${startDateLocal}Z`);
+    const startDateIsoString = new Date(startDateUtc.getTime() + startDateUtc.getTimezoneOffset() * 60000).toISOString();
 
-    if (startDate instanceof Date) {
-      formData.append('startDate', startDate.toISOString());
-    }
-  
-    if (endDate instanceof Date) {
-      formData.append('endDate', endDate.toISOString());
-    }
+    const endDateLocal = this.formGroup.get('endDate')?.value;
+    const endDateUtc = new Date(`${endDateLocal}Z`);
+    const endDateIsoString = new Date(endDateUtc.getTime() + endDateUtc.getTimezoneOffset() * 60000).toISOString();
+
+    formData.append('startDate', startDateIsoString);
+    formData.append('endDate', endDateIsoString);
 
     if (this.selectedFile) {
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
     
     this.submitEvent(formData);
+  }
+
+  public onImageUpload(event: any) {
+    const file = event.target.files[0] as File;
+
+    if (file) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+  
+      if (!validImageTypes.includes(file.type.toLocaleLowerCase())) {
+        this.errorMessage = 'Invalid file type. Please upload an image of type JPG, PNG, JPEG or GIF.';
+        this.selectedFile = null;
+        this.imagePreview = null;
+        return;
+      } else {
+        this.errorMessage = '';
+      }
+    }
+
+    this.selectedFile = file;
+    this.imagePreview = URL.createObjectURL(file);
+  }
+
+  public ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   private submitEvent(formData: FormData) {
@@ -112,11 +137,6 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
   private initializeForm() {
     this.formGroup = this.formBuilder.group({
       title: [
@@ -136,31 +156,8 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
       endDate: [this.event?.endDate ?? new Date(), [Validators.required]],
     });
 
-    console.log(this.isEditMode)
-    console.log(this.event?.imagePath)
-
-
     if (this.isEditMode && this.event?.imagePath) {
       this.imagePreview = 'https://localhost:7067' + this.event.imagePath;
-      console.log(this.imagePreview)
     }
-  }
-
-  public onImageUpload(event: any) {
-    const file = event.target.files[0] as File;
-
-    if (file) {
-      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-  
-      if (!validImageTypes.includes(file.type.toLocaleLowerCase())) {
-        this.errorMessage = 'Invalid file type. Please upload an image of type JPG, PNG, JPEG or GIF.';
-        this.selectedFile = null;
-        this.imagePreview = null;
-        return;
-      }
-    }
-
-    this.selectedFile = file;
-    this.imagePreview = URL.createObjectURL(file);
   }
 }

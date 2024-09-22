@@ -17,7 +17,13 @@
         {{ errorMessage }}
       </div>
       <mat-card-actions>
-        <button mat-button (click)="closeAddEdit.emit(false)">Cancel</button>
+        <button
+          mat-button
+          (click)="closeAddEdit.emit(false)"
+          class="btn btn-secondary"
+        >
+          Cancel
+        </button>
         <button mat-button type="submit" [disabled]="!formGroup.valid">
           Save
         </button>

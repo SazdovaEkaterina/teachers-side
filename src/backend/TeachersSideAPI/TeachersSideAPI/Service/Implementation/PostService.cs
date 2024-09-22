@@ -72,7 +72,6 @@ public class PostService : IPostService
                        ?? throw new UserNotFoundException($"User with email {post.Creator.Email} not found.");
         post.Title = postDto.Title;
         post.Content = postDto.Content;
-        post.DateCreated = postDto.DateCreated;
         post.LastEdited = DateTime.UtcNow;
 
         return await _postRepository.SaveChangesAsync();
