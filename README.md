@@ -8,9 +8,9 @@ A web application designed for primary and high school teachers to post question
 
 The application features user authentication & authorization. Users can create accounts which are then linked to the resources they create enabling them to manage their resources.
 
-![Register Page](./img/register-page.png)
+![Register Page](./screenshots/register-page.png)
 
-![Login Page](./img/login-page.png)
+![Login Page](./screenshots/login-page.png)
 
 ### Resource Sharing
 

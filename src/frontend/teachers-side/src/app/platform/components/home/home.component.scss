@@ -1,57 +1,28 @@
-.navbar-brand h1 {
-  font-size: 24px;
+html, body {
+  height: 100%;
   margin: 0;
-  color: #000;
+  padding: 0;
 }
 
-.navbar-brand p {
-  font-size: 14px;
-  margin: 0;
-  color: #7a7a7a;
+html {
+  background-color: #f0f2ef;
 }
 
-.nav-link {
-  color: #333 !important;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
+body {
+  background-color: #f0f2ef;
+  background-attachment: scroll;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.nav-link i {
-  margin-right: 8px;
+.logo {
+  width: 300px;
 }
 
-.nav-link:hover {
-  background-color: white !important;
-}
-
-.logout-button {
-  background-color: #000;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.logout-button:hover {
-  background-color: #333;
-}
-
-div ul {
-  padding-top: 100px;
-  margin-right: 750px;
-  margin-bottom: -10px;
-}
-
-.container {
-  background-color: #fff;
-  padding: 20px;
-  position: relative;
-  margin-left: 200px;
-  max-width: 1200px;
-  height: 900px;
-  width: 70%;
-  text-align: center;
+.active-tab {
+  background-color: white;
+  border-radius: 24px 24px 0px 0px;
+  padding: 24px;
+  margin-left: -24px;
+  margin-right: -24px;
 }
