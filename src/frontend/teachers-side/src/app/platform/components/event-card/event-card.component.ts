@@ -20,7 +20,8 @@ export class EventCardComponent {
     title: '',
     location: '',
     description: '',
-    image: '',
+    image: new File([], "empty.jpg", { type: "image/jpeg" }),
+    imagePath: null,
     startDate: new Date(),
     endDate: new Date(),
   };

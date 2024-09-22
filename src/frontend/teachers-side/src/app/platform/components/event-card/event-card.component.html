@@ -9,7 +9,7 @@
     <mat-card-title>{{ event.title }}</mat-card-title>
     <mat-card-subtitle>{{ event.location }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="{{ event.image }}" />
+  <img mat-card-image  [src]="'https://localhost:7067' +  event.imagePath" alt="Event Image" *ngIf="event.imagePath"/>
   <mat-card-content>
     <div>
       {{ event.description }}

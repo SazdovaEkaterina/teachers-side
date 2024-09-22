@@ -32,6 +32,8 @@ public class EventService : IEventService
     {
         var evt = await _eventRepository.GetAsync(id);
         
+        EventDto eventDto = _mapper.Map<EventDto>(evt);
+        
         return evt != null ? _mapper.Map<EventDto>(evt) : null;
     }
 
@@ -58,19 +60,20 @@ public class EventService : IEventService
     public async Task<bool> EditAsync(int id, EventDto eventDto)
     {
         var evt = await _eventRepository.GetAsync(id);
-
+        
         if (evt == null)
             return false;
         
-        evt.Title = eventDto.Title;
-        evt.Description = eventDto.Description;
-        evt.Creator = await _userManager.FindByEmailAsync(eventDto.Creator.Email)
-                        ?? throw new UserNotFoundException($"User with email {evt.Creator.Email} not found");
-        evt.Location = eventDto.Location;
-        evt.Image = eventDto.Image;
+        var mappedEvent = _mapper.Map<Event>(eventDto);
+        evt.Title = mappedEvent.Title;
+        evt.Description = mappedEvent.Description;
+        evt.Creator = await _userManager.FindByEmailAsync(mappedEvent.Creator.Email)
+                        ?? throw new UserNotFoundException($"User with email {mappedEvent.Creator.Email} not found");
+        evt.Location = mappedEvent.Location;
+        evt.Image = mappedEvent.Image;
         evt.LastEdited = DateTime.UtcNow;
-        evt.StartDate = eventDto.StartDate;
-        evt.EndDate = eventDto.EndDate;
+        evt.StartDate = mappedEvent.StartDate;
+        evt.EndDate = mappedEvent.EndDate;
 
         return await _eventRepository.SaveChangesAsync();
     }
