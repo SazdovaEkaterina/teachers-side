@@ -1,44 +1,51 @@
-<button mat-button (click)="closeAddEdit.emit(false)">Back</button>
-<mat-card class="example-card" appearance="outlined">
-  <mat-card-header>
-    <mat-card-title> {{ title }} </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="formGroup" (submit)="submit()">
-      <div>
-        <label for="title">Title</label>
-        <input id="title" formControlName="title" type="text" />
+<button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-secondary">Back</button>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card p-4">
+        <div class="card-header">
+          <h3>{{ title }}</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formGroup" (submit)="submit()">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input id="title" formControlName="title" type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input id="location" formControlName="location" type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" formControlName="description" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="image">Upload a photo</label>
+              <input id="image" formControlName="image" type="file" class="form-control-file" />
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="startDate">Start Date</label>
+                <input id="startDate" formControlName="startDate" type="date" class="form-control" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="endDate">End Date</label>
+                <input id="endDate" formControlName="endDate" type="date" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group text-danger">
+              {{ errorMessage }}
+            </div>
+            <div class="card-footer">
+              <button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-secondary">Cancel</button>
+              <button mat-button type="submit" [disabled]="!formGroup.valid" class="btn btn-primary">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <label for="description">Description</label>
-        <input id="description" formControlName="description" type="text" />
-      </div>
-      <div>
-        <label for="location">Location</label>
-        <input id="location" formControlName="location" type="text" />
-      </div>
-      <div>
-        <label for="image">Image Link</label>
-        <input id="image" formControlName="image" type="file" (change)="onImageUpload($event)"/>
-        <img *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" width="200" height="200"/>
-      </div>
-      <div>
-        <label for="startDate">Start Date</label>
-        <input id="startDate" formControlName="startDate" type="datetime" />
-      </div>
-      <div>
-        <label for="endDate">End Date</label>
-        <input id="endDate" formControlName="endDate" type="datetime" />
-      </div>
-      <div style="padding: 5px" style="color: red">
-        {{ errorMessage }}
-      </div>
-      <mat-card-actions>
-        <button mat-button (click)="closeAddEdit.emit(false)">Cancel</button>
-        <button mat-button type="submit" [disabled]="!formGroup.valid && !isEditMode">
-          Save
-        </button>
-      </mat-card-actions>
-    </form>
-  </mat-card-content>
-</mat-card>
+    </div>
+  </div>
+</div>
