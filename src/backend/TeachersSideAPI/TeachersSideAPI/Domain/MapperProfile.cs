@@ -27,6 +27,26 @@ public class MapperProfile : Profile
         CreateMap<CommentDto, Comment>();
     }
     
+    private string ConvertToString(IFormFile file, string webRootPath)
+    {
+        string path = "";
+        if (file.Length > 0)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+
+            var filePath = Path.Combine(webRootPath, "wwwroot", "images", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyToAsync(stream).Wait();
+            }
+
+            path = $"/images/{fileName}";
+        }
+
+        return path;
+    }
+    
     private string ConvertFileToString(IFormFile file, string webRootPath)
     {
         string path = "";
