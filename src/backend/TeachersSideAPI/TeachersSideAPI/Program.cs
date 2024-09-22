@@ -25,6 +25,7 @@ builder.Services.AddDbContext<TeachersSideContext>(
         @"User ID = postgres;
         Password=my_password;
         Server=localhost;
+        Port=54322;	
         Database=TeachersSideDB;
         Integrated Security=true;
         Pooling=true"
