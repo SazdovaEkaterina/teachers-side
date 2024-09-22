@@ -14,7 +14,9 @@ public class EventDto
     
     public string Location { get; set; } = string.Empty;
 
-    public IFormFile Image { get; set; }
+    public IFormFile? Image { get; set; }
+    
+    public string? ImagePath { get; set; }
     
     public DateTime StartDate { get; set; }
     

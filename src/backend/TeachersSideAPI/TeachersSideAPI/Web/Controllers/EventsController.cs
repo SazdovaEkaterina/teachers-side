@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TeachersSideAPI.Domain.DTO;
 using TeachersSideAPI.Domain.Models;
 using TeachersSideAPI.Service;
@@ -35,10 +36,16 @@ public class EventsController : ControllerBase
     }
 
     [HttpPost("add")]
-    public async Task<ActionResult<bool>> AddAsync([FromBody] EventDto eventDto)
+    public async Task<ActionResult<bool>> AddAsync([FromForm] EventDto eventDto, [FromForm] string creatorDto)
     {
         try
         {
+            if (Request.Form.TryGetValue("creatorDto", out var creatorJson))
+            {
+                var creator = JsonConvert.DeserializeObject<TeacherDto>(creatorJson);
+                eventDto.Creator = creator; 
+            }
+            
             var result = await _eventService.SaveAsync(eventDto);
             return Ok(result);
         }
@@ -61,14 +68,22 @@ public class EventsController : ControllerBase
     }
     
     [HttpPost("{id}/edit")]
-    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromBody] EventDto eventDto)
+    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromForm] EventDto eventDto, [FromForm] string creatorDto)
     { 
-        var evt = await _eventService.GetAsync(id);
-        if (evt == null)
+        try
         {
-            return NotFound();
+            if (Request.Form.TryGetValue("creatorDto", out var creatorJson))
+            {
+                var creator = JsonConvert.DeserializeObject<TeacherDto>(creatorJson);
+                eventDto.Creator = creator; 
+            }
+            
+            var result = await _eventService.EditAsync(id, eventDto);
+            return Ok(result);
         }
-        var result = await _eventService.EditAsync(id, eventDto);
-        return Ok(result);
+        catch (UserNotFoundException exception)
+        {
+            return Conflict();
+        }
     }
 }
