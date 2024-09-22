@@ -36,6 +36,7 @@ export class EventsService {
 
   public editEvent(formData: FormData): Observable<boolean> {
     const headers = this.buildRequestHeaders();
+    headers.set("type", "application/json");
     const creator = this.userService.getUser();
     if (creator) {
         formData.append("creatorDto", JSON.stringify(creator));
