@@ -26,6 +26,7 @@ export class EventCardComponent {
     endDate: new Date(),
   };
   @Output() editEvent = new EventEmitter<IEvent>();
+  @Output() deleteEvent = new EventEmitter<boolean>();
 
   public isLoading: boolean = false;
 
@@ -45,6 +46,9 @@ export class EventCardComponent {
   public handleDelete(eventId: number) {
     this.isLoading = true;
     this.eventsService.deleteEvent(eventId).subscribe({
+      next: (result) => {
+        this.deleteEvent.emit(result);
+      },
       error: (error: any) => {
         console.error('Error deleting event', error);
       },
