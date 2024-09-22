@@ -24,6 +24,8 @@ The forum tab features forums for each subject, where teachers can post topics o
 
 The event tab lets the teachers view events such as teaching conferences & seminars, including the event details. They also can create events themselves to inform other techers of such events.
 
+![Events Page](./screenshots/events-page.png)
+
 ## Tech Stack
 
 The backend API is made in .NET and a PostgreSQL database is generated according to the models using .NET Identity & Entity Framework. The frontend is made using Angular and TypeScript. For styling we use some MaterialUI components & bootstrap classes. The user authorization is done using JWT which are generated on login for authenticated users and stored in the browser's local storage.
