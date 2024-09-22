@@ -112,8 +112,6 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseStaticFiles();
-
 app.MapControllers().RequireAuthorization();
 
 app.Run();
