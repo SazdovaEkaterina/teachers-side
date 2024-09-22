@@ -23,6 +23,8 @@ public class MapperProfile : Profile
         CreateMap<PostDto, Post>();
         CreateMap<Forum, ForumDto>();
         CreateMap<ForumDto, Forum>();
+        CreateMap<Comment, CommentDto>();
+        CreateMap<CommentDto, Comment>();
     }
 
     private string ConvertToString(IFormFile file, string webRootPath)

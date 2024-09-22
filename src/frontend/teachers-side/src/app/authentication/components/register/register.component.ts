@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     {
       id: 0,
       text: 'User name must be between 8 and 20 characters long.',
-      pattern: new RegExp('^[a-zA-Z0-9.*\\W.*]{8,20}$'),
+      pattern: new RegExp('^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$'),
     },
   ];
 

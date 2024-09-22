@@ -3,6 +3,7 @@ import { ISubject } from '../../models/subject';
 import { SubjectsService } from '../../service/subjects.service';
 import { IPost } from '../../models/post';
 import { ForumPostsService } from '../../service/forum-posts.service';
+import { IComment } from '../../models/comment';
 
 @Component({
   selector: 'app-forums-tab',
@@ -19,6 +20,11 @@ export class ForumsTabComponent implements OnInit {
 
   public isAddEditForumPostFormOpen: boolean = false;
   public forumPostForEdit: IPost | null = null;
+
+  public isAddEditCommentFormOpen: boolean = false;
+  public commentForAddPostId: number = 0;
+  public commentForEdit: IComment | null = null;
+  public commentsChanged: boolean = false;
 
   constructor(
     @Inject(SubjectsService) private readonly subjectsService: SubjectsService,
@@ -48,6 +54,23 @@ export class ForumsTabComponent implements OnInit {
   public onSubjectSelect(event: any) {
     this.selectedSubjectId = event.value;
     this.loadForumPosts();
+  }
+
+  public goToAddForumPostComment(forumPostId: number){
+    this.isAddEditCommentFormOpen = true;
+    this.commentForAddPostId = forumPostId;
+    this.commentForEdit = null;
+  }
+
+  public goToEditForumPostComment(forumPostComment: IComment){
+    this.isAddEditCommentFormOpen = true;
+    this.commentForAddPostId = forumPostComment.postId;
+    this.commentForEdit = forumPostComment;
+  }
+
+  public closeAddEditComment(changed: boolean) {
+    if (changed) this.commentsChanged = changed;
+    this.isAddEditCommentFormOpen = false;
   }
 
   private loadSubjects() {
