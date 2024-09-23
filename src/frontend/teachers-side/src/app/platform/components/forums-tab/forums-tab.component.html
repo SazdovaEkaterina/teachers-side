@@ -1,53 +1,54 @@
 <div class="bg-white">
-<mat-form-field
-  *ngIf="!isAddEditForumPostFormOpen && !isAddEditCommentFormOpen"
->
-  <mat-select
-    [disabled]="isSubjectsLoading"
-    (selectionChange)="onSubjectSelect($event)"
+  <div
+    *ngIf="!isAddEditForumPostFormOpen && !isAddEditCommentFormOpen"
   >
-    <mat-option *ngFor="let subject of subjects" [value]="subject.id">
-      {{ subject.name }} -
-      {{ subject.category | subjectCategory }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<app-add-edit-forum-post
-  *ngIf="isAddEditForumPostFormOpen"
-  [forumPost]="forumPostForEdit"
-  [forumId]="selectedSubjectId"
-  (closeAddEdit)="closeAddEditEvent($event)"
->
-</app-add-edit-forum-post>
-<app-add-edit-forum-post-comment
-  *ngIf="isAddEditCommentFormOpen"
-  [comment]="commentForEdit"
-  [postId]="commentForAddPostId"
-  (closeAddEdit)="closeAddEditComment($event)"
->
-</app-add-edit-forum-post-comment>
-<div
-  *ngIf="
-    selectedSubjectId &&
-    !isAddEditForumPostFormOpen &&
-    !isAddEditCommentFormOpen
-  "
->
-  <button (click)="goToAddForumPost()" class="btn btn-primary add-btn">
-    Add
-  </button>
-  <div *ngIf="isForumPostsLoading">Loading posts...</div>
-  <div *ngIf="!isForumPostsLoading">
-    <div *ngFor="let forumPost of forumPosts">
-      <app-forum-post-card
-        [forumPost]="forumPost"
-        [forumId]="selectedSubjectId"
-        [commentsChanged]="commentsChanged"
-        (editForumPost)="goToEditForumPost($event)"
-        (addComment)="goToAddForumPostComment($event)"
-        (editComment)="goToEditForumPostComment($event)"
-      ></app-forum-post-card>
+    <select
+      [disabled]="isSubjectsLoading"
+      (change)="onSubjectSelect($event)"
+      [selectedIndex]="0"
+    >
+      <option value=0 disabled selected>Select a subject</option>
+      <option *ngFor="let subject of subjects" [value]="subject.id">
+        {{ subject.name }} ({{ subject.category | subjectCategory }})
+      </option>
+    </select>
+  </div>
+  <app-add-edit-forum-post
+    *ngIf="isAddEditForumPostFormOpen"
+    [forumPost]="forumPostForEdit"
+    [forumId]="selectedSubjectId"
+    (closeAddEdit)="closeAddEditEvent($event)"
+  >
+  </app-add-edit-forum-post>
+  <app-add-edit-forum-post-comment
+    *ngIf="isAddEditCommentFormOpen"
+    [comment]="commentForEdit"
+    [postId]="commentForAddPostId"
+    (closeAddEdit)="closeAddEditComment($event)"
+  >
+  </app-add-edit-forum-post-comment>
+  <div
+    *ngIf="
+      selectedSubjectId &&
+      !isAddEditForumPostFormOpen &&
+      !isAddEditCommentFormOpen
+    "
+  >
+    <button (click)="goToAddForumPost()" class="btn btn-primary add-btn">
+      Add
+    </button>
+    <div *ngIf="isForumPostsLoading">Loading posts...</div>
+    <div *ngIf="!isForumPostsLoading">
+      <div *ngFor="let forumPost of forumPosts">
+        <app-forum-post-card
+          [forumPost]="forumPost"
+          [forumId]="selectedSubjectId"
+          [commentsChanged]="commentsChanged"
+          (editForumPost)="goToEditForumPost($event)"
+          (addComment)="goToAddForumPostComment($event)"
+          (editComment)="goToEditForumPostComment($event)"
+        ></app-forum-post-card>
+      </div>
     </div>
   </div>
-</div>
 </div>
