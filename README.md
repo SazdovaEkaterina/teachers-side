@@ -20,6 +20,10 @@ The materials tab allows users to access resources uploaded by other users. They
 
 The forum tab features forums for each subject, where teachers can post topics or questions regarding that subject.
 
+![Forum Page](./screenshots/forum-page.png)
+
+![Forum Page Comments](./screenshots/forum-page-comments.png)
+
 ### Upcoming Events
 
 The event tab lets the teachers view events such as teaching conferences & seminars, including the event details. They also can create events themselves to inform other techers of such events.

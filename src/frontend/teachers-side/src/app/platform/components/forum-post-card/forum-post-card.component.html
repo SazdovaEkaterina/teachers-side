@@ -1,39 +1,39 @@
 <div *ngIf="isLoading" class="text-center">Loading...</div>
 <mat-card
-  class="mat-card shadow-sm mt-3"
-  style="margin: 30px"
+  class="card mb-4"
   appearance="outlined"
   *ngIf="!isLoading && forumPost"
 >
-  <mat-card-header class="d-flex align-items-center">
-    <img
-      src="./../../../../assets/images/generic-profile.png"
-      class="rounded-circle mr-2"
-      alt="avatar"
-      width="40"
-      height="40"
-    />
-    <div style="padding: 20px">
-      <mat-card-title
-        style="margin-top: -30px; margin-left: -50px; font-weight: bold"
-        >{{ forumPost.title }}</mat-card-title
-      >
-      <mat-card-subtitle>
-        <span
-          >{{ forumPost.creator.firstName }}
-          {{ forumPost.creator.lastName }}</span
-        >
-        <br />
-        <small class="text-muted">{{ forumPost.dateCreated | date : "medium" }}</small>
-      </mat-card-subtitle>
-    </div>
+  <mat-card-header>
+    <mat-card-title
+      ><h5>{{ forumPost.title }}</h5></mat-card-title
+    >
+    <mat-card-subtitle
+      ><small class="text-muted">{{
+        forumPost.dateCreated | date : "medium"
+      }}</small></mat-card-subtitle
+    >
   </mat-card-header>
-  <mat-card-content
-    ><br />
-    <p>{{ forumPost.content }}</p>
+  <mat-card-content class="mt-2">
+    <div>
+      <img
+        src="./../../../../assets/images/generic-profile.png"
+        class="rounded-circle mr-2"
+        alt="avatar"
+        width="40"
+        height="40"
+      />
+      <span
+        >{{ forumPost.creator.firstName }}
+        {{ forumPost.creator.lastName }}</span
+      >
+    </div>
+    <hr />
+    <div>{{ forumPost.content }}</div>
     <hr />
     <small class="text-muted">
-      Last Edited: {{ hasBeenEdited() ? (forumPost.lastEdited | date : "medium") : 'Never' }}
+      Last Edited:
+      {{ hasBeenEdited() ? (forumPost.lastEdited | date : "medium") : "Never" }}
     </small>
     <mat-card-actions
       *ngIf="isCreator(forumPost)"
@@ -54,14 +54,16 @@
         Delete
       </button>
     </mat-card-actions>
-    <mat-expansion-panel (opened)="handleCommentsPanelOpen()">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Comments </mat-panel-title>
+    <mat-expansion-panel (opened)="handleCommentsPanelOpen()" class="bg-white mt-3">
+      <mat-expansion-panel-header class="pt-3 pb-2">
+        <mat-panel-title> <h6>Comments</h6> </mat-panel-title>
       </mat-expansion-panel-header>
-      <button (click)="handleAddComment()" class="btn btn-primary add-btn">Add Comment</button>
+      <button (click)="handleAddComment()" class="btn btn-primary add-btn mb-3">
+        Add Comment
+      </button>
       <div *ngIf="isCommentsLoading">Loading...</div>
       <div *ngIf="!isCommentsLoading && !comments.length">
-        This post doesn't have any comments.
+        This post doesn't have any comments... Be the first to add one!
       </div>
       <div *ngIf="!isCommentsLoading && comments.length">
         <div *ngFor="let comment of comments">
