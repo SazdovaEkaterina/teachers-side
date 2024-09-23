@@ -1,22 +1,21 @@
-button{
-    background-color: #5171A5;
+.add-btn {
+  background-color: #5171a5;
+  border: #5171a5;
+  color: #ffffff;
+  cursor: pointer;
+}
 
-    color: #fff;
+.add-btn:disabled {
+  background-color: #5171a5;
+  opacity: 75%;
+  border: #5171a5;
+  color: #ffffff;
+  cursor: pointer;
+}
 
-    padding: 10px;
-
-    width: 80px;
-
-    border: none;
-
-    border-radius: 5px;
-
-    cursor: pointer;
-
-    font-weight: bold;
-
-    font-size: 16px;
-
-    margin:50px;
-
+.add-btn:hover {
+  background-color: darken(#5171a5, 10%);
+  border: #5171a5;
+  color: #ffffff;
+  cursor: pointer;
 }

@@ -1,6 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #f0f2ef;
+}
+
 body {
   background-color: #f0f2ef;
-  overflow: visible;
+  background-attachment: scroll;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 .logo {
