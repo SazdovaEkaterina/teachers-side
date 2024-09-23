@@ -1,62 +1,48 @@
-<button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-secondary">
-  Back
-</button>
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card p-4 shadow-sm" style="width: 400px">
-        <div class="card-header text-center">
-          <h3>{{ title }}</h3>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="formGroup" (submit)="submit()">
-            <div class="form-group">
-              <label for="fileTitle">Title:</label>
-              <input
-                id="fileTitle"
-                formControlName="fileTitle"
-                type="text"
-                class="form-control"
-              /><br />
-            </div>
-            <div class="form-group">
-              <label for="filePath">Upload file:</label><br />
-              <div class="file-upload">
-                <img
-                  src="path/to/xls-icon.png"
-                  alt="file.xls"
-                  class="img-thumbnail file-icon"
-                />
-                <input
-                  id="filePath"
-                  formControlName="filePath"
-                  type="file"
-                  class="form-control-file"
-                />
-              </div>
-            </div>
-            <div class="form-group text-danger">
-              {{ errorMessage }}
-            </div>
-            <div class="text-center mt-3">
-              <button
-                mat-button
-                (click)="closeAddEdit.emit(false)"
-                class="btn btn-secondary"
-              >
-                Cancel
-              </button>
-              <button
-                mat-button
-                type="submit"
-                [disabled]="!formGroup.valid"
-                class="btn btn-primary"
-              >
-                Add
-              </button>
-            </div>
-          </form>
-        </div>
+<div class="row justify-content-center">
+  <div class="col-9 p-5 bg-white">
+    <button mat-button (click)="closeAddEdit.emit(false)" class="btn btn-dark">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Back
+    </button>
+    <div class="form-card p-4 mt-4">
+      <div class="card-header bg-transparent">
+        <h4>{{ title }}</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="formGroup" (submit)="submit()">
+          <div class="form-group">
+            <label for="fileTitle">Title</label>
+            <input
+              id="fileTitle"
+              formControlName="fileTitle"
+              type="text"
+              class="form-control w-100"
+            />
+          </div>
+          <div class="form-group">
+            <label for="File">File</label>&nbsp;
+            <input type="file" id="File" formControlName="file" (change)="onFileUpload($event)"/>
+            <a mat-card-image *ngIf="materialPathPreview" href="'https://localhost:7067' + materialPathPreview" download="materialPathPreview">{{ selectedFile?.name }}</a>
+          </div>
+          <div class="text-danger mb-3">
+            {{ errorMessage }}
+          </div>
+          <div class="card-footer bg-transparent d-flex justify-content-end">
+            <button
+              mat-button
+              (click)="closeAddEdit.emit(false)"
+              class="btn btn-secondary mr-3"
+            >
+              Cancel
+            </button>
+            <button
+              class="btn btn-primary save-btn"
+              type="submit"
+              [disabled]="!formGroup.valid"
+            >
+              Save
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

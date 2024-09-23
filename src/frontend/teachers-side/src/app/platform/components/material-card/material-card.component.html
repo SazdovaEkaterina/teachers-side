@@ -1,19 +1,60 @@
-<mat-card class="example-card" appearance="outlined" *ngIf="material">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ material.fileTitle }}</mat-card-title>
-    <mat-card-subtitle>File type: {{ material.fileType | fileType }}</mat-card-subtitle>
+<div *ngIf="isLoading">Loading...</div>
+<mat-card
+  class="card mb-4"
+  appearance="outlined"
+  *ngIf="!isLoading && material"
+>
+  <mat-card-header class="d-flex align-items-center">
+    <mat-card-title
+      ><h6>{{ material.fileTitle }}</h6></mat-card-title
+    >
+    <mat-card-subtitle>
+      <small class="text-muted">{{
+        material.dateCreated | date : "medium"
+      }}</small>
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div>
-      Uploaded by: {{ material.creator.firstName }}
-      {{ material.creator.lastName }}
+      <img
+        src="./../../../../assets/images/generic-profile.png"
+        class="rounded-circle mr-2"
+        alt="avatar"
+        width="40"
+        height="40"
+      />
+      <span
+        >{{ material.creator.firstName }} {{ material.creator.lastName }}</span
+      >
     </div>
-    <br />
-    <div>Date created: {{ material.dateCreated }}</div>
+    <hr />
+    <div>
+      <a
+        mat-card-image
+        [href]="'https://localhost:7067' + material.filePath"
+        [download]="material.filePath"
+        *ngIf="material.filePath"
+        ><i class="fas fa-file"></i>&nbsp;{{ material.file?.name }}</a
+      >
+    </div>
+    <mat-card-actions
+      *ngIf="isCreator(material)"
+      class="d-flex justify-content-end"
+    >
+      <button
+        mat-button
+        class="btn btn-secondary mr-3"
+        (click)="handleEdit(material)"
+      >
+        Edit
+      </button>
+      <button
+        mat-button
+        class="btn btn-danger"
+        (click)="handleDelete(material.id)"
+      >
+        Delete
+      </button>
+    </mat-card-actions>
   </mat-card-content>
-  <mat-card-actions *ngIf="isCreator(material)">
-    <button mat-button (click)="handleEdit(material)">Edit</button>
-    <button mat-button (click)="handleDelete(material.id)">Delete</button>
-  </mat-card-actions>
 </mat-card>

@@ -437,3 +437,6 @@ src/frontend/teachers-side/dist/
 
 src/backend/TeachersSideAPI/TeachersSideAPI/wwwroot/images/*
 !src/backend/TeachersSideAPI/TeachersSideAPI/wwwroot/images/.gitkeep
+
+src/backend/TeachersSideAPI/TeachersSideAPI/wwwroot/files/*
+!src/backend/TeachersSideAPI/TeachersSideAPI/wwwroot/files/.gitkeep

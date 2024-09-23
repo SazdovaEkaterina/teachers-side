@@ -50,6 +50,10 @@ export class MaterialsTabComponent {
     this.loadMaterials();
   }
 
+  public handleDeletedMaterial(changed: boolean) {
+    if(changed) this.loadMaterials();
+  }
+
   public getSelectedSubject(): ISubject {
     return (
       this.subjects.find(

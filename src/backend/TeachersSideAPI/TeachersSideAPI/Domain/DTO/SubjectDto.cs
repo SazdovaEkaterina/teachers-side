@@ -7,11 +7,9 @@ namespace TeachersSideAPI.Domain.DTO;
 public class SubjectDto
 {
     public int Id { get; }
+
+    public string Name { get; set; } = string.Empty;
     
-    [Required]
-    public string Name { get; set; }
-    
-    [Required]
     public Category Category { get; set; }
     
     public List<TeacherDto>? Teachers { get; set; }

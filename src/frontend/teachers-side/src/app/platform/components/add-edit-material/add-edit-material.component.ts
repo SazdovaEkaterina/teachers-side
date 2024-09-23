@@ -24,22 +24,24 @@ export class AddEditMaterialComponent {
   public isEditMode: boolean = false;
   public formGroup: FormGroup;
   public errorMessage: string | undefined;
+  public selectedFile: File | null = null;
+  public materialPathPreview: string | null = null;
 
   private ngUnsubscribe = new Subject<void>();
 
   constructor(
     @Inject(FormBuilder) private readonly formBuilder: FormBuilder,
     @Inject(MaterialsService)
-    private readonly materialsService: MaterialsService,
-    @Inject(UserService) private readonly userService: UserService
+    private readonly materialsService: MaterialsService
   ) {
     this.formGroup = this.formBuilder.group({});
   }
 
   public ngOnInit(): void {
+    this.isEditMode = this.material ? true : false;
     this.initializeForm();
     this.title = this.material ? 'Edit Material' : 'Add Material';
-    this.isEditMode = this.material ? true : false;
+    this.materialPathPreview = this.material?.filePath || null;
   }
 
   public ngOnDestroy(): void {
@@ -47,18 +49,32 @@ export class AddEditMaterialComponent {
     this.ngUnsubscribe.complete();
   }
 
-  public submit(): void {
+  public submit()
+  {
+    const formData = new FormData();
+
     const id = this.material?.id ?? 0;
-    const creator = this.userService.getUser;
-    const payload = {
-      ...this.formGroup.getRawValue(),
-      creator,
-      id,
-      subject: this.subject,
-    } as IMaterial;
+    formData.append('id', id.toString());
+
+    if(this.subject)
+    {
+      formData.append('subjectDto', JSON.stringify(this.subject));
+    }
+    
+    formData.append('fileTitle', this.formGroup.get('fileTitle')?.value);
+    formData.append('fileType', this.formGroup.get('fileType')?.value);
+
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.submitMaterial(formData);
+  }
+
+  public submitMaterial(formData: FormData): void {
     if (this.isEditMode) {
       this.materialsService
-        .editMaterial(payload)
+        .editMaterial(formData)
         .pipe(
           tap((result) => {
             this.closeAddEdit.emit(result);
@@ -76,7 +92,7 @@ export class AddEditMaterialComponent {
         .subscribe();
     } else {
       this.materialsService
-        .addMaterial(payload)
+        .addMaterial(formData)
         .pipe(
           tap((result) => {
             this.closeAddEdit.emit(result);
@@ -97,8 +113,45 @@ export class AddEditMaterialComponent {
   private initializeForm(): void {
     this.formGroup = this.formBuilder.group({
       fileTitle: [this.material?.fileTitle ?? '', [Validators.required]],
-      filePath: [this.material?.filePath ?? '', [Validators.required]],
       fileType: [this.material?.fileType ?? 0, [Validators.required]],
+      file: [null, this.isEditMode ? null : [Validators.required]],
     });
+
+    if (this.isEditMode && this.material?.file) {
+      this.materialPathPreview = 'https://localhost:7067' + this.material.filePath;
+      this.selectedFile = this.material.file;
+    }
+  }
+
+  public onFileUpload(event: any) {
+    this.errorMessage = undefined;
+    const file = event.target.files[0] as File;
+
+    if (file) {
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      switch (fileExtension) {
+        case 'pdf':
+            this.formGroup.get('fileType')?.setValue(0); // PDF
+            break;
+        case 'docx':
+            this.formGroup.get('fileType')?.setValue(1); // DOCX
+            break;
+        case 'xls':
+            this.formGroup.get('fileType')?.setValue(2); // XLS
+            break;
+        case 'pptx':
+            this.formGroup.get('fileType')?.setValue(3); // PPTX
+            break;
+        default:
+            this.errorMessage = 'Invalid file type. Please upload a valid file.';
+            this.selectedFile = null;
+            this.materialPathPreview = null;
+            return;
+      }
+
+      this.selectedFile = file;
+      this.materialPathPreview = URL.createObjectURL(file);
+    }
   }
 }

@@ -23,6 +23,7 @@ export class MaterialCardComponent {
     dateCreated: new Date(),
     fileTitle: '',
     filePath: '',
+    file: null,
     fileType: 0,
   };
   @Input() subject: ISubject = {
@@ -31,6 +32,7 @@ export class MaterialCardComponent {
     category: 0,
   };
   @Output() editMaterial = new EventEmitter<IMaterial>();
+  @Output() deleteMaterial = new EventEmitter<boolean>();
 
   public isLoading: boolean = false;
 
@@ -51,6 +53,9 @@ export class MaterialCardComponent {
   public handleDelete(materialId: number) {
     this.isLoading = true;
     this.materialsService.deleteMaterial(materialId).subscribe({
+      next: (result: boolean) => {
+        this.deleteMaterial.emit(result);
+      },
       error: (error: any) => {
         console.error('Error deleting material', error);
       },

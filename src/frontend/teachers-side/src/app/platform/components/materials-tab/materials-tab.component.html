@@ -24,12 +24,13 @@
       </button>
       <div *ngIf="isMaterialsLoading">Loading materials...</div>
       <div *ngIf="!isMaterialsLoading && !materials.length">There are no materials for this subject yet... Be the first to add one!</div>
-      <div *ngIf="!isMaterialsLoading">
-        <div *ngFor="let material of materials">
+      <div *ngIf="!isMaterialsLoading" class="row">
+        <div *ngFor="let material of materials" class="col-3">
           <app-material-card
             [material]="material"
             [subject]="getSelectedSubject()"
             (editMaterial)="goToEditMaterial($event)"
+            (deleteMaterial)="handleDeletedMaterial($event)"
           ></app-material-card>
         </div>
       </div>

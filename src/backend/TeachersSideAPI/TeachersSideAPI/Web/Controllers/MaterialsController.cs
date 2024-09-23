@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TeachersSideAPI.Domain.DTO;
 using TeachersSideAPI.Service;
 
@@ -29,10 +30,22 @@ public class MaterialsController : ControllerBase
     }
 
     [HttpPost("add")]
-    public async Task<ActionResult<bool>> AddAsync([FromBody] MaterialDto materialDto)
+    public async Task<ActionResult<bool>> AddAsync([FromForm] MaterialDto materialDto)
     {
         try
         {
+            if (Request.Form.TryGetValue("creatorDto", out var creatorJson))
+            {
+                var creator = JsonConvert.DeserializeObject<TeacherDto>(creatorJson);
+                 materialDto.Creator = creator; 
+            }
+            
+            if (Request.Form.TryGetValue("subjectDto", out var subjectJson))
+            {
+                var subject = JsonConvert.DeserializeObject<SubjectDto>(subjectJson);
+                materialDto.Subject = subject; 
+            }
+            
             var result = await _materialService.SaveAsync(materialDto);
             return Ok(result);
         }
@@ -50,10 +63,29 @@ public class MaterialsController : ControllerBase
     }
     
     [HttpPost("{id}/edit")]
-    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromBody] MaterialDto materialDto)
+    public async Task<ActionResult<bool>> EditAsync([FromRoute]int id, [FromForm] MaterialDto materialDto)
     { 
-        var result = await _materialService.EditAsync(id, materialDto);
-        return result ? Ok(result) : NotFound();
+        try
+        {
+            if (Request.Form.TryGetValue("creatorDto", out var creatorJson))
+            {
+                var creator = JsonConvert.DeserializeObject<TeacherDto>(creatorJson);
+                materialDto.Creator = creator; 
+            }
+            
+            if (Request.Form.TryGetValue("subjectDto", out var subjectJson))
+            {
+                var subject = JsonConvert.DeserializeObject<SubjectDto>(subjectJson);
+                materialDto.Subject = subject; 
+            }
+            
+            var result = await _materialService.EditAsync(id, materialDto);
+            return Ok(result);
+        }
+        catch (Exception exception)
+        {
+            return Conflict(exception.Message);
+        }
     }
     
     [HttpGet("{subjectCategory}/{subjectName}")]

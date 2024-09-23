@@ -7,21 +7,18 @@ namespace TeachersSideAPI.Domain.DTO;
 public class MaterialDto
 {
     public int Id { get; set; }
-    
-    [Required]
-    public SubjectDto Subject { get; set; }
-    
-    [Required]
-    public TeacherDto Creator { get; set; }
+
+    public SubjectDto Subject { get; set; } = new SubjectDto();
+
+    public TeacherDto Creator { get; set; } = new TeacherDto();
     
     public DateTime DateCreated { get; set; }
     
-    [Required]
     public string FileTitle { get; set; }
     
-    [Required]
-    public string FilePath { get; set; }
+    public IFormFile? File { get; set; }
+
+    public string? FilePath { get; set; }
     
-    [Required]
     public FileType FileType { get; set; }
 }
