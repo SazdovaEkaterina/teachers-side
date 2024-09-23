@@ -1,27 +1,41 @@
 <div *ngIf="isLoading">Loading...</div>
-<mat-card
-  class="example-card"
-  appearance="outlined"
-  *ngIf="event && !isLoading"
->
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
+<mat-card class="card mb-4" appearance="outlined" *ngIf="event && !isLoading">
+  <mat-card-header class="mb-3">
     <mat-card-title>{{ event.title }}</mat-card-title>
-    <mat-card-subtitle>{{ event.location }}</mat-card-subtitle>
+    <mat-card-subtitle class="text-muted">{{
+      event.location
+    }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image  [src]="'https://localhost:7067' +  event.imagePath" alt="Event Image" *ngIf="event.imagePath"/>
-  <mat-card-content>
+  <img
+    mat-card-image
+    class="card-img-top"
+    [src]="'https://localhost:7067' + event.imagePath"
+    alt="Event Image"
+    *ngIf="event.imagePath"
+  />
+  <mat-card-content class="card-body">
     <div>
       {{ event.description }}
     </div>
-    <br />
-    <div>
-      Start: {{ event.startDate }} <br />
-      End: {{ event.endDate }}
-    </div>
+    <small class="text-muted">
+      Posted by: {{ event.creator.firstName }} {{ event.creator.lastName }}
+    </small>
+    <hr />
+    <small class="text-muted">
+      Start: {{ event.startDate | date : "medium" }} <br />
+      End: {{ event.endDate | date : "medium" }}
+    </small>
   </mat-card-content>
-  <mat-card-actions *ngIf="isCreator(event)">
-    <button mat-button (click)="handleEdit(event)">Edit</button>
-    <button mat-button (click)="handleDelete(event.id)">Delete</button>
+  <mat-card-actions *ngIf="isCreator(event)" class="d-flex justify-content-end">
+    <button
+      mat-button
+      class="btn btn-secondary mr-3"
+      (click)="handleEdit(event)"
+    >
+      Edit
+    </button>
+    <button mat-button class="btn btn-danger" (click)="handleDelete(event.id)">
+      Delete
+    </button>
   </mat-card-actions>
 </mat-card>

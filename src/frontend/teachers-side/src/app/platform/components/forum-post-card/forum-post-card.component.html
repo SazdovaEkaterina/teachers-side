@@ -1,38 +1,69 @@
-<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="isLoading" class="text-center">Loading...</div>
 <mat-card
-  class="example-card"
+  class="card mb-4"
   appearance="outlined"
   *ngIf="!isLoading && forumPost"
 >
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ forumPost.title }}</mat-card-title>
+    <mat-card-title
+      ><h5>{{ forumPost.title }}</h5></mat-card-title
+    >
     <mat-card-subtitle
-      >{{ forumPost.creator.firstName }}
-      {{ forumPost.creator.lastName }}</mat-card-subtitle
+      ><small class="text-muted">{{
+        forumPost.dateCreated | date : "medium"
+      }}</small></mat-card-subtitle
     >
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content class="mt-2">
     <div>
-      {{ forumPost.content }}
+      <img
+        src="./../../../../assets/images/generic-profile.png"
+        class="rounded-circle mr-2"
+        alt="avatar"
+        width="40"
+        height="40"
+      />
+      <span
+        >{{ forumPost.creator.firstName }}
+        {{ forumPost.creator.lastName }}</span
+      >
     </div>
-    <br />
-    <div>
-      Last Edited: {{ forumPost.lastEdited }} <br />
-      Date Created: {{ forumPost.dateCreated }}
-    </div>
-    <mat-card-actions *ngIf="isCreator(forumPost)">
-      <button mat-button (click)="handleEdit(forumPost)">Edit</button>
-      <button mat-button (click)="handleDelete(forumPost.id)">Delete</button>
+    <hr />
+    <div>{{ forumPost.content }}</div>
+    <hr />
+    <small class="text-muted">
+      Last Edited:
+      {{ hasBeenEdited() ? (forumPost.lastEdited | date : "medium") : "Never" }}
+    </small>
+    <mat-card-actions
+      *ngIf="isCreator(forumPost)"
+      class="d-flex justify-content-end"
+    >
+      <button
+        mat-button
+        class="btn btn-secondary mr-3"
+        (click)="handleEdit(forumPost)"
+      >
+        Edit
+      </button>
+      <button
+        mat-button
+        class="btn btn-danger"
+        (click)="handleDelete(forumPost.id)"
+      >
+        Delete
+      </button>
     </mat-card-actions>
-    <mat-expansion-panel (opened)="handleCommentsPanelOpen()">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Comments </mat-panel-title>
+    <mat-expansion-panel (opened)="handleCommentsPanelOpen()" class="bg-white mt-3">
+      <mat-expansion-panel-header class="pt-3 pb-2">
+        <mat-panel-title> <h6>Comments</h6> </mat-panel-title>
       </mat-expansion-panel-header>
-      <button (click)="handleAddComment()">Add</button>
+      <button (click)="handleAddComment()" class="btn btn-primary add-btn mb-3">
+        Add Comment
+      </button>
       <div *ngIf="isCommentsLoading">Loading...</div>
       <div *ngIf="!isCommentsLoading && !comments.length">
-        This post doesn't have any comments.
+        This post doesn't have any comments... Be the first to add one!
       </div>
       <div *ngIf="!isCommentsLoading && comments.length">
         <div *ngFor="let comment of comments">

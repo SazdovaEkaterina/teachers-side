@@ -8,9 +8,9 @@ A web application designed for primary and high school teachers to post question
 
 The application features user authentication & authorization. Users can create accounts which are then linked to the resources they create enabling them to manage their resources.
 
-![Register Page](./img/register-page.png)
+![Register Page](./screenshots/register-page.png)
 
-![Login Page](./img/login-page.png)
+![Login Page](./screenshots/login-page.png)
 
 ### Resource Sharing
 
@@ -18,11 +18,21 @@ The materials tab allows users to access resources uploaded by other users. They
 
 ### Q&A Forum
 
-The forum tab features forums for each subject, where teachers can post topics or questions regarding that subject.
+The forum tab features forums for each subject, where teachers can post topics or questions regarding that subject. Other teachers can comment on their posts and have discussions.
+
+![Forum Page](./screenshots/forum-page.png)
+
+![Forum Page Comments](./screenshots/forum-page-comments.png)
+
+![Edit Comment Page](./screenshots/edit-comment.png)
 
 ### Upcoming Events
 
 The event tab lets the teachers view events such as teaching conferences & seminars, including the event details. They also can create events themselves to inform other techers of such events.
+
+![Events Page](./screenshots/events-page.png)
+
+![Add Event Page](./screenshots/add-event-page.png)
 
 ## Tech Stack
 

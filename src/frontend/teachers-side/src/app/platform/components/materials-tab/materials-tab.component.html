@@ -1,31 +1,38 @@
-<mat-form-field *ngIf="!isAddEditMaterialFormOpen">
-  <mat-select
-    [disabled]="isSubjectsLoading"
-    (selectionChange)="onSubjectSelect($event)"
+<div class="bg-white">
+  <app-add-edit-material
+    *ngIf="isAddEditMaterialFormOpen"
+    [material]="materialForEdit"
+    [subject]="getSelectedSubject()"
+    (closeAddEdit)="closeAddEditEvent($event)"
   >
-    <mat-option *ngFor="let subject of subjects" [value]="subject.id">
-      {{ subject.name }} -
-      {{ subject.category | subjectCategory }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<app-add-edit-material
-  *ngIf="isAddEditMaterialFormOpen"
-  [material]="materialForEdit"
-  [subject]="getSelectedSubject()"
-  (closeAddEdit)="closeAddEditEvent($event)"
->
-</app-add-edit-material>
-<div *ngIf="selectedSubjectId && !isAddEditMaterialFormOpen">
-  <button (click)="goToAddMaterial()">Add</button>
-  <div *ngIf="isMaterialsLoading">Loading materials...</div>
-  <div *ngIf="!isMaterialsLoading">
-    <div *ngFor="let material of materials">
-      <app-material-card
-        [material]="material"
-        [subject]="getSelectedSubject()"
-        (editMaterial)="goToEditMaterial($event)"
-      ></app-material-card>
+  </app-add-edit-material>
+  <div class="p-5">
+    <div *ngIf="!isAddEditMaterialFormOpen">
+      <select [disabled]="isSubjectsLoading" (change)="onSubjectSelect($event)">
+        <option value="0" disabled selected>Select a subject</option>
+        <option *ngFor="let subject of subjects" [value]="subject.id">
+          {{ subject.name }} ({{ subject.category | subjectCategory }})
+        </option>
+      </select>
+    </div>
+    <div *ngIf="!selectedSubjectId && !isAddEditMaterialFormOpen" class="mt-3">
+      Select a subject from the dropdown to view the materials.
+    </div>
+    <div *ngIf="selectedSubjectId && !isAddEditMaterialFormOpen" class="mt-3">
+      <button (click)="goToAddMaterial()" class="btn btn-primary add-btn mb-4">
+        Add
+      </button>
+      <div *ngIf="isMaterialsLoading">Loading materials...</div>
+      <div *ngIf="!isMaterialsLoading && !materials.length">There are no materials for this subject yet... Be the first to add one!</div>
+      <div *ngIf="!isMaterialsLoading">
+        <div *ngFor="let material of materials">
+          <app-material-card
+            [material]="material"
+            [subject]="getSelectedSubject()"
+            (editMaterial)="goToEditMaterial($event)"
+          ></app-material-card>
+        </div>
+      </div>
     </div>
   </div>
 </div>

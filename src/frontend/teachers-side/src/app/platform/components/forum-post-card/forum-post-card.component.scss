@@ -1,0 +1,54 @@
+.mat-card {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.mat-card-header {
+  display: flex;
+  align-items: center;
+}
+
+.mat-card-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.mat-card-subtitle {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.mat-card-content p {
+  font-size: 16px;
+  color: #333;
+}
+
+.mat-card-actions {
+  margin-top: 20px;
+}
+
+.add-btn {
+  background-color: #588157;
+  border: #588157;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.add-btn:disabled {
+  background-color: #588157;
+  opacity: 75%;
+  border: #588157;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: darken(#588157, 10%);
+  border: #588157;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.card {
+  background-color: #f0f2ef;
+}

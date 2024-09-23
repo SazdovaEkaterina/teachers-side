@@ -71,7 +71,6 @@ public class CommentService : ICommentService
                           ?? throw new UserNotFoundException($"User with email {commentDto.Creator.Email} not found");
         comment.Title = commentDto.Title;
         comment.Content = commentDto.Content;
-        comment.DateCreated = commentDto.DateCreated;
         comment.LastEdited = DateTime.UtcNow;
 
         return await _commentRepository.SaveChangesAsync();

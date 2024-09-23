@@ -1,0 +1,21 @@
+.add-btn {
+  background-color: #5171a5;
+  border: #5171a5;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.add-btn:disabled {
+  background-color: #5171a5;
+  opacity: 75%;
+  border: #5171a5;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: darken(#5171a5, 10%);
+  border: #5171a5;
+  color: #ffffff;
+  cursor: pointer;
+}
