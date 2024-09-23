@@ -46,14 +46,14 @@ export class MaterialsTabComponent {
   }
 
   public onSubjectSelect(event: any) {
-    this.selectedSubjectId = event.value;
+    this.selectedSubjectId = event.target.value;
     this.loadMaterials();
   }
 
   public getSelectedSubject(): ISubject {
     return (
       this.subjects.find(
-        (subject) => subject.id === this.selectedSubjectId
+        (subject) => subject.id == this.selectedSubjectId
       ) ?? { id: 0, name: '', category: 0 }
     );
   }

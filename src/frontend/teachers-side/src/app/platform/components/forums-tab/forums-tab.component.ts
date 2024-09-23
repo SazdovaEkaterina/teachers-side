@@ -52,7 +52,7 @@ export class ForumsTabComponent implements OnInit {
   }
 
   public onSubjectSelect(event: any) {
-    this.selectedSubjectId = event.value;
+    this.selectedSubjectId = event.target.value;
     this.loadForumPosts();
   }
 

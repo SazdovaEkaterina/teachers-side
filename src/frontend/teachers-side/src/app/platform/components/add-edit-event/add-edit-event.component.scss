@@ -1,0 +1,25 @@
+.save-btn {
+  background-color: #efa106;
+  border: #efa106;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  background-color: #efa106;
+  opacity: 75%;
+  border: #efa106;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: darken(#efa106, 10%);
+  border: #efa106;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.form-card {
+  background-color: #f0f2ef;
+}

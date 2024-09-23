@@ -26,12 +26,13 @@ export class EventCardComponent {
     endDate: new Date(),
   };
   @Output() editEvent = new EventEmitter<IEvent>();
+  @Output() deleteEvent = new EventEmitter<boolean>();
 
   public isLoading: boolean = false;
 
   constructor(
     @Inject(EventsService) private readonly eventsService: EventsService,
-    @Inject(UserService) private readonly userService: UserService,
+    @Inject(UserService) private readonly userService: UserService
   ) {}
 
   public isCreator(event: IEvent) {
@@ -45,6 +46,9 @@ export class EventCardComponent {
   public handleDelete(eventId: number) {
     this.isLoading = true;
     this.eventsService.deleteEvent(eventId).subscribe({
+      next: (result) => {
+        this.deleteEvent.emit(result);
+      },
       error: (error: any) => {
         console.error('Error deleting event', error);
       },

@@ -36,6 +36,10 @@ export class ForumPostCommentCardComponent {
     return comment.creator.email === this.userService.getUser()?.email;
   }
 
+  public hasBeenEdited() {
+    return this.comment?.dateCreated !== this.comment?.lastEdited;
+  }
+
   public handleEdit(comment: IComment) {
     this.editComment.emit(comment);
   }

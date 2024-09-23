@@ -434,3 +434,6 @@ src/frontend/teachers-side/.vscode/
 src/frontend/teachers-side/.angular
 
 src/frontend/teachers-side/dist/
+
+src/backend/TeachersSideAPI/TeachersSideAPI/wwwroot/images/*
+!src/backend/TeachersSideAPI/TeachersSideAPI/wwwroot/images/.gitkeep

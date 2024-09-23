@@ -13,6 +13,14 @@ export class EventsTabComponent implements OnInit {
   public isAddEditEventFormOpen: boolean = false;
   public eventForEdit: IEvent | null = null;
 
+  constructor(
+    @Inject(EventsService) private readonly eventsService: EventsService
+  ) {}
+
+  public ngOnInit() {
+    this.loadEvents();
+  }
+
   public goToAddEvent() {
     this.isAddEditEventFormOpen = true;
     this.eventForEdit = null;
@@ -28,15 +36,11 @@ export class EventsTabComponent implements OnInit {
     this.isAddEditEventFormOpen = false;
   }
 
-  constructor(
-    @Inject(EventsService) private readonly eventsService: EventsService
-  ) {}
-
-  ngOnInit() {
-    this.loadEvents();
+  public handleDeletedEvent(changed: boolean) {
+    if (changed) this.loadEvents();
   }
 
-  loadEvents() {
+  private loadEvents() {
     this.eventsService.getEvents().subscribe({
       next: (data: IEvent[]) => {
         this.events = data;
