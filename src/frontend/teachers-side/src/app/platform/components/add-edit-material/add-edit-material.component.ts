@@ -32,8 +32,7 @@ export class AddEditMaterialComponent {
   constructor(
     @Inject(FormBuilder) private readonly formBuilder: FormBuilder,
     @Inject(MaterialsService)
-    private readonly materialsService: MaterialsService,
-    @Inject(UserService) private readonly userService: UserService
+    private readonly materialsService: MaterialsService
   ) {
     this.formGroup = this.formBuilder.group({});
   }
@@ -69,11 +68,6 @@ export class AddEditMaterialComponent {
       formData.append('file', this.selectedFile, this.selectedFile.name);
     }
 
-    
-
-    console.log(this.material?.file?.type)
-
-    console.log(formData.get("file"))
     this.submitMaterial(formData);
   }
 
