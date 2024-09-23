@@ -16,6 +16,8 @@ The application features user authentication & authorization. Users can create a
 
 The materials tab allows users to access resources uploaded by other users. They can also upload their own and then edit or remove them.
 
+![Materials Page](./screenshots/materials-page.png)
+
 ![Add Material](./screenshots/add-material.png)
 
 ### Q&A Forum
