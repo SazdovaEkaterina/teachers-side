@@ -18,11 +18,13 @@ The materials tab allows users to access resources uploaded by other users. They
 
 ### Q&A Forum
 
-The forum tab features forums for each subject, where teachers can post topics or questions regarding that subject.
+The forum tab features forums for each subject, where teachers can post topics or questions regarding that subject. Other teachers can comment on their posts and have discussions.
 
 ![Forum Page](./screenshots/forum-page.png)
 
 ![Forum Page Comments](./screenshots/forum-page-comments.png)
+
+![Edit Comment Page](./screenshots/edit-comment.png)
 
 ### Upcoming Events
 
